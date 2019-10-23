@@ -1,8 +1,7 @@
-package com.moviebooking;
-import jdk.jshell.spi.ExecutionControl;
+package main.com.moviebooking;
 
 import java.util.*;
-import java.io.*;
+
 public class Movie {
 
 	public String movie_title;

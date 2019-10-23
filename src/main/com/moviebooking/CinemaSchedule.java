@@ -1,4 +1,4 @@
-package com.moviebooking;
+package main.com.moviebooking;
 
 import main.com.serialisation.ISerialisable;
 import main.com.serialisation.SerialisationUtils;

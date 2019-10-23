@@ -1,4 +1,4 @@
-package com.moviebooking;
+package main.com.moviebooking;
 
 import main.com.serialisation.ISerialisable;
 import main.com.serialisation.SerialisationDependencyManager;
@@ -58,11 +58,12 @@ public class MovieTimeslot implements ISerialisable {
     public MovieTimeslot fromSerialisedString(String s) throws InvalidPropertiesFormatException {
         HashMap<String, String> pairs = SerialisationUtils.deserialise(s);
         try{
+            String movie_ID = SerialisationUtils.deserialiseString(pairs.get("movie"));
             Seating seat = SerialisationUtils.deserialiseObject(Seating.class, pairs.get("seatingplan"));
             int duration = SerialisationUtils.deserialiseInt(pairs.get("duration"));
             LocalDateTime time = SerialisationUtils.deserialiseDateTime(pairs.get("datetime"));
-            Movie movie = SerialisationDependencyManager.getInstance().getMovieByID(pairs.get("movie"));
-            if(movie == null) return new MovieTimeslot(pairs.get("movie"), time, duration, seat);
+            Movie movie = SerialisationDependencyManager.getInstance().getMovieByID(movie_ID);
+            if(movie == null) return new MovieTimeslot(movie_ID, time, duration, seat);
             return new MovieTimeslot(movie, time, duration, seat);
         }catch(Exception e){
             throw new InvalidPropertiesFormatException("");

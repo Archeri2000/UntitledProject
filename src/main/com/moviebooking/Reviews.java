@@ -1,4 +1,4 @@
-package com.moviebooking;
+package main.com.moviebooking;
 
 import java.util.*;
 import java.io.*;

@@ -1,6 +1,6 @@
 package main.com.serialisation;
 
-import com.moviebooking.Movie;
+import main.com.moviebooking.Movie;
 
 public class SerialisationDependencyManager {
     public static SerialisationDependencyManager _static_manager = new SerialisationDependencyManager();
