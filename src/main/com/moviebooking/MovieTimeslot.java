@@ -19,6 +19,7 @@ public class MovieTimeslot implements ISerialisable {
 
     public MovieTimeslot(Movie movie, LocalDateTime showing_time, int duration_min, Seating seatingplan) {
         this.movie = movie;
+        this._movieID = movie.getUUID();
         this.showing_time = showing_time;
         this.duration_min = duration_min;
         this.seatingplan = seatingplan;
@@ -48,16 +49,19 @@ public class MovieTimeslot implements ISerialisable {
 
     @Override
     public String toSerialisedString(){
-        return SerialisationUtils.serialise(SerialisationUtils.serialiseString(movie.getUUID(), "movie"),
+        return SerialisationUtils.serialise(
+                SerialisationUtils.serialiseString(movie.getUUID(), "movie"),
                 SerialisationUtils.serialiseDateTime(showing_time, "datetime"),
                 SerialisationUtils.serialiseInt(duration_min, "duration"),
-                SerialisationUtils.serialiseObject(seatingplan, "seatingplan"));
+                SerialisationUtils.serialiseObject(seatingplan, "seatingplan")
+        );
     }
 
     @Override
     public MovieTimeslot fromSerialisedString(String s) throws InvalidPropertiesFormatException {
         HashMap<String, String> pairs = SerialisationUtils.deserialise(s);
         try{
+            assert pairs != null;
             String movie_ID = SerialisationUtils.deserialiseString(pairs.get("movie"));
             Seating seat = SerialisationUtils.deserialiseObject(Seating.class, pairs.get("seatingplan"));
             int duration = SerialisationUtils.deserialiseInt(pairs.get("duration"));

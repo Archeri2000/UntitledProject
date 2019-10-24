@@ -8,8 +8,8 @@ public class Movie {
 	public String movie_status;
 	public String movie_synopsis;
 	public String movie_director;
-	public ArrayList<String> cast = new ArrayList();;
-	public Reviews new_review;
+	public ArrayList<String> cast = new ArrayList();
+    public Reviews new_review;
 	private String _uuid;
 	public String getUUID(){
 		return _uuid;

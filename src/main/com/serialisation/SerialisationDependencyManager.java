@@ -3,7 +3,7 @@ package main.com.serialisation;
 import main.com.moviebooking.Movie;
 
 public class SerialisationDependencyManager {
-    public static SerialisationDependencyManager _static_manager = new SerialisationDependencyManager();
+    private static SerialisationDependencyManager _static_manager = new SerialisationDependencyManager();
     private SerialisationDependencyManager(){
     }
     public static SerialisationDependencyManager getInstance(){

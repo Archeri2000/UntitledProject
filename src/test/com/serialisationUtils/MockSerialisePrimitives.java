@@ -9,9 +9,9 @@ import static main.com.serialisation.SerialisationUtils.*;
 
 public  class MockSerialisePrimitives implements ISerialisable {
     boolean toSerialisedStringCalled = false;
-    int int1;
-    String str;
-    double dbl1;
+    private int int1;
+    private String str;
+    private double dbl1;
     public MockSerialisePrimitives(){
     }
 
@@ -34,6 +34,7 @@ public  class MockSerialisePrimitives implements ISerialisable {
         SerialisationUtilsTest.fromSerialisedStringCalled = true;
         HashMap<String, String> pairs = deserialise(s);
         try{
+            assert pairs != null;
             int i = deserialiseInt(pairs.get("int"));
             String str = deserialiseString(pairs.get("string"));
             Double d = deserialiseDouble(pairs.get("double"));

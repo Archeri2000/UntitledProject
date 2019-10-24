@@ -9,9 +9,9 @@ import static main.com.serialisation.SerialisationUtils.*;
 
 public  class MockSerialiseDoubleNested implements ISerialisable {
     boolean toSerialisedStringCalled = false;
-    int int1;
-    double dbl1;
-    MockSerialiseNested nst;
+    private int int1;
+    private double dbl1;
+    private MockSerialiseNested nst;
 
     public MockSerialiseDoubleNested(){
     }
@@ -35,6 +35,7 @@ public  class MockSerialiseDoubleNested implements ISerialisable {
         SerialisationUtilsTest.fromSerialisedStringCalled = true;
         HashMap<String, String> pairs = deserialise(s);
         try{
+            assert pairs != null;
             int i = deserialiseInt(pairs.get("int"));
             Double d = deserialiseDouble(pairs.get("double"));
             MockSerialiseNested nest = deserialiseObject(MockSerialiseNested.class, pairs.get("obj"));

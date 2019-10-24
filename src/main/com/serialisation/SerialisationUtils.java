@@ -14,24 +14,27 @@ public class SerialisationUtils {
     private static final char START_OBJECT = '{';
     private static final char END_OBJECT = '}';
     private static final char SEPARATOR = '#';
+    private static final char LIST_SEPARATOR = '&';
     private static final String NULLSTR = "`null`";
 
     // Static getters for tests
-    public static char getSPLITTER(){
-        return SPLITTER;
+    public static String getSPLITTER(){
+        return Character.toString(SPLITTER);
     }
 
-    public static char getStartObject() {
-        return START_OBJECT;
+    public static String getStartObject() {
+        return Character.toString(START_OBJECT);
     }
 
-    public static char getEndObject() {
-        return END_OBJECT;
+    public static String getEndObject() {
+        return Character.toString(END_OBJECT);
     }
 
-    public static char getSEPARATOR() {
-        return SEPARATOR;
+    public static String getSEPARATOR() {
+        return Character.toString(SEPARATOR);
     }
+
+    public static String getLISTSEPARATOR(){return Character.toString(LIST_SEPARATOR);}
 
     public static String getNULLSTR(){
         return NULLSTR;
@@ -100,8 +103,12 @@ public class SerialisationUtils {
      * @return object serialised to string
      */
     public static <T extends ISerialisable> String serialiseObject(T obj, String name){
-        if(obj == null) return CreateKVPair(name, START_OBJECT+NULLSTR+END_OBJECT);
-        return CreateKVPair(name, START_OBJECT+obj.toSerialisedString()+END_OBJECT);
+        return CreateKVPair(name, serialiseObject(obj));
+    }
+
+    private static <T extends ISerialisable> String serialiseObject(T obj){
+        if(obj == null) return START_OBJECT+NULLSTR+END_OBJECT;
+        return START_OBJECT+obj.toSerialisedString()+END_OBJECT;
     }
 
     /**
@@ -131,15 +138,13 @@ public class SerialisationUtils {
      */
     public static <T extends ISerialisable> String serialiseList(List<T> objects, String name){
         return CreateKVPair(name, START_OBJECT + objects.stream()
-                                        .map(x -> {
-                                            if(x == null)return NULLSTR;
-                                            else return x.toSerialisedString();})
-                                        .collect(Collectors.joining(",")) + END_OBJECT);
+                                        .map(SerialisationUtils::serialiseObject)
+                                        .collect(Collectors.joining(Character.toString(LIST_SEPARATOR))) + END_OBJECT);
     }
 
     public static <T extends ISerialisable> List<T> deserialiseList(Class<T> tClass, String s){
         s = s.substring(1, s.length()-1);
-        List<String> strList = Arrays.asList(s.split(","));
+        List<String> strList = Arrays.asList(s.split(Character.toString(LIST_SEPARATOR)));
         return strList.stream().map(x -> {
             if(x.equals(NULLSTR)) return null;
             try {
@@ -150,6 +155,23 @@ public class SerialisationUtils {
             }
         }).collect(Collectors.toList());
     }
+    /**
+     * Serialises a list of Strings
+     * @param objects - List of string objects
+     * @param name - Name of property
+     * @return String representing serialised object list
+     */
+    public static String serialiseStringList(List<String> objects, String name){
+        return CreateKVPair(name, START_OBJECT + String.join(getLISTSEPARATOR(), objects) + END_OBJECT);
+    }
+
+    public static List<String> deserialiseStringList(String s){
+        s = s.substring(1, s.length()-1);
+        List<String> strList = Arrays.asList(s.split(Character.toString(LIST_SEPARATOR)));
+        return strList.stream().map(SerialisationUtils::deserialiseString).collect(Collectors.toList());
+    }
+
+
 
     public static String serialiseDouble(double f, String name){
         return CreateKVPair(name, Double.toString(f));
@@ -171,6 +193,7 @@ public class SerialisationUtils {
         if(s != null)return CreateKVPair(name, s);
         else return CreateKVPair(name, NULLSTR);
     }
+
     public static String deserialiseString(String s){
         if(s.equals(NULLSTR))return null;
         else return s;

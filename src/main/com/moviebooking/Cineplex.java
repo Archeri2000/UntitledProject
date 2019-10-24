@@ -10,9 +10,7 @@ public class Cineplex {
 	public Cineplex(String cineplexName, Cinema[] cinemas) {
 		cinemas = new Cinema[3];
 		this.cineplexName = cineplexName;
-		for (int i=0;i<3;i++){
-			this.cinemas[i]=cinemas[i];
-		}
+        System.arraycopy(cinemas, 0, this.cinemas, 0, 3);
 	}
 	
 	public Cinema[] getCinemas() {

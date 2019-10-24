@@ -50,6 +50,7 @@ public class CinemaSchedule implements ISerialisable {
     public CinemaSchedule fromSerialisedString(String s) throws InvalidPropertiesFormatException {
         HashMap<String, String> pairs = SerialisationUtils.deserialise(s);
         try{
+            assert pairs != null;
             Seating seat = SerialisationUtils.deserialiseObject(Seating.class, pairs.get("seating"));
             List<MovieTimeslot> schedule = SerialisationUtils.deserialiseList(MovieTimeslot.class, pairs.get("timeslots"));
             return new CinemaSchedule(seat, schedule);
