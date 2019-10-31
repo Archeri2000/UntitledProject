@@ -24,6 +24,7 @@ public class Movie {
 		this.cast=cast;
 		this.new_review=new_review;
 	}
+
 	public void addReview(String review,double rating)
 	{
 		new_review.addReview(review,rating);

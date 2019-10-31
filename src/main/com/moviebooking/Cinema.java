@@ -1,5 +1,7 @@
 package main.com.moviebooking;
 
+import main.com.schedule.CinemaSchedule;
+
 public class Cinema {
 
 	private CinemaType cinemaType;

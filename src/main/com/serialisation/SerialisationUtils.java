@@ -61,8 +61,7 @@ public class SerialisationUtils {
         int sep = -1;
         int nesting = 0;
         char curr;
-        boolean flag = false;
-        while(s.length() > 0) {
+        outer: while(s.length() > 0) {
             for (int i = 0; i < s.length(); i++) {
                 curr = s.charAt(i);
                 if (curr == SEPARATOR && sep == -1 && nesting == 0){
@@ -78,19 +77,15 @@ public class SerialisationUtils {
                     if(sep == -1){
                         throw new InvalidPropertiesFormatException("Invalid String2!");
                     }
-                    flag = true;
                     pairs.put(s.substring(0, sep), s.substring(sep+1, i));
                     if(i != s.length()-1) s = s.substring(i+1);
                     sep = -1;
-                    break;
+                    continue outer;
                 }
             }
-            if(!flag){
-                if(sep != -1 && nesting == 0) pairs.put(s.substring(0, sep), s.substring(sep+1));
-                else throw new InvalidPropertiesFormatException("Invalid String3!");
-                break;
-            }
-            flag = false;
+            if(sep != -1 && nesting == 0) pairs.put(s.substring(0, sep), s.substring(sep+1));
+            else throw new InvalidPropertiesFormatException("Invalid String3!");
+            break;
         }
         return pairs;
     }

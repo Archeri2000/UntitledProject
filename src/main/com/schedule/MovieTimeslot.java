@@ -1,5 +1,7 @@
-package main.com.moviebooking;
+package main.com.schedule;
 
+import main.com.moviebooking.Movie;
+import main.com.moviebooking.Seating;
 import main.com.serialisation.ISerialisable;
 import main.com.serialisation.SerialisationDependencyManager;
 import main.com.serialisation.SerialisationUtils;
@@ -11,6 +13,7 @@ import java.util.InvalidPropertiesFormatException;
 public class MovieTimeslot implements ISerialisable {
     private Movie movie;
     private LocalDateTime showing_time;
+    //TODO: Change duration to be from inside movie
     private int duration_min;
     private Seating seatingplan;
     private String _movieID;

@@ -3,7 +3,7 @@ package main.com.moviebooking;
 import java.util.*;
 import java.io.*;
 public class Reviews {
-	public  ArrayList<String> review=new ArrayList();
+	public  ArrayList<String> review= new ArrayList();
 	public  double sum_of_ratings;
 	public  int number_of_reviews;
 	public Reviews()
