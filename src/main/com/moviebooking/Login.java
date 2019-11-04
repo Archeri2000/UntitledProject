@@ -1,4 +1,4 @@
-package main.com.moviebooking;
+package assignment;
 import java.util.*;
 import java.io.*;
 public class Login {
@@ -11,12 +11,7 @@ public class Login {
 	public boolean addStaff(String user_id,String password)
 	{
 		boolean check_id=false;
-		for(String ids : user.keySet())
-		{
-			if(ids.equals(user_id))
-				check_id=true;
-		}
-		if(check_id==false)
+		if(!(user.containsKey(user_id)))
 		{
 			user.put(user_id,password);
 			return true;
@@ -28,17 +23,8 @@ public class Login {
 	public boolean checkLogin(String id,String password)
 	{
 		boolean check_id=false,check_password=false;
-		for(String ids : user.keySet())
-		{
-			if(ids.equals(id))
-				check_id=true;
-		}
-		for(String passwords : user.values())
-		{
-			if(passwords.equals(password))
-				check_password=true;
-		}
-		if(check_id && check_password)
+		
+		if(user.containsKey(id) && (user.get(id)).equals(password))
 			return true;
 		else
 			return false;
@@ -53,21 +39,16 @@ public class Login {
 			message="passwords do not match";
 		else
 		{
-				
-			for(String userids : user.keySet())
-			{	
-			
-				if(userids.equals(userid))
+				if(user.containsKey(userid))
 				{
-					user.remove(userids);
-					user.put(userids,new_password);
+					user.remove(userid);
+					user.put(userid,new_password);
 					message= "Password updated successfully";
 				}
 					
-			}
-			
 		if(message.equals(""))
 				message= "incorrect userid";
+		
 		}
 		
 		return message;
