@@ -1,6 +1,8 @@
 package main.com.repositories;
 
 import main.com.entities.Movie;
+import main.com.entities.RatingEnum;
+import main.com.entities.StatusEnum;
 import main.com.utils.IScheduleListener;
 import main.com.entities.MovieTimeslot;
 import main.com.utils.ISerialisable;
@@ -52,8 +54,19 @@ public class MovieRepository implements IScheduleListener, ISerialisable {
         throw new NoSuchElementException("Invalid Movie ID");
     }
 
-    public Movie addMovie(String title, int duration, RatingEnum rating, StatusEnum status, String synopsis, String director, String[]cast){
+    public Movie addMovie(String title, int duration, RatingEnum rating, StatusEnum status, String synopsis, String director, List<String> cast){
         Movie toAdd = new Movie(title, duration, rating, status, synopsis, director, cast);
+        MovieShowings.put(toAdd, new ArrayList<>());
+        MovieSales.put(toAdd, 0);
+        return toAdd;
+    }
+
+    public boolean removeMovie(Movie movie){
+        if(!MovieSales.containsKey(movie)) return false;
+
+        MovieSales.remove(movie);
+        MovieShowings.remove(movie);
+        return true;
     }
 
     @Override
