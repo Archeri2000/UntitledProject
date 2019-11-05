@@ -33,5 +33,6 @@ public class Movie {
 	{
 		return(new_review.sum_of_ratings/new_review.number_of_reviews);
 	}
-	
+
+
 }
