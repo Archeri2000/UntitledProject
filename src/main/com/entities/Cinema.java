@@ -1,12 +1,15 @@
 package main.com.entities;
 
-public class Cinema {
+public class Cinema implements ISerialisable {
 
 	private CinemaType cinemaType;
 	private String cineplex;
+	private String ID;
 	private String name;
 	private CinemaSchedule schedule;
-	
+
+	public Cinema(){}
+
 	public Cinema(String name, CinemaType cinemaType, CinemaSchedule schedule) {
 		this.name = name; 
 		this.cinemaType = cinemaType;
