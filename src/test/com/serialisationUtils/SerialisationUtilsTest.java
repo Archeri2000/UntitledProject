@@ -1,6 +1,6 @@
 package test.com.serialisationUtils;
 
-import static main.com.serialisation.SerialisationUtils.*;
+import static main.com.utils.SerialisationUtils.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

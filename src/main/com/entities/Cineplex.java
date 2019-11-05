@@ -1,5 +1,7 @@
-package main.com.moviebooking;
+package main.com.entities;
 
+
+import main.com.entities.Cinema;
 
 public class Cineplex {
 	

@@ -1,6 +1,4 @@
-package main.com.moviebooking;
-
-import main.com.schedule.CinemaSchedule;
+package main.com.entities;
 
 public class Cinema {
 

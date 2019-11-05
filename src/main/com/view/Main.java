@@ -1,4 +1,4 @@
-package main.com.moviebooking;
+package main.com.view;
 
 public class Main {
 

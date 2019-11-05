@@ -1,9 +1,8 @@
-package main.com.schedule;
+package main.com.entities;
 
-import main.com.moviebooking.Movie;
-import main.com.moviebooking.Seating;
-import main.com.serialisation.ISerialisable;
-import main.com.serialisation.SerialisationUtils;
+import main.com.utils.ScheduleBroadcaster;
+import main.com.utils.ISerialisable;
+import main.com.utils.SerialisationUtils;
 
 import java.time.LocalDateTime;
 import java.util.*;

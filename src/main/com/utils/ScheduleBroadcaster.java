@@ -1,4 +1,6 @@
-package main.com.schedule;
+package main.com.utils;
+
+import main.com.entities.MovieTimeslot;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
