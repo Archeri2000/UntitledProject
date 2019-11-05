@@ -1,4 +1,4 @@
-package main.com.serialisation;
+package main.com.utils;
 
 import java.util.InvalidPropertiesFormatException;
 

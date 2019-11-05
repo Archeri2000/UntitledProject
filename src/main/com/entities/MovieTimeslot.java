@@ -1,8 +1,8 @@
-package main.com.moviebooking;
+package main.com.entities;
 
-import main.com.serialisation.ISerialisable;
-import main.com.serialisation.SerialisationDependencyManager;
-import main.com.serialisation.SerialisationUtils;
+import main.com.repositories.MovieRepository;
+import main.com.utils.ISerialisable;
+import main.com.utils.SerialisationUtils;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -11,6 +11,7 @@ import java.util.InvalidPropertiesFormatException;
 public class MovieTimeslot implements ISerialisable {
     private Movie movie;
     private LocalDateTime showing_time;
+    //TODO: Change duration to be from inside movie
     private int duration_min;
     private Seating seatingplan;
     private String _movieID;
@@ -42,7 +43,7 @@ public class MovieTimeslot implements ISerialisable {
 
     public Movie getShownMovie(){
         if(movie == null){
-            movie = SerialisationDependencyManager.getInstance().getMovieByID(_movieID);
+            movie = MovieRepository.getInstance().getMovieByID(_movieID);
         }
         return movie;
     }
@@ -66,7 +67,7 @@ public class MovieTimeslot implements ISerialisable {
             Seating seat = SerialisationUtils.deserialiseObject(Seating.class, pairs.get("seatingplan"));
             int duration = SerialisationUtils.deserialiseInt(pairs.get("duration"));
             LocalDateTime time = SerialisationUtils.deserialiseDateTime(pairs.get("datetime"));
-            Movie movie = SerialisationDependencyManager.getInstance().getMovieByID(movie_ID);
+            Movie movie = MovieRepository.getInstance().getMovieByID(movie_ID);
             if(movie == null) return new MovieTimeslot(movie_ID, time, duration, seat);
             return new MovieTimeslot(movie, time, duration, seat);
         }catch(Exception e){

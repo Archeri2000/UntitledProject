@@ -1,11 +1,11 @@
 package test.com.serialisationUtils;
 
-import main.com.serialisation.ISerialisable;
+import main.com.utils.ISerialisable;
 
 import java.util.HashMap;
 import java.util.InvalidPropertiesFormatException;
 
-import static main.com.serialisation.SerialisationUtils.*;
+import static main.com.utils.SerialisationUtils.*;
 
 public  class MockSerialiseNested implements ISerialisable {
     boolean toSerialisedStringCalled = false;

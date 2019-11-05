@@ -1,4 +1,4 @@
-package main.com.moviebooking;
+package main.com.entities;
 
 public class Cinema {
 

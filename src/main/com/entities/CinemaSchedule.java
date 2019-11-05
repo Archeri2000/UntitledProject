@@ -1,7 +1,8 @@
-package main.com.moviebooking;
+package main.com.entities;
 
-import main.com.serialisation.ISerialisable;
-import main.com.serialisation.SerialisationUtils;
+import main.com.utils.ScheduleBroadcaster;
+import main.com.utils.ISerialisable;
+import main.com.utils.SerialisationUtils;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -23,7 +24,18 @@ public class CinemaSchedule implements ISerialisable {
 
     public boolean addMovieShowing(Movie movie, LocalDateTime screening_time, int duration_min){
         if(isTimeslotAvailable(screening_time, duration_min)){
-            movieSchedule.add(new MovieTimeslot(movie, screening_time, duration_min, cinemaSeatingPlan.getNewSeatingPlan()));
+            MovieTimeslot timeslot = new MovieTimeslot(movie, screening_time, duration_min, cinemaSeatingPlan.getNewSeatingPlan());
+            movieSchedule.add(timeslot);
+            ScheduleBroadcaster.CreateEvent(timeslot);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean removeMovieShowing(MovieTimeslot timeslot){
+        if(movieSchedule.contains(timeslot)){
+            movieSchedule.remove(timeslot);
+            ScheduleBroadcaster.CreateEvent(timeslot);
             return true;
         }
         return false;

@@ -1,7 +1,7 @@
-package main.com.moviebooking;
+package main.com.entities;
 
 
-import main.com.serialisation.ISerialisable;
+import main.com.utils.ISerialisable;
 
 import java.util.Scanner;
 

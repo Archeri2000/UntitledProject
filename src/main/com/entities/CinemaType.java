@@ -1,4 +1,4 @@
-package main.com.moviebooking;
+package main.com.entities;
 
 public enum CinemaType {
 	Gold(1.3f),Platinum(1.0f);
