@@ -1,13 +1,16 @@
 package main.com.repositories;
 
-import main.com.entities.Movie;
-import main.com.entities.RatingEnum;
-import main.com.entities.StatusEnum;
+import main.com.entities.*;
 import main.com.utils.IScheduleListener;
-import main.com.entities.MovieTimeslot;
 import main.com.utils.ISerialisable;
+import main.com.utils.StringIntPair;
+
+import javax.print.DocFlavor;
+
+import static main.com.utils.SerialisationUtils.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class MovieRepository implements IScheduleListener, ISerialisable {
     public static MovieRepository getInstance(){
@@ -36,7 +39,7 @@ public class MovieRepository implements IScheduleListener, ISerialisable {
 
     public List<Movie> getMovieByPopularity(int number){
         List<Movie> matches = new ArrayList<>(MovieSales.keySet());
-        matches.sort((x,y)-> MovieSales.get(y) - MovieSales.get(x));
+        matches.sort((x,y)-> MovieSales.get(y).get() - MovieSales.get(x).get());
         if(matches.size() >= number) return matches.subList(0, number);
         else return matches;
     }
@@ -56,8 +59,7 @@ public class MovieRepository implements IScheduleListener, ISerialisable {
 
     public Movie addMovie(String title, int duration, RatingEnum rating, StatusEnum status, String synopsis, String director, List<String> cast){
         Movie toAdd = new Movie(title, duration, rating, status, synopsis, director, cast);
-        MovieShowings.put(toAdd, new ArrayList<>());
-        MovieSales.put(toAdd, 0);
+        addMovieToRepo(toAdd);
         return toAdd;
     }
 
@@ -81,17 +83,42 @@ public class MovieRepository implements IScheduleListener, ISerialisable {
 
     @Override
     public String toSerialisedString() {
-        return null;
+        List<StringIntPair> hashmapPairs = MovieSales.entrySet()
+                .stream()
+                .map((x) -> new StringIntPair(x.getKey().getUUID(), x.getValue().get()))
+                .collect(Collectors.toList());
+        List<Movie> movies = new ArrayList<>(MovieSales.keySet());
+        return serialise(serialiseList(hashmapPairs, "MovieSales"), serialiseList(movies, "Movies"));
     }
 
     @Override
     public ISerialisable fromSerialisedString(String s) throws InvalidPropertiesFormatException {
-        return null;
+        HashMap<String, String> pairs = deserialise(s);
+        assert pairs != null;
+        List<Movie> movies = deserialiseList(Movie.class, pairs.get("Movies"));
+        Map<String, Integer> sales = deserialiseList(StringIntPair.class, pairs.get("MovieSales")).stream().collect(Collectors.toMap(StringIntPair::First, StringIntPair::Second));
+        for(Movie m:movies){
+            int count = 0;
+            if(sales.containsKey(m.getUUID())){
+                count = sales.get(m.getUUID());
+            }
+           addMovieToRepo(m, count);
+        }
+        return getInstance();
     }
 
     private static MovieRepository _static_manager = new MovieRepository();
     private HashMap<Movie, List<MovieTimeslot>> MovieShowings = new HashMap<>();
-    private HashMap<Movie, Integer> MovieSales = new HashMap<>();
-    private MovieRepository(){
+    private HashMap<Movie, SalesCounter> MovieSales = new HashMap<>();
+    public MovieRepository(){
+        _static_manager = this;
+    }
+    private boolean addMovieToRepo(Movie movie, int count){
+        MovieShowings.put(movie, new ArrayList<>());
+        MovieSales.put(movie, new SalesCounter(count));
+        return true;
+    }
+    private boolean addMovieToRepo(Movie movie){
+        return addMovieToRepo(movie, 0);
     }
 }

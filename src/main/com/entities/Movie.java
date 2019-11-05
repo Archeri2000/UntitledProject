@@ -1,14 +1,16 @@
 package main.com.entities;
 
+import main.com.utils.ISerialisable;
+
 import java.util.*;
 
-public class Movie {
+public class Movie implements ISerialisable {
 
 	public String movie_title;
 	public String movie_status;
 	public String movie_synopsis;
 	public String movie_director;
-	public List<String> cast = new ArrayList<>();
+	public List<String> cast;
     public Reviews new_review;
 	private String _uuid;
 	public String getUUID(){
@@ -42,5 +44,14 @@ public class Movie {
 	{
 		return(new_review.sum_of_ratings/new_review.number_of_reviews);
 	}
-	
+
+	@Override
+	public String toSerialisedString() {
+		return null;
+	}
+
+	@Override
+	public ISerialisable fromSerialisedString(String s) throws InvalidPropertiesFormatException {
+		return null;
+	}
 }

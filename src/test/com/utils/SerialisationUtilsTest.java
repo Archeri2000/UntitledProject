@@ -1,4 +1,4 @@
-package test.com.serialisationUtils;
+package test.com.utils;
 
 import static main.com.utils.SerialisationUtils.*;
 
