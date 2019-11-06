@@ -1,3 +1,5 @@
+package main.com.view;
+
 import java.util.Scanner;
 
 public class CustomerUI {
@@ -11,7 +13,7 @@ public class CustomerUI {
             System.out.println(" 1. Search movie");
             System.out.println(" 2. Book and Purchase Ticket");
             System.out.println(" 3. Display Booking History");
-            System.out.println("");
+            System.out.println(" ");
 
             Scanner sc = new Scanner(System.in);
             choice = sc.nextInt();
