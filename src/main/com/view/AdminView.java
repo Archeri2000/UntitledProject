@@ -4,6 +4,7 @@ public class AdminView
 {
 	public static boolean login_status=false;
 	Login admin=new Login();
+	MovieManagementService movie_manager=new MovieManagementService();
 	private void entry()
 	{
 		System.out.println();
@@ -118,12 +119,22 @@ public class AdminView
 				login_status=false;
 				System.out.println("Logged out successfully");
 			}
+			if(choice==5)
+				manageMovies();
+			if(choice==6)
+				manageShowtimes();
+			if(choice==7)
+				managePrice();
+			if(choice==8)
+				manageCineplexes();
 			else if(choice>4||choice<0)
 			{
 				System.out.println("Invalid choice");
 			}
 			
+			
 			System.out.println();
+			System.out.println("Enter -1 to exit");
 			System.out.println("Enter 0 to view all staff");
 			System.out.println("Enter 1 to Login");
 			System.out.println("Enter 2 to change password");
@@ -138,9 +149,129 @@ public class AdminView
 			}
 			System.out.println();
 			System.out.print("Enter your choice......  ");
-			 choice=sc.nextInt();
+			choice=sc.nextInt();
 		}
+		if(choice==-1)
+			System.out.println("Thanyou for your visit");
 		
+	}
+	private void manageMovies()
+	{
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter 1 to add a movie");
+		System.out.println("Enter 2 to set movie status");
+		System.out.println("Enter 3 to set movie rating certification");
+		System.out.println("Enter 4 to remove a movie");
+		System.out.println("Enter 5 to set movie synopsis");
+		System.out.println("Enter 6 to set movie director");
+		System.out.println("Enter 7 to add movie cast ");
+		System.out.println("Enter 8 to remove movie cast");
+		System.out.println("Enter 9 to get details of a movie");
+		System.out.println("Enter -1 to exit");
+		int choice=sc.nextInt();
+		while(choice!=-1)
+		{
+			if(choice==1)
+			{
+				System.out.print("Enter movie title...");
+				String title=sc.nextLine();
+				System.out.println();
+				System.out.print("Enter movie duration...");
+				int duration=sc.nextInt();
+				System.out.println();
+				System.out.print("Enter movie rating certification...");
+				String rating=sc.next();
+				System.out.println();
+				System.out.print("Enter movie status...");
+				String status=sc.next();
+				System.out.println();
+				System.out.print("Enter movie synopsis...");
+				String synopsis=sc.nextLine();
+				System.out.println();
+				System.out.print("Enter movie director...");
+				String director=sc.nextLine();
+				System.out.println();
+				System.out.println("Enter movie cast and enter -99 to stop");
+				String cast=sc.nextLine();
+				ArrayList <String> cast_members=new ArrayList();
+				while(!cast.equals(-1))
+				{
+					cast_members.add(cast);
+					System.out.println("Enter movie cast and enter -99 to stop");
+					cast=sc.nextLine();
+				}
+				Reviews review=new Reviews();
+				movie_manager.addMovie(title,duration,rating,status,synopsis,director,cast_members,review);
+			}
+			if(choice==2)
+			{
+				System.out.print("Enter movie title...");
+				String movie_title=sc.nextLine();
+				System.out.println();
+				System.out.print("Enter movie status");
+				String status=sc.next();
+				movie_manager.setMovieStatus(movie_title,status);
+			}
+			if(choice==3)
+			{
+				System.out.print("Enter movie title...");
+				String movie_title=sc.nextLine();
+				System.out.println();
+				System.out.print("Enter movie certification");
+				String rating=sc.next();
+				movie_manager.setMovieRating(movie_title,rating);
+			}
+			if(choice==4)
+			{
+				System.out.print("Enter movie title...");
+				String movie_title=sc.nextLine();
+				System.out.println();
+				movie_manager.removeMovie(movie_title);
+			}
+			if(choice==5)
+			{
+				System.out.print("Enter movie title...");
+				String movie_title=sc.nextLine();
+				System.out.println();
+				System.out.print("Enter movie synopsis");
+				String synopsis=sc.nextLine();
+				movie_manager.setMovieSynopsis(movie_title,synopsis);
+			}
+			if(choice==6)
+			{
+				System.out.print("Enter movie title...");
+				String movie_title=sc.nextLine();
+				System.out.println();
+				System.out.print("Enter movie director");
+				String director=sc.nextLine();
+				movie_manager.setMovieRating(movie_title,director);
+			}
+			if(choice==7)
+			{
+				System.out.print("Enter movie title...");
+				String movie_title=sc.nextLine();
+				System.out.println();
+				System.out.print("Enter movie cast");
+				String cast=sc.nextLine();
+				movie_manager.addMovieCast(movie_title,cast);
+			}
+			if(choice==8)
+			{
+				System.out.print("Enter movie title...");
+				String movie_title=sc.nextLine();
+				System.out.println();
+				System.out.print("Enter movie cast");
+				String cast=sc.nextLine();
+				movie_manager.removeMovieCast(movie_title,cast);
+			}
+			if(choice==9)
+			{
+				System.out.print("Enter movie title...");
+				String movie_title=sc.nextLine();
+				movie_manager.getMovie(movie_title);
+			}
+			
+		}
 	}
 	public static void main(String sd[])
 	{
