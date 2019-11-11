@@ -6,7 +6,7 @@ public class Login {
 	
 	public Login()
 	{
-		
+		user.put("12345","Login@123456");
 	}
 	public boolean addStaff(String user_id,String password)
 	{
@@ -31,38 +31,30 @@ public class Login {
 			
 	}
 	
-	public String changePassword(String userid,String new_password,String confirm_password)
+	public boolean changePassword(String userid,String password,String confirm_password)
 	{
-		String message="";
+	boolean b=false;
 		
-		if(!(new_password.equals(confirm_password)))
-			message="passwords do not match";
-		else
-		{
-				if(user.containsKey(userid))
+				if(user.containsKey(userid) && password.equals(confirm_password))
 				{
 					user.remove(userid);
-					user.put(userid,new_password);
-					message= "Password updated successfully";
+					user.put(userid,confirm_password);
+					b=true;
 				}
-					
-		if(message.equals(""))
-				message= "incorrect userid";
+				else
+					b=false;
 		
-		}
-		
-		return message;
-		
-		
+		return b;
 	}
 	
-	public String checkPassword(String password)
+	public boolean checkPassword(String password)
 	{
-		String message="";
+		
+		boolean b=false;
 		int length_of_password=password.length();
 		
 		if(length_of_password<10)
-			message="password should have atleast 10 characters";
+			b=false;
 		else
 		{
 			int i;
@@ -79,11 +71,11 @@ public class Login {
 					check_special_character=true;
 			}
 			if(check_special_character && check_capital && check_number)
-				message="Strong password";
+				b=true;
 			else
-				message="password must contain a number,capital alphabet and a special character";
+				b=false;
 		}
-		return message;
+		return b;
 		
 	}
 	
