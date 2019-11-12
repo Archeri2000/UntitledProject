@@ -1,5 +1,9 @@
 package main.com.entities;
 
+import main.com.utils.ISerialisable;
+
+import java.util.InvalidPropertiesFormatException;
+
 public class Cinema implements ISerialisable {
 
 	private CinemaType cinemaType;
@@ -31,5 +35,14 @@ public class Cinema implements ISerialisable {
 	public float getMultiplerBasedOnType() {
 		return cinemaType.getMultiplier();
 	}
-	
+
+	@Override
+	public String toSerialisedString() {
+		return null;
+	}
+
+	@Override
+	public ISerialisable fromSerialisedString(String s) throws InvalidPropertiesFormatException {
+		return null;
+	}
 }

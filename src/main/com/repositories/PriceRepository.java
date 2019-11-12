@@ -57,7 +57,6 @@ public class PriceRepository implements ISerialisable {
 		float day_price = DayMultiplier.get(day);
 		price = age_price * cinema_price * showing_price * day_price;
 		return price;
-		
 	}
 	
 }

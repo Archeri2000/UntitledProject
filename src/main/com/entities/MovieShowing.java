@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.InvalidPropertiesFormatException;
 
-public class MovieTimeslot implements ISerialisable {
+public class MovieShowing implements ISerialisable {
     private Movie movie;
     private LocalDateTime showing_time;
     //TODO: Change duration to be from inside movie
@@ -16,9 +16,9 @@ public class MovieTimeslot implements ISerialisable {
     private Seating seatingplan;
     private String _movieID;
 
-    public MovieTimeslot(){}
+    public MovieShowing(){}
 
-    public MovieTimeslot(Movie movie, LocalDateTime showing_time, int duration_min, Seating seatingplan) {
+    public MovieShowing(Movie movie, LocalDateTime showing_time, int duration_min, Seating seatingplan) {
         this.movie = movie;
         this._movieID = movie.getUUID();
         this.showing_time = showing_time;
@@ -26,7 +26,7 @@ public class MovieTimeslot implements ISerialisable {
         this.seatingplan = seatingplan;
     }
 
-    private MovieTimeslot(String movieID, LocalDateTime showing_time, int duration_min, Seating seatingplan) {
+    private MovieShowing(String movieID, LocalDateTime showing_time, int duration_min, Seating seatingplan) {
         this._movieID = movieID;
         this.showing_time = showing_time;
         this.duration_min = duration_min;
@@ -59,7 +59,7 @@ public class MovieTimeslot implements ISerialisable {
     }
 
     @Override
-    public MovieTimeslot fromSerialisedString(String s) throws InvalidPropertiesFormatException {
+    public MovieShowing fromSerialisedString(String s) throws InvalidPropertiesFormatException {
         HashMap<String, String> pairs = SerialisationUtils.deserialise(s);
         try{
             assert pairs != null;
@@ -68,8 +68,8 @@ public class MovieTimeslot implements ISerialisable {
             int duration = SerialisationUtils.deserialiseInt(pairs.get("duration"));
             LocalDateTime time = SerialisationUtils.deserialiseDateTime(pairs.get("datetime"));
             Movie movie = MovieRepository.getInstance().getMovieByID(movie_ID);
-            if(movie == null) return new MovieTimeslot(movie_ID, time, duration, seat);
-            return new MovieTimeslot(movie, time, duration, seat);
+            if(movie == null) return new MovieShowing(movie_ID, time, duration, seat);
+            return new MovieShowing(movie, time, duration, seat);
         }catch(Exception e){
             throw new InvalidPropertiesFormatException("");
         }
