@@ -5,8 +5,6 @@ import main.com.utils.IScheduleListener;
 import main.com.utils.ISerialisable;
 import main.com.utils.StringIntPair;
 
-import javax.print.DocFlavor;
-
 import static main.com.utils.SerialisationUtils.*;
 
 import java.util.*;
@@ -50,7 +48,7 @@ public class MovieRepository implements IScheduleListener, ISerialisable {
 
     public Movie getMovieByID(String id){
         for(Movie m:MovieSales.keySet()){
-            if(m.getUUID() == id){
+            if(m.getUUID().equals(id)){
                 return m;
             }
         }
@@ -68,6 +66,7 @@ public class MovieRepository implements IScheduleListener, ISerialisable {
 
         MovieSales.remove(movie);
         MovieShowings.remove(movie);
+        //TODO: Remove relevant showings
         return true;
     }
 
@@ -110,9 +109,11 @@ public class MovieRepository implements IScheduleListener, ISerialisable {
     private static MovieRepository _static_manager = new MovieRepository();
     private HashMap<Movie, List<MovieTimeslot>> MovieShowings = new HashMap<>();
     private HashMap<Movie, SalesCounter> MovieSales = new HashMap<>();
+
     public MovieRepository(){
         _static_manager = this;
     }
+
     private boolean addMovieToRepo(Movie movie, int count){
         MovieShowings.put(movie, new ArrayList<>());
         MovieSales.put(movie, new SalesCounter(count));
