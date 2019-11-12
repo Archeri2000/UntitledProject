@@ -1,5 +1,8 @@
 package main.com.services;
 
+import main.com.entities.Movie;
+import main.com.repositories.MovieRepository;
+
 import java.util.List;
 
 public class MovieQueryService{

@@ -1,19 +1,23 @@
-package assignment;
+package main.com.repositories;
+
+import main.com.entities.*;
+import main.com.utils.ISerialisable;
+
 import java.util.*;
-public class PriceRepository {
-	public HashMap<AgeGroup,float> AgeMultipliers=new HashMap<AgeGroup,float>();
-	public HashMap<CinemaType, float> CinemaTypeMultipliers =new HashMap<>() ;
-	public HashMap<ShowingEnum,float> MoviePrices =new HashMap<>() ;
-	public HashMap<DayType, float> DayMultiplier=new HashMap<>();
+public class PriceRepository implements ISerialisable {
+	public HashMap<AgeGroup, Float> AgeMultipliers = new HashMap<>();
+	public HashMap<CinemaType, Float> CinemaTypeMultipliers = new HashMap<>() ;
+	public HashMap<StatusEnum,Float> MoviePrices = new HashMap<>() ;
+	public HashMap<DayType, Float> DayMultiplier = new HashMap<>();
 	
 	
-	private String toSerialisedString()
+	public String toSerialisedString()
 	{
 		return "";
 	}
-	private String fromSerialisedString(String s)
+	public PriceRepository fromSerialisedString(String s)
 	{
-		return s;
+		return null;
 	}
 	
 	private boolean SetAgeMultipliers(AgeGroup age, float multiplier)
@@ -21,16 +25,16 @@ public class PriceRepository {
 		if(AgeMultipliers.containsKey(age))
 			return false;
 		AgeMultipliers.put(age,multiplier);
-			return true;
+		return true;
 	}
 	private boolean setCinemaMultipliers(CinemaType cinema, float multiplier)
 	{
 		if(CinemaTypeMultipliers.containsKey(cinema))
 			return false;
-		CinemaTypeMultipliers.put(cinema,multiplier)
+		CinemaTypeMultipliers.put(cinema,multiplier);
 		return true;
 	}
-	private boolean setMoviePrice(ShowingEnum showing, float price)
+	private boolean setMoviePrice(StatusEnum showing, float price)
 	{
 		if(MoviePrices.containsKey(showing))
 			return false;
@@ -44,16 +48,15 @@ public class PriceRepository {
 		DayMultiplier.put(day,multiplier);
 		return true;
 	}
-	private float GetPrice(AgeGroup age, CinemaType cinema, ShowingEnum showing, DayType day)
+	private float GetPrice(AgeGroup age, CinemaType cinema, StatusEnum showing, DayType day)
 	{
-		float price=0;
-		float age_price=AgeMultipliers.get(age);
-		float cinema_price=CinemaTypeMultipliers.get(cinema);
-		float showing_price=MoviePrices.get(showing);
-		float day_price=DayMultiplier.get(day);
-		price=age_price*cinema_price*showing_price*day_price;
+		float price;
+		float age_price = AgeMultipliers.get(age);
+		float cinema_price = CinemaTypeMultipliers.get(cinema);
+		float showing_price = MoviePrices.get(showing);
+		float day_price = DayMultiplier.get(day);
+		price = age_price * cinema_price * showing_price * day_price;
 		return price;
-		
 	}
 	
 }

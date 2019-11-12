@@ -1,18 +1,17 @@
 package main.com.repositories;
 
 import main.com.entities.*;
-import main.com.utils.IScheduleListener;
+import main.com.utils.IShowingsListener;
 import main.com.utils.ISerialisable;
+import main.com.utils.ShowingsEventBroadcaster;
 import main.com.utils.StringIntPair;
-
-import javax.print.DocFlavor;
 
 import static main.com.utils.SerialisationUtils.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class MovieRepository implements IScheduleListener, ISerialisable {
+public class MovieRepository implements IShowingsListener, ISerialisable {
     public static MovieRepository getInstance(){
         if(_static_manager == null){
             _static_manager = new MovieRepository();
@@ -44,13 +43,13 @@ public class MovieRepository implements IScheduleListener, ISerialisable {
         else return matches;
     }
 
-    public List<MovieTimeslot> getShowtimes(Movie movie){
+    public List<MovieShowing> getShowtimes(Movie movie){
         return MovieShowings.get(movie);
     }
 
     public Movie getMovieByID(String id){
         for(Movie m:MovieSales.keySet()){
-            if(m.getUUID() == id){
+            if(m.getUUID().equals(id)){
                 return m;
             }
         }
@@ -65,20 +64,24 @@ public class MovieRepository implements IScheduleListener, ISerialisable {
 
     public boolean removeMovie(Movie movie){
         if(!MovieSales.containsKey(movie)) return false;
-
         MovieSales.remove(movie);
+        for (MovieShowing showing: MovieShowings.get(movie)){
+            ShowingsEventBroadcaster.DestroyShowingEvent(showing, this);
+        }
         MovieShowings.remove(movie);
         return true;
     }
 
     @Override
-    public void OnScheduleCreateEvent(MovieTimeslot timeslot) {
-        MovieShowings.get(timeslot.getShownMovie()).add(timeslot);
+    public void OnShowingCreateEvent(MovieShowing showing, Object caller) {
+        if(caller == this) return;
+        MovieShowings.get(showing.getShownMovie()).add(showing);
     }
 
     @Override
-    public void OnScheduleDestroyEvent(MovieTimeslot timeslot) {
-        MovieShowings.get(timeslot.getShownMovie()).remove(timeslot);
+    public void OnShowingDestroyEvent(MovieShowing showing, Object caller) {
+        if(caller == this) return;
+        MovieShowings.get(showing.getShownMovie()).remove(showing);
     }
 
     @Override
@@ -108,11 +111,14 @@ public class MovieRepository implements IScheduleListener, ISerialisable {
     }
 
     private static MovieRepository _static_manager = new MovieRepository();
-    private HashMap<Movie, List<MovieTimeslot>> MovieShowings = new HashMap<>();
+    private HashMap<Movie, List<MovieShowing>> MovieShowings = new HashMap<>();
     private HashMap<Movie, SalesCounter> MovieSales = new HashMap<>();
+
     public MovieRepository(){
         _static_manager = this;
+        ShowingsEventBroadcaster.AddListener(this);
     }
+
     private boolean addMovieToRepo(Movie movie, int count){
         MovieShowings.put(movie, new ArrayList<>());
         MovieSales.put(movie, new SalesCounter(count));

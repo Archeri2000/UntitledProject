@@ -1,5 +1,5 @@
 package main.com.entities;
 
 public enum RatingEnum {
-    //TODO: Implement
+    PG, R18, NC16, M
 }
