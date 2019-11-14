@@ -11,26 +11,25 @@ import java.util.InvalidPropertiesFormatException;
 public class MovieShowing implements ISerialisable {
     private Movie movie;
     private LocalDateTime showing_time;
-    //TODO: Change duration to be from inside movie
-    private int duration_min;
     private Seating seatingplan;
     private String _movieID;
+    private ShowingEnum showType;
 
     public MovieShowing(){}
 
-    public MovieShowing(Movie movie, LocalDateTime showing_time, int duration_min, Seating seatingplan) {
+    public MovieShowing(Movie movie, LocalDateTime showing_time, Seating seatingplan, ShowingEnum showtype) {
         this.movie = movie;
         this._movieID = movie.getUUID();
         this.showing_time = showing_time;
-        this.duration_min = duration_min;
         this.seatingplan = seatingplan;
+        this.showType = showtype;
     }
 
-    private MovieShowing(String movieID, LocalDateTime showing_time, int duration_min, Seating seatingplan) {
+    private MovieShowing(String movieID, LocalDateTime showing_time, Seating seatingplan, ShowingEnum showtype) {
         this._movieID = movieID;
         this.showing_time = showing_time;
-        this.duration_min = duration_min;
         this.seatingplan = seatingplan;
+        this.showType = showtype;
     }
 
     public LocalDateTime getShowing_time(){
@@ -38,7 +37,7 @@ public class MovieShowing implements ISerialisable {
     }
 
     public LocalDateTime getEnding_time(){
-        return showing_time.plusMinutes(duration_min);
+        return showing_time.plusMinutes(movie.durationMin);
     }
 
     public Movie getShownMovie(){
@@ -53,7 +52,7 @@ public class MovieShowing implements ISerialisable {
         return SerialisationUtils.serialise(
                 SerialisationUtils.serialiseString(movie.getUUID(), "movie"),
                 SerialisationUtils.serialiseDateTime(showing_time, "datetime"),
-                SerialisationUtils.serialiseInt(duration_min, "duration"),
+                SerialisationUtils.serialiseString(showType.name(), "showtype"),
                 SerialisationUtils.serialiseObject(seatingplan, "seatingplan")
         );
     }
@@ -65,11 +64,11 @@ public class MovieShowing implements ISerialisable {
             assert pairs != null;
             String movie_ID = SerialisationUtils.deserialiseString(pairs.get("movie"));
             Seating seat = SerialisationUtils.deserialiseObject(Seating.class, pairs.get("seatingplan"));
-            int duration = SerialisationUtils.deserialiseInt(pairs.get("duration"));
+            ShowingEnum showtype = ShowingEnum.valueOf(SerialisationUtils.deserialiseString(pairs.get("showtype")));
             LocalDateTime time = SerialisationUtils.deserialiseDateTime(pairs.get("datetime"));
             Movie movie = MovieRepository.getInstance().getMovieByID(movie_ID);
-            if(movie == null) return new MovieShowing(movie_ID, time, duration, seat);
-            return new MovieShowing(movie, time, duration, seat);
+            if(movie == null) return new MovieShowing(movie_ID, time, seat, showtype);
+            return new MovieShowing(movie, time, seat, showtype);
         }catch(Exception e){
             throw new InvalidPropertiesFormatException("");
         }

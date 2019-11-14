@@ -1,22 +1,29 @@
 package main.com.services;
 
+import main.com.entities.Cinema;
+import main.com.entities.Cineplex;
+import main.com.entities.MovieShowing;
+import main.com.repositories.CineplexRepository;
+
+import java.util.List;
+
 public class CineplexQueryService{
     private CineplexRepository _repo = CineplexRepository.getInstance();
 
-    public List<Cineplex> GetCineplex(String name){
-        return _repo.???; //repo method not done
+    public Cineplex GetCineplex(String name){
+        return _repo.GetCineplex(name);
     }
     public List<Cineplex> GetCineplexes(){
-        return _repo.??? //repo not done
+        return _repo.GetCineplexs();
     }
-    public List<Cinema> GetCinema(Cineplex Cineplex, String CinemaID){
-        return null; //repo not done
+    public Cinema GetCinema(Cineplex Cineplex, String CinemaID){
+        return Cineplex.;
     }
-    public List<Cinema> GetCinema(Cineplex Cineplex){
-        return null;  //repo not done
+    public List<Cinema> GetCinemas(Cineplex Cineplex){
+        return Cineplex.getCinemas();
     }
 
-    public List<Showtime> GetShows(Cinema cinema){
-        return null;  //from which repo
+    public List<MovieShowing> GetShows(Cinema cinema){
+        return cinema.getShows();
     }
 }
