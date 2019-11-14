@@ -12,8 +12,8 @@ public class ShowingManagementService {
     public ShowingManagementService(){
     }
 
-    public MovieShowing addShowing(CinemaSchedule cinema, Movie movie, LocalDateTime startTime){
-        return cinema.addMovieShowing(movie, startTime, movie.durationMin);
+    public MovieShowing addShowing(CinemaSchedule cinema, Movie movie, LocalDateTime startTime, ShowingEnum showtype){
+        return cinema.addMovieShowing(movie, startTime, showtype);
     }
     public boolean removeShowing(CinemaSchedule cinema, MovieShowing showing){
         return cinema.removeMovieShowing(showing);

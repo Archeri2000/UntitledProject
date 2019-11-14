@@ -25,9 +25,9 @@ public class CinemaSchedule implements ISerialisable, IShowingsListener {
         this.movieSchedule = schedules;
     }
 
-    public MovieShowing addMovieShowing(Movie movie, LocalDateTime screening_time, int duration_min){
-        if(isTimeslotAvailable(screening_time, duration_min)){
-            MovieShowing showing = new MovieShowing(movie, screening_time, duration_min, cinemaSeatingPlan.getNewSeatingPlan());
+    public MovieShowing addMovieShowing(Movie movie, LocalDateTime screening_time, ShowingEnum showtype){
+        if(isTimeslotAvailable(screening_time, movie.durationMin)){
+            MovieShowing showing = new MovieShowing(movie, screening_time, cinemaSeatingPlan.getNewSeatingPlan(), showtype);
             movieSchedule.add(showing);
             ShowingsEventBroadcaster.CreateShowingEvent(showing, this);
             return showing;
