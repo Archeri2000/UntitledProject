@@ -1,6 +1,7 @@
 package main.com.services;
 
 import main.com.entities.Movie;
+import main.com.entities.MovieShowing;
 import main.com.repositories.MovieRepository;
 
 import java.util.List;
@@ -23,4 +24,7 @@ public class MovieQueryService{
         //Review repo not done yet
          return false;
      }
+    public List<MovieShowing> getShowtimeTImeslots(Movie movie){
+        return _repo.getShowtimes(movie);
+    }
 }

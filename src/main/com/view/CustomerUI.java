@@ -44,7 +44,7 @@ public class CustomerUI {
                     break;
                 case 3:
                     //** View Book History
-                    getPastBookings();
+                    GetPastBooking();
                     break;
                 default:
                     System.out.println("Wrong Input!!");
@@ -104,45 +104,7 @@ public class CustomerUI {
         } while (choice > 7);
     }
 
-    public void BookingView(){
-
-
-
-
-
-    }
-    public void displayMovieListing() {
-        choice = 0; // each menu manage their own choice integer
-
-        do {
-            System.out.println("Movie Listing");
-            System.out.println(" 1. All Movies");
-            System.out.println(" 2. Top 5 Movies");
-            System.out.println(" 3. Search Movies");
-            System.out.println("");
-
-            Scanner sc = new Scanner(System.in);
-
-            choice = sc.nextInt();
-            switch (choice) {
-                case 1:
-//					printHeader("Movies");
-//					mMovieMenu.displayMenu(chooseMovie(""));
-                    break;
-                case 2:
-//					mTopRankingMenu.displayMenu();
-                    break;
-                case 3:
-//					searchMovies();
-                    break;
-                default:
-                    System.out.println("Wrong input!!");
-            }
-
-        } while (choice > 3);
-    }
-
-    public void displayBookingHistory() {
+    public void GetPastBooking() {
         int userMobile;
 
         System.out.println(" Enter User mobile number");

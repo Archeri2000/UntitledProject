@@ -1,19 +1,17 @@
 package main.com.services;
 
+import main.com.entities.Booking;
+import main.com.entities.Customer;
+import main.com.repositories.CustomerRepository;
+
+import java.util.List;
+
 public class HistoryQueryService {
 
     private CustomerRepository _repo = CustomerRepository.getInstance();
 
     public List<Booking> GetHistoryBookings(int phone){
         Customer customer = _repo.getCustomer(phone);
-        return customer.GetBookings; //How to get the bookings
+        return customer.getBooking();
     }
-
-    public Booking GetMostRecentBooking(int phone){
-        Customer customer = _repo.getCustomer(phone);
-        return null;  //How to get booking
-    }
-
-
-
 }

@@ -1,4 +1,10 @@
-package assignment;
+package main.com.view;
+import main.com.services.CineplexManagementService;
+import main.com.services.MovieManagementService;
+import main.com.services.PriceManagementService;
+import main.com.services.ShowingManagementService;
+import main.com.view.Login;
+
 import java.util.*;
 public class AdminView 
 {
