@@ -12,6 +12,7 @@ import main.com.services.ShowingManagementService;
 import main.com.view.Login;
 public class AdminView 
 {
+	
 	public static boolean login_status=false;
 	
 	Login admin=new Login();
@@ -202,11 +203,32 @@ public class AdminView
 				System.out.print("Enter movie duration...");
 				int duration=sc.nextInt();
 				System.out.println();
-				System.out.print("Enter movie rating certification...");
-				String rating=sc.next();
+				System.out.print("Enter movie rating certification A for adult U for Universal UA for universal adult...");
+				String r1=sc.next();
+				RatingEnum r2;
+				if(r1.equalsIgnoreCase("PG"))
+					 r2=RatingEnum.PG;
+				if(r1.equalsIgnoreCase("R18"))
+					r2=RatingEnum.R18;
+				if(r1.equalsIgnoreCase("NC16"))
+					r2=RatingEnum.NC16;
+				if(r1.equalsIgnoreCase("M"))
+					r2=RatingEnum.M;
+				else
+					r2=RatingEnum.PG;
 				System.out.println();
 				System.out.print("Enter movie status...");
-				String status=sc.next();
+				String status=sc.next();  /*Showing,NotShowing,ComingSoon;*/
+				StatusEnum s1;
+				if(status.equalsIgnoreCase("Showing"))
+					s1=StatusEnum.Showing;
+				if(status.equalsIgnoreCase("NotShowing"))
+					s1=StatusEnum.NotShowing;
+				if(status.equalsIgnoreCase("ComingSoon"))
+					s1=StatusEnum.ComingSoon;
+				else
+					s1=StatusEnum.ComingSoon;
+				
 				System.out.println();
 				System.out.print("Enter movie synopsis...");
 				String synopsis=sc.nextLine();
@@ -224,25 +246,88 @@ public class AdminView
 					cast=sc.nextLine();
 				}
 				Review review=new Review();
-				movie_manager.addMovie(title,duration,rating,status,synopsis,director,cast_members,review);//ENUM
+				movie_manager.addMovie(title,duration, r2,s1,synopsis,director,cast_members,review);//ENUM
 			}
 			if(choice==2)
 			{
 				System.out.print("Enter movie title...");
 				String movie_title=sc.nextLine();
 				System.out.println();
-				System.out.print("Enter movie status");
-				String status=sc.next();
-				movie_manager.setMovieStatus(movie_title,status);//ENUM and movie object
+				 List<Movie> movieList = movie_manager.getMovie(movie_title);
+
+			        for (Movie value : movieList) {
+			            System.out.println(value);
+			        }
+			        System.out.print(" Enter exact name ");
+			        String movie_title2 = sc.nextLine();
+			        boolean b=false;
+			        for (Movie value : movieList) {
+			            if (movie_title2.equals(value))
+			            {
+			            	
+			            	System.out.print("Enter movie status...");
+							String status=sc.next();  /*Showing,NotShowing,ComingSoon;*/
+							StatusEnum s1;
+							if(status.equalsIgnoreCase("Showing"))
+								s1=StatusEnum.Showing;
+							if(status.equalsIgnoreCase("NotShowing"))
+								s1=StatusEnum.NotShowing;
+							if(status.equalsIgnoreCase("ComingSoon"))
+								s1=StatusEnum.ComingSoon;
+							else
+								s1=StatusEnum.ComingSoon;
+							movie_manager.setMovieStatus(value,s1);//ENUM and movie object
+							System.out.println();
+							b=true;
+			            }
+			        }
+			        if(b==false)
+			        	System.out.println(" Movie not found!");
+				
+				
+			
 			}
 			if(choice==3)
 			{
+				
 				System.out.print("Enter movie title...");
 				String movie_title=sc.nextLine();
 				System.out.println();
-				System.out.print("Enter movie certification");
-				String rating=sc.next();
-				movie_manager.setMovieRating(movie_title,rating);//ENUM
+				 List<Movie> movieList = movie_manager.getMovie(movie_title);
+
+			        for (Movie value : movieList) {
+			            System.out.println(value);
+			        }
+			        System.out.print(" Enter exact name ");
+			        String movie_title2 = sc.nextLine();
+			        boolean b=false;
+			        for (Movie value : movieList) {
+			            if (movie_title2.equals(value))
+			            {
+			            	
+			            	System.out.print("Enter movie certification");
+							String r1=sc.next();
+							RatingEnum r2;
+							if(r1.equalsIgnoreCase("M"))
+								 r2=RatingEnum.M;
+							if(r1.equalsIgnoreCase("R18"))
+								r2=RatingEnum.R18;
+							if(r1.equalsIgnoreCase("NC16"))
+								r2=RatingEnum.NC16;
+							 
+							else
+								r2=RatingEnum.M;
+							movie_manager.setMovieRating(value,r2);//ENUM
+			            }
+			        }
+			        if(b==false)
+			        	System.out.println(" Movie not found!");
+				
+				
+				
+				
+				
+				
 			}
 			if(choice==4)
 			{
