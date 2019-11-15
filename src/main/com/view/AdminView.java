@@ -11,17 +11,17 @@ public class AdminView
 	
 	private static boolean login_status=false;
 	
-	private Login LoginModule = new Login();
+	private final Login LoginModule = new Login();
 	
-	private MovieManagementService movie_manager=new MovieManagementService();
-	ShowingManagementService show_manager=new ShowingManagementService();
-	PriceManagementService price_manager=new PriceManagementService();
-	private CineplexManagementService cineplex_manager = new CineplexManagementService();
-	private CineplexQueryService cineplex_query = new CineplexQueryService();
+	private final MovieManagementService movie_manager=new MovieManagementService();
+	private final ShowingManagementService show_manager=new ShowingManagementService();
+	private final PriceManagementService price_manager=new PriceManagementService();
+	private final CineplexManagementService cineplex_manager = new CineplexManagementService();
+	private final CineplexQueryService cineplex_query = new CineplexQueryService();
 	
 	
 	
-	private Scanner sc=new Scanner(System.in);
+	private final Scanner sc=new Scanner(System.in);
 	private void optionsMenu()
 	{
 		
@@ -607,6 +607,9 @@ public class AdminView
 			else if(choice==3)
 			{
 				Cineplex cineplex = getCineplex();
+				if(cineplex == null){
+					continue;
+				}
 				System.out.println("Enter cinema name");
 				String cinema=sc.nextLine();
 				CinemaType type = getCinemaType();
@@ -616,9 +619,14 @@ public class AdminView
 			else if(choice==4)
 			{
 				Cineplex cineplex = getCineplex();
-				System.out.println("Enter cinema name");
-				String cinema=sc.nextLine();
-				cineplex_manager.RemoveCinema(cineplex, cinema);
+				if(cineplex == null){
+					continue;
+				}
+				Cinema cinema = getCinema(cineplex);
+				if(cinema == null){
+					continue;
+				}
+				cineplex_manager.RemoveCinema(cineplex, cinema.getName());
 			}else if(choice == -1){
 				System.out.println("Thank you for using this service");
 				return;
