@@ -27,7 +27,6 @@ public class Main {
                     break;
                 default:
                     System.out.println("Invalid Input! Try again");
-
             }
         }while (user > 2);
     }
