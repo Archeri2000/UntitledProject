@@ -1,3 +1,6 @@
+package main.com.entities;
+
+import java.util.List;
 
 public class Customer {
 
@@ -5,13 +8,14 @@ public class Customer {
     private int mobileNumber;
     private String email;
 
-    private int tID; //here or other class (add in booking class)
+    public List<Booking> bookings;
+
+    public Customer(){}
 
     public Customer(String name, int mobileNumber, String email){
         this.name = name;
         this.mobileNumber = mobileNumber;
         this.email = email;
-
     }
     public void setName(String name) {
         this.name = name;
@@ -36,4 +40,7 @@ public class Customer {
     public String getEmail() {
         return email;
     }
+
+    public List <Booking> getBooking(){return bookings; }
+
 }

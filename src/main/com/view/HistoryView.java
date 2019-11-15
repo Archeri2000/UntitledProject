@@ -10,13 +10,13 @@ public class HistoryView {
 
     HistoryQueryService HQS = new HistoryQueryService();
 
-    public List<Booking> GetPastBooking() {
+    public List<Booking> getPastBooking() {
         int userMobile;
         System.out.println(" Enter User mobile number");
 
         Scanner sc = new Scanner(System.in);
         userMobile = sc.nextInt();
 
-		return HQS.GetHistoryBookings(userMobile); // need code to retrieve booking history
+		return HQS.getHistoryBookings(userMobile); // need code to retrieve booking history
     }
 }

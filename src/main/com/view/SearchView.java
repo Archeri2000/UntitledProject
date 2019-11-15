@@ -1,11 +1,16 @@
 package main.com.view;
 
+
 import main.com.entities.Cineplex;
 import main.com.entities.Movie;
 import main.com.entities.MovieShowing;
 import main.com.services.MovieQueryService;
 
-import javax.swing.*;
+
+import main.com.entities.*;
+import main.com.services.MovieQueryService;
+
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,27 +20,31 @@ public class SearchView {
 
     MovieQueryService MQS = new MovieQueryService();
 
-    public void OptionsMenu(){
-        System.out.println(" 1. Search by movie");
-        System.out.println(" 2. Search by Rating");
-        System.out.println(" 3. Search by Ticket Sales");
-        System.out.println(" 4. View movie details");
-        System.out.println(" 5. Write Review");
-        System.out.println(" 6. Get showtimes");
-        System.out.println(" 7. Search by Cineplex");
-        System.out.println("");
+    public void optionsMenu() {
+        System.out.println(" 1. Search movie and view details");
+        System.out.println(" 2. Search movie by Rating");
+        System.out.println(" 3. Search movie by Ticket Sales");
+        System.out.println(" 4. Write Review");
+        System.out.println(" 5. Get showtimes");
+        System.out.println(" 6. 'Quit");
+        System.out.println(" ");
 
     }
-    public Movie MovieSearch() {
+
+    public Movie movieSearch() {
         System.out.println("Enter movie name ");
-        String movie = sc.next();
-        List<Movie> movieList = MQS.GetMovie(movie);
+        String movie = sc.nextLine();
+        List<Movie> movieList = MQS.getMovie(movie);
 
         for (Movie value : movieList) {
+
             System.out.println(value);
+
+            System.out.println(value.movie_title);
+
         }
         System.out.print(" Enter exact name ");
-        movie = sc.next();
+        movie = sc.nextLine();
         for (Movie value : movieList) {
             if (movie.equals(value))
                 return value;
@@ -44,36 +53,57 @@ public class SearchView {
         return null;
     }
 
-    public List <Movie> RatingSearch() {
+    public List<Movie> ratingSearch() {
         System.out.println(" Enter The number of Top Rated Movie ");
         int number = sc.nextInt();
-        return MQS.GetTopRatedMovie(number);
+        return MQS.getTopRatedMovie(number);
     }
-    public List<Movie> TicketSaleSearch() {
+
+    public List<Movie> ticketSaleSearch() {
         System.out.println(" Enter the number of Popular Movie");
         int number = sc.nextInt();
-        return MQS.GetPopularMovies(number);
+        return MQS.getPopularMovies(number);
     }
-    public void WriteReview(Movie movie){
+
+    public void writeReview(Movie movie) {
         System.out.println(" Enter review ");
-        String review = sc.next();
+        String review = sc.nextLine();
         System.out.println(" Enter rating (1-5) ");
         int rating = sc.nextInt();
-        MQS.AddReviews(movie, review, rating);
+        MQS.addReviews(movie, review, rating);
     }
-    public List <MovieShowing> ViewShowtimes(Movie movie) {
+
+    public List<MovieShowing> viewShowtimes(Movie movie) {
         return MQS.getShowtimeTImeslots(movie);
     }
 
-    public void viewMovieDetails(Movie movie){
-        System.out.println("Title: " + movie.movie_title);
-        System.out.println("Duration: " + movie.durationMin);
-        System.out.println("Status: " + movie.movieStatus);
-        System.out.println("Rating: " + movie.rating);
-        System.out.println("Cast: " + movie.cast);
-        System.out.println("Director: " + movie.movie_director);
-        System.out.println("Synopsis: " + movie.movie_synopsis);
-        System.out.println("Reviews: " + movie.reviewStore);
-    }
+    public void viewMovieDetails(Movie movie) {
+        try {
+            System.out.println("Title: " + movie.movie_title);
+            System.out.println("Duration: " + movie.durationMin);
+            System.out.println("Status: " + movie.movieStatus);
+            System.out.println("Rating: " + movie.rating);
 
+            System.out.println("Cast: " + movie.cast);
+            System.out.println("Director: " + movie.movie_director);
+            System.out.println("Synopsis: " + movie.movie_synopsis);
+            System.out.println("Reviews: " + movie.reviewStore);
+
+            System.out.println("Cast: ");
+            for (String value : movie.cast) {
+                System.out.println(value + ", ");
+            }
+            System.out.println("Director: " + movie.movie_director);
+            System.out.println("Synopsis: " + movie.movie_synopsis);
+            System.out.println("Synopsis: ");
+            for (Review value : movie.reviewStore.reviews) {
+                System.out.println(value.first + ", ");
+            }
+
+
+        } catch (NullPointerException e) {
+            System.out.println("");
+        }
+    }
 }
+
