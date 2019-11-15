@@ -90,11 +90,4 @@ public class CustomerUI {
         } while (choice > 2);
     }
 
-    public static void main(String[] args) {
-        MovieRepository test = new MovieRepository();
-        List<String> messages = Arrays.asList("Hello", "World!", "How", "Are", "You");
-        test.addMovie("joker", 100, RatingEnum.PG, StatusEnum.ComingSoon, "save me plz", "director1", messages);;
-        CustomerUI ob = new CustomerUI();
-        ob.hi();
-    }
 }
