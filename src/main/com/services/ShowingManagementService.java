@@ -12,10 +12,10 @@ public class ShowingManagementService {
     public ShowingManagementService(){
     }
 
-    public MovieShowing addShowing(CinemaSchedule cinema, Movie movie, LocalDateTime startTime, ShowingEnum showtype){
+    public MovieShowing addShowing(Cinema cinema, Movie movie, LocalDateTime startTime, ShowingEnum showtype){
         return cinema.addMovieShowing(movie, startTime, showtype);
     }
-    public boolean removeShowing(CinemaSchedule cinema, MovieShowing showing){
+    public boolean removeShowing(Cinema cinema, MovieShowing showing){
         return cinema.removeMovieShowing(showing);
     }
 }

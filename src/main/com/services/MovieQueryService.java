@@ -1,6 +1,7 @@
 package main.com.services;
 
 import main.com.entities.Movie;
+import main.com.entities.MovieShowing;
 import main.com.repositories.MovieRepository;
 
 import java.util.List;
@@ -19,7 +20,9 @@ public class MovieQueryService{
     public List<Movie> GetPopularMovies(int number){
         return _repo.getMovieByPopularity(number);
     }
-     public boolean AddReviews(Movie movie, String review, int rating){
+
+    public List<MovieShowing> GetShowtimes(Movie movie) {return _repo.getShowtimes(movie);}
+    public boolean AddReviews(Movie movie, String review, int rating){
         //Review repo not done yet
          return false;
      }
