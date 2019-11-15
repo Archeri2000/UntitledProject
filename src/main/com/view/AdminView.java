@@ -1,15 +1,10 @@
 package main.com.view;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
-import main.com.entities.Movie;
-import main.com.entities.RatingEnum;
-import main.com.entities.StatusEnum;
-import main.com.services.CineplexManagementService;
-import main.com.services.MovieManagementService;
-import main.com.services.PriceManagementService;
-import main.com.services.ShowingManagementService;
+import main.com.entities.*;
+import main.com.services.*;
 
 public class AdminView
 {
@@ -21,7 +16,8 @@ public class AdminView
 	private MovieManagementService movie_manager=new MovieManagementService();
 	ShowingManagementService show_manager=new ShowingManagementService();
 	PriceManagementService price_manager=new PriceManagementService();
-	private CineplexManagementService cineplex_manager=new CineplexManagementService();
+	private CineplexManagementService cineplex_manager = new CineplexManagementService();
+	private CineplexQueryService cineplex_query = new CineplexQueryService();
 	
 	
 	
@@ -126,8 +122,8 @@ public class AdminView
 	{
 		System.out.println("Welcome to Movie Management Service");
 		System.out.println();
-		int choice = 10;
-		while(choice != -1)
+		int choice;
+		while(true)
 		{
 			System.out.println("Enter 1 to add a movie");
 			System.out.println("Enter 2 to set movie status");
@@ -263,6 +259,9 @@ public class AdminView
 					System.out.println("Review Score: " + movie.calculateOverallRating());
 				}
 			}
+			else if(choice == -1){
+				return;
+			}
 			else
 			{
 				System.out.println("Invalid choice");
@@ -314,132 +313,178 @@ public class AdminView
 			System.out.println("Invalid entry!");
 		}
 	}
+
+	private ShowingEnum getShowType() {
+		while(true) {
+			System.out.print("Enter movie type (IMAX, Full3D, Digital): ");
+			String r1 = sc.next();
+			for (ShowingEnum e : ShowingEnum.values()) {
+				if (r1.equalsIgnoreCase(e.name())) {
+					return e;
+				}
+			}
+			System.out.println("Invalid entry!");
+		}
+	}
+
+	private CinemaType getCinemaType() {
+		while(true) {
+			//TODO: Add into brackets the types
+			System.out.print("Enter cinema type (): ");
+			String r1 = sc.next();
+			for (CinemaType e : CinemaType.values()) {
+				if (r1.equalsIgnoreCase(e.name())) {
+					return e;
+				}
+			}
+			System.out.println("Invalid entry!");
+		}
+	}
+
+	private AgeGroup getAgeGroup() {
+		while(true) {
+			//TODO: Add into brackets the types
+			System.out.print("Enter age group (): ");
+			String r1 = sc.next();
+			for (AgeGroup e : AgeGroup.values()) {
+				if (r1.equalsIgnoreCase(e.name())) {
+					return e;
+				}
+			}
+			System.out.println("Invalid entry!");
+		}
+	}
+
+	private DayType getDayType() {
+		while(true) {
+			//TODO: Add into brackets the types
+			System.out.print("Enter day type (): ");
+			String r1 = sc.next();
+			for (DayType e : DayType.values()) {
+				if (r1.equalsIgnoreCase(e.name())) {
+					return e;
+				}
+			}
+			System.out.println("Invalid entry!");
+		}
+	}
 	
 	private void manageShowTimes()
 	{
 		System.out.println("Welcome to Showtime management service");
-		System.out.println();
-		System.out.println("Enter 1 to enter showtime");
-		System.out.println("Enter 2 to remove showtime");
-		System.out.println("Enter -1 to exit");
-	
-		System.out.print("Enter your choice...  ");
-		int choice=sc.nextInt();
-		while(choice!=-1)
-		{
-			if(choice==1)
-			{
-				System.out.print("Enter movie...  ");
-				System.out.println();
-				System.out.print("Enter cinema...  ");
-				System.out.println();
-				System.out.print("Enter date-time...  ");
-				System.out.println();
-				System.out.print("Enter show status...  ");
-				System.out.println();
-				//call the AddShowtime method from ShowingManagementService class
+		int choice;
+		Cineplex cineplex = getCineplex();
+		if(cineplex != null) {
+			Cinema cinema = getCinema(cineplex);
+			if(cinema != null) {
+				while (true) {
+					System.out.println("Enter 1 to create movie showing");
+					System.out.println("Enter 2 to remove movie showing");
+					System.out.println("Enter -1 to exit");
+					System.out.print("Enter your choice...  ");
+					choice = sc.nextInt();
+					if (choice == 1) {
+						Movie movie = getMovie();
+						if (movie == null) {
+							System.out.println("Invalid movie!");
+							continue;
+						}
+						LocalDateTime showingTime = getDateTime();
+						ShowingEnum showType = getShowType();
+						if(show_manager.addShowing(cinema, movie, showingTime, showType) == null){
+							System.out.println("Unable to add movie showing!");
+						}
+					}
+					else if (choice == 2) {
+						MovieShowing showing = getShowtime(cinema);
+						if(showing != null){
+							show_manager.removeShowing(cinema, showing);
+						}
+					}
+					else if (choice == -1) {
+						System.out.println("Thank you for choosing this service");
+						return;
+					} else {
+						System.out.println("Invalid choice");
+					}
+				}
 			}
-			if(choice==2)
-			{
-				System.out.println("Enter cinema...  ");
-				System.out.println();
-				System.out.print("Enter showtime... ");
-				//call removeShowTime method from the ShowingManagementService class
-			}
-			else
-			{
-				System.out.println("Invalid choice");
-			}
-			System.out.println("Enter 1 to enter showtime");
-			System.out.println("Enter 2 to remove showtime");
-			System.out.println("Enter -1 to exit");
-			System.out.print("Enter your choice...  ");
-		    choice=sc.nextInt();
 		}
-		System.out.println("Thanyou for choosing this service");
 	}
-	
-	
-	
+
+	private LocalDateTime getDateTime(){
+		System.out.println("Enter Date and Time in format: YYYY-MM-DD HH:MM");
+		String str = sc.nextLine();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		return LocalDateTime.parse(str, formatter);
+	}
+
+	private Cineplex getCineplex() {
+		List<Cineplex> cineplexList = cineplex_query.GetCineplexes();
+		System.out.println("Cineplexes found:");
+		for (Cineplex value : cineplexList) {
+			System.out.println(value.getCineplexName());
+		}
+		System.out.print(" Enter exact name: ");
+		String cineplex_name = sc.nextLine();
+		for(Cineplex value: cineplexList){
+			if(cineplex_name.equalsIgnoreCase(value.getCineplexName())){
+				return value;
+			}
+		}
+		System.out.println("Invalid Cineplex Name!");
+		return null;
+	}
+
+	private Cinema getCinema(Cineplex cineplex) {
+		List<Cinema> Cinemas = cineplex_query.GetCinemas(cineplex);
+		System.out.println("Cinemas:");
+		for (Cinema value : Cinemas) {
+			System.out.println(value.getName());
+		}
+		System.out.print(" Enter exact name: ");
+		String cineplex_name = sc.nextLine();
+		for(Cinema value: Cinemas){
+			if(cineplex_name.equalsIgnoreCase(value.getName())){
+				return value;
+			}
+		}
+		System.out.println("Invalid Cinema Name!");
+		return null;
+	}
+
+	private MovieShowing getShowtime(Cinema cinema){
+		List<MovieShowing> Cinemas = cineplex_query.GetShows(cinema);
+		System.out.println("Showings:");
+		LocalDateTime now = LocalDateTime.now();
+		for (MovieShowing value : Cinemas) {
+			if(value.getShowing_time().isAfter(now)) {
+				System.out.println(value.getShowing_time() + " : " + value.getShownMovieTitle());
+			}
+		}
+		LocalDateTime time = getDateTime();
+		for(MovieShowing value: Cinemas){
+			if(time.equals(value.getShowing_time())){
+				return value;
+			}
+		}
+		System.out.println("Invalid Showing Time!");
+		return null;
+	}
+
+
 	private void managePrice()
 	{
 		System.out.println("Welcome to Price Management Service");
-		System.out.println();
-		System.out.println("Enter 1 to enter price according to cinema");
-		System.out.println("Enter 2 to enter price according to movie type");
-		System.out.println("Enter 3 to enter price according to age");
-		System.out.println("Enter 4 to enter price according to day");
-		System.out.println("Enter 5 to enter price according to public holiday");
-		System.out.println("Enter 6 to check price according to cinema");
-		System.out.println("Enter 7 to check price according to movie type");
-		System.out.println("Enter 8 to check price according to age");
-		System.out.println("Enter 9 to check price according to day");
-		System.out.println("Enter -1 to exit");
-		System.out.println();
-		System.out.print("Enter your choice...");
-		int choice=sc.nextInt();
-		System.out.println();
-		
-		while(choice!=-1)
+		int choice;
+		while(true)
 		{
-			if(choice==1)
-			{
-				System.out.println("Enter cinema type..");
-				System.out.println("Enter price");
-				// call SetCinemaTypeMultiplier from PriceManagementService class
-			}
-			if(choice==2)
-			{
-				System.out.println("Enter movie type..");
-				System.out.println("Enter price");
-				// call SetMovieTypePrice from PriceManagementService class
-			}
-			if(choice==3)
-			{
-				System.out.println("Enter age type..");
-				System.out.println("Enter price");
-				// call SetAgeGroupMultiplier from PriceManagementService class
-			}
-			if(choice==4)
-			{
-				System.out.println("Enter day type..");
-				System.out.println("Enter price");
-				// call SetDayTypeMultiplier from PriceManagementService class
-			}
-			if(choice==5)
-			{
-				System.out.println("Enter public holiday..");
-				
-				// call AddPublicHoliday from PriceManagementService class
-			}
-			if(choice==6)
-			{
-				// call GetCinemaTypeMultiplier from PriceManagementService class
-			}
-			if(choice==7)
-			{
-				// call GetMovieTypePrice from PriceManagementService class
-			}
-			if(choice==8)
-			{
-				// call GetAgeGroupMultiplier from PriceManagementService class
-				
-			}
-			if(choice==9)
-			{
-				// call GetDayTypeMultiplier from PriceManagementService class
-				
-			}
-			else
-			{
-				System.out.println("Invalid choice");
-			}
 			System.out.println();
 			System.out.println("Enter 1 to enter price according to cinema");
-			System.out.println("Enter 2 to enter price according to movie type");
+			System.out.println("Enter 2 to enter price according to showing type");
 			System.out.println("Enter 3 to enter price according to age");
 			System.out.println("Enter 4 to enter price according to day");
-			System.out.println("Enter 5 to enter price according to public holiday");
+			System.out.println("Enter 5 to add public holidays");
 			System.out.println("Enter 6 to check price according to cinema");
 			System.out.println("Enter 7 to check price according to movie type");
 			System.out.println("Enter 8 to check price according to age");
@@ -447,64 +492,88 @@ public class AdminView
 			System.out.println("Enter -1 to exit");
 			System.out.println();
 			System.out.print("Enter your choice...");
-		    choice=sc.nextInt();
-			System.out.println();
-			
+			choice=sc.nextInt();
+			if(choice==1)
+			{
+				CinemaType cinemaType = getCinemaType();
+				System.out.println("Enter price multiplier");
+				float mult = sc.nextFloat();
+				price_manager.SetCinemaTypeMultiplier(cinemaType, mult);
+			}
+			else if(choice==2)
+			{
+				ShowingEnum showType = getShowType();
+				System.out.println("Enter price multiplier");
+				float mult = sc.nextFloat();
+				price_manager.SetMovieTypePrice(showType, mult);
+			}
+			else if(choice==3)
+			{
+				AgeGroup ageGroup = getAgeGroup();
+				System.out.println("Enter price multiplier");
+				float mult = sc.nextFloat();
+				price_manager.SetAgeGroupMultiplier(ageGroup, mult);
+			}
+			else if(choice==4)
+			{
+				DayType dayType = getDayType();
+				System.out.println("Enter price");
+				System.out.println("Enter price multiplier");
+				float mult = sc.nextFloat();
+				price_manager.SetDayTypeMultiplier(dayType, mult);
+			}
+			else if(choice==5)
+			{
+				System.out.println("Enter public holiday..");
+				// TODO: call AddPublicHoliday from PriceManagementService class
+			}
+			else if(choice==6)
+			{
+				HashMap<CinemaType, Float> cinema_types = price_manager.GetCinemaTypeMultiplier();
+				System.out.println("Cinema Type Prices:");
+				for(Map.Entry<CinemaType, Float> entry: cinema_types.entrySet()){
+					System.out.println(entry.getKey().name() + " : " + entry.getValue());
+				}
+			}
+			else if(choice==7)
+			{
+				HashMap<ShowingEnum, Float> showing_types = price_manager.GetMovieTypePrice();
+				System.out.println("Showing Type Prices:");
+				for(Map.Entry<ShowingEnum, Float> entry: showing_types.entrySet()){
+					System.out.println(entry.getKey().name() + " : " + entry.getValue());
+				}			}
+			else if(choice==8)
+			{
+				HashMap<AgeGroup, Float> age_groups = price_manager.GetAgeGroupMultiplier();
+				System.out.println("Cinema Type Prices:");
+				for(Map.Entry<AgeGroup, Float> entry: age_groups.entrySet()){
+					System.out.println(entry.getKey().name() + " : " + entry.getValue());
+				}
+			}
+			else if(choice==9)
+			{
+				HashMap<DayType, Float> day_types = price_manager.GetDayTypeMultiplier();
+				System.out.println("Cinema Type Prices:");
+				for(Map.Entry<DayType, Float> entry: day_types.entrySet()){
+					System.out.println(entry.getKey().name() + " : " + entry.getValue());
+				}
+			}
+			else if(choice == -1){
+				System.out.println("Thank you for using price management service");
+				return;
+			}
+			else
+			{
+				System.out.println("Invalid choice");
+			}
 		}
-		System.out.println("Thanyou for using price management service");
 	}
 	private void manageCineplexes()
 	{
 		System.out.println("Welcome to Cineplex Management Service");
-		System.out.println();
-		System.out.println("Enter 1 to add cineplex");
-		System.out.println("Enter 2 to remove cineplex");
-		System.out.println("Enter 3 to add cinema");
-		System.out.println("Enter 4 to remove cinema");
-		System.out.println("Enter -1 to exit");
-		System.out.println();
-		System.out.print("Enter your choice... ");
-		int choice=sc.nextInt();
-		while(choice!=-1)
+		int choice;
+		while(true)
 		{
-			if(choice==1)
-			{
-				System.out.println("Enter Cineplex name");
-				String cineplex=sc.nextLine();
-				// call AddCineplex method from CineplexManagementService class
-				cineplex_manager.AddCineplex(cineplex);
-			}
-			if(choice==2)
-			{
-				System.out.println("Enter Cineplex name");
-				String cineplex=sc.nextLine();
-				boolean b=cineplex_manager.RemoveCineplex(cineplex);
-				if(b==true)
-					System.out.println("Cineplex removed successfully");
-				else
-					System.out.println("Cinplex not found");
-				System.out.println();
-			}
-			if(choice==3)
-			{
-				System.out.println("Enter Cineplex name");
-				String cineplex=sc.nextLine();
-				System.out.println("Enter cinema name");
-				String cinema=sc.nextLine();
-				// call AddCinema method from CineplexManagementService class
-			}
-			if(choice==4)
-			{
-				System.out.println("Enter Cineplex name");
-				String cineplex=sc.nextLine();
-				System.out.println("Enter cinema name");
-				String cinema=sc.nextLine();
-				// call RemoveCinema method from CineplexManagementService class
-			}
-			else
-			{
-				System.out.println("Invalid Choice");
-			}
 			System.out.println();
 			System.out.println("Enter 1 to add cineplex");
 			System.out.println("Enter 2 to remove cineplex");
@@ -514,10 +583,52 @@ public class AdminView
 			System.out.println();
 			System.out.print("Enter your choice... ");
 			choice=sc.nextInt();
-			System.out.println();
+
+			if(choice==1)
+			{
+				System.out.println("Enter Cineplex name");
+				String cineplex = sc.nextLine();
+				if(cineplex_manager.AddCineplex(cineplex) != null)
+					System.out.println("Cineplex added successfully");
+				else
+					System.out.println("Cinplex already exists");
+				System.out.println();
+			}
+			else if(choice==2)
+			{
+				System.out.println("Enter Cineplex name");
+				String cineplex = sc.nextLine();
+				if(cineplex_manager.RemoveCineplex(cineplex))
+					System.out.println("Cineplex removed successfully");
+				else
+					System.out.println("Cinplex not found");
+				System.out.println();
+			}
+			else if(choice==3)
+			{
+				Cineplex cineplex = getCineplex();
+				System.out.println("Enter cinema name");
+				String cinema=sc.nextLine();
+				CinemaType type = getCinemaType();
+				//TODO: Add Seating
+				cineplex_manager.AddCinema(cineplex, cinema, type, null);
+			}
+			else if(choice==4)
+			{
+				Cineplex cineplex = getCineplex();
+				System.out.println("Enter cinema name");
+				String cinema=sc.nextLine();
+				cineplex_manager.RemoveCinema(cineplex, cinema);
+			}else if(choice == -1){
+				System.out.println("Thank you for using this service");
+				return;
+			}
+			else
+			{
+				System.out.println("Invalid Choice");
+			}
 		}
-		System.out.println("Thanyou for using this service");
-				
+
 				
 	}
 	

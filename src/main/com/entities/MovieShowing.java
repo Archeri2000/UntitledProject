@@ -47,6 +47,13 @@ public class MovieShowing implements ISerialisable {
         return movie;
     }
 
+    public String getShownMovieTitle(){
+        if(movie == null){
+            movie = MovieRepository.getInstance().getMovieByID(_movieID);
+        }
+        return movie.movie_title;
+    }
+
     @Override
     public String toSerialisedString(){
         return SerialisationUtils.serialise(

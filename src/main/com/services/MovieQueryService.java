@@ -24,7 +24,7 @@ public class MovieQueryService{
         //Review repo not done yet
          return false;
     }
-    public List<MovieShowing> getShowtimeTImeslots(Movie movie){
+    public List<MovieShowing> getShowtimeTimeslots(Movie movie){
         return _repo.getShowtimes(movie);
     }
 }
