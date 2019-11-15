@@ -638,7 +638,7 @@ public class AdminView
 				System.out.println("Enter Cineplex name");
 				String cineplex=sc.nextLine();
 				// call AddCineplex method from CineplexManagementService class
-				
+				cineplex_manager.AddCineplex(cineplex);
 			}
 			if(choice==2)
 			{
