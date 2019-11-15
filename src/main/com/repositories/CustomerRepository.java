@@ -12,13 +12,12 @@ public class CustomerRepository {
         return null;
     }
 
-    public boolean createCustomer(String name, String email, int phone){
+    public Customer createCustomer(String name, String email, int phone){
         if(!cineplexHashMap.containsKey(name)){
             Customer c = new Customer(name, phone, email);
-            return true;
-        }else {
-            return false;
+            return c;
         }
+        return null;
     }
 
     private static CustomerRepository  _static_manager = new CustomerRepository();

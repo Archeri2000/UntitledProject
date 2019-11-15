@@ -10,8 +10,14 @@ public class HistoryQueryService {
 
     private CustomerRepository _repo = CustomerRepository.getInstance();
 
-    public List<Booking> GetHistoryBookings(int phone){
-        Customer customer = _repo.getCustomer(phone);
-        return customer.getBooking();
+    public List<Booking> getHistoryBookings(int phone) {
+        try {
+
+            Customer customer = _repo.getCustomer(phone);
+            return customer.getBooking();
+        } catch (NullPointerException e) {
+            System.out.println("");
+            return null;
+        }
     }
 }

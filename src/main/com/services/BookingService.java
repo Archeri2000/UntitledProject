@@ -9,10 +9,10 @@ public class BookingService{
 
     private CustomerRepository _repo = CustomerRepository.getInstance();
 
-     public Customer GetCustomerByPhone(int phone){
+     public Customer getCustomerByPhone(int phone){
          return _repo.getCustomer(phone);
      }
-     public boolean CreateCustomer(String name, String email, int phone){
+     public Customer createCustomer(String name, String email, int phone){
          return _repo.createCustomer(name, email, phone);
      }
      public Seating getSeatinf(){
