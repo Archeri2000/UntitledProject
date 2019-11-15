@@ -1,16 +1,18 @@
 package main.com.view;
+import main.com.utils.ISerialisable;
+
 import java.util.*;
 import java.io.*;
-public class Login {
+public class Login implements ISerialisable {
 	HashMap<String, String> user = new HashMap<String, String>();
 	
 	public Login()
 	{
 		user.put("12345","Login@123456");
+		_instance = this;
 	}
 	public boolean addStaff(String user_id,String password)
 	{
-		boolean check_id=false;
 		if(!(user.containsKey(user_id)))
 		{
 			user.put(user_id,password);
@@ -22,76 +24,63 @@ public class Login {
 	
 	public boolean checkLogin(String id,String password)
 	{
-		boolean check_id=false,check_password=false;
-		
-		if(user.containsKey(id) && (user.get(id)).equals(password))
-			return true;
-		else
-			return false;
+		return user.containsKey(id) && user.get(id).equals(password);
 			
 	}
 	
 	public boolean changePassword(String userid,String password,String confirm_password)
 	{
-	boolean b=false;
+		if(user.containsKey(userid) && password.equals(confirm_password))
+		{
+			user.remove(userid);
+			user.put(userid,confirm_password);
+			return true;
+		}
+		else{
+			return false;
+		}
 		
-				if(user.containsKey(userid) && password.equals(confirm_password))
-				{
-					user.remove(userid);
-					user.put(userid,confirm_password);
-					b=true;
-				}
-				else
-					b=false;
-		
-		return b;
 	}
 	
 	public boolean checkPassword(String password)
 	{
 		
-		boolean b=false;
 		int length_of_password=password.length();
 		
-		if(length_of_password<10)
-			b=false;
-		else
+		if(length_of_password < 10) return false;
+		boolean check_special_character = false, check_capital = false, check_number = false;
+		for(Character character:password.toCharArray())
 		{
-			int i;
-			char character;
-			boolean check_special_character=false,check_capital=false,check_number=false;
-			for(i=0;i<length_of_password;i++)
-			{
-				character=password.charAt(i);
-				if(Character.isDigit(character))
-					check_number=true;
-				if(Character.isUpperCase(character))
-					check_capital=true;
-				if((!Character.isLetter(character)) && !(Character.isDigit(character)))
-					check_special_character=true;
-			}
-			if(check_special_character && check_capital && check_number)
-				b=true;
-			else
-				b=false;
+			if(Character.isDigit(character))
+				check_number=true;
+			if(Character.isUpperCase(character))
+				check_capital=true;
+			if((!Character.isLetter(character)) && !(Character.isDigit(character)))
+				check_special_character=true;
 		}
-		return b;
-		
+		return check_special_character && check_capital && check_number;
 	}
 	
-	public void displayStaff()
+	public List<String> getStaff()
 	{
-		
-		 Set set = user.entrySet();
-	      Iterator iterator = set.iterator();
-	      while(iterator.hasNext()) 
-	      {
-	         Map.Entry mentry = (Map.Entry)iterator.next();
-	         System.out.print("key is: "+ mentry.getKey() + " & Value is: ");
-	         System.out.println(mentry.getValue());
-	      }
-	
-	
+		return new ArrayList<>(user.keySet());
+	}
+
+	@Override
+	public String toSerialisedString() {
+		return null;
+	}
+
+	private static Login _instance;
+	public static Login getInstance(){
+		if(_instance == null){
+			_instance = new Login();
+		}
+		return _instance;
+	}
+	@Override
+	public ISerialisable fromSerialisedString(String s) throws InvalidPropertiesFormatException {
+		return null;
 	}
 }
 

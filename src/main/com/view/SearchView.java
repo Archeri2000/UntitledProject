@@ -1,14 +1,12 @@
 package main.com.view;
 
 
-import main.com.entities.Cineplex;
 import main.com.entities.Movie;
 import main.com.entities.MovieShowing;
 import main.com.services.MovieQueryService;
 
 
 import main.com.entities.*;
-import main.com.services.MovieQueryService;
 
 
 import java.util.List;
@@ -72,7 +70,7 @@ public class SearchView {
     }
 
     public List<MovieShowing> viewShowtimes(Movie movie) {
-        return MQS.getShowtimeTImeslots(movie);
+        return MQS.getShowtimeTimeslots(movie);
     }
 
     public void viewMovieDetails(Movie movie) {

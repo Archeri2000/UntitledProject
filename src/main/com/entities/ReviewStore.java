@@ -11,9 +11,13 @@ public class ReviewStore implements ISerialisable {
 	public ReviewStore()
 	{
 	}
-	public void addReview(String new_review,double rating)
+	public boolean addReview(String new_review,double rating)
 	{
-		reviews.add(new Review(new_review, rating));
+		if(rating < 10 && rating > 0) {
+			reviews.add(new Review(new_review, rating));
+			return true;
+		}
+		return false;
 	}
 
 	public Double calculateOverallRating(){

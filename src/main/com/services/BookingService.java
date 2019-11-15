@@ -15,7 +15,7 @@ public class BookingService{
      public Customer createCustomer(String name, String email, int phone){
          return _repo.createCustomer(name, email, phone);
      }
-     public Seating getSeatinf(){
+     public Seating getSeating(){
          return null;
      }
      public boolean selectedSeats(String seat, AgeGroup group){
