@@ -3,8 +3,14 @@ package main.com.view;
 import main.com.entities.Booking;
 import main.com.entities.Movie;
 
+import main.com.entities.RatingEnum;
+import main.com.entities.StatusEnum;
+import main.com.repositories.MovieRepository;
+
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+
 
 public class CustomerUI {
 
@@ -22,7 +28,6 @@ public class CustomerUI {
             System.out.println("3. Get past booking");
 
             System.out.print(" Enter Choice: ");
-
             choice = sc.nextInt();
             switch (choice) {
                 case (1):
@@ -32,6 +37,7 @@ public class CustomerUI {
                         searchv.optionsMenu();
                         System.out.println("Enter Option");
                         int choice2 = sc.nextInt();
+                        String buff = sc.nextLine();
                         switch (choice2) {
                             case 1:
                                 Movie movie = searchv.movieSearch();
@@ -40,13 +46,13 @@ public class CustomerUI {
                             case 2:
                                 List<Movie> movieByRatings = searchv.ratingSearch();
                                 for (Movie value : movieByRatings) {
-                                    System.out.println(value);
+                                    System.out.println(value.movie_title);
                                 }
                                 break;
                             case 3:
                                 List<Movie> movieByPopularity = searchv.ticketSaleSearch();
                                 for (Movie value : movieByPopularity) {
-                                    System.out.println(value);
+                                    System.out.println(value.movie_title);
                                 }
                                 break;
                             case 4:
@@ -85,6 +91,9 @@ public class CustomerUI {
     }
 
     public static void main(String[] args) {
+        MovieRepository test = new MovieRepository();
+        List<String> messages = Arrays.asList("Hello", "World!", "How", "Are", "You");
+        test.addMovie("joker", 100, RatingEnum.PG, StatusEnum.ComingSoon, "save me plz", "director1", messages);;
         CustomerUI ob = new CustomerUI();
         ob.hi();
     }

@@ -36,17 +36,14 @@ public class SearchView {
         String movie = sc.nextLine();
         List<Movie> movieList = MQS.getMovie(movie);
 
+        System.out.println("Movies: ");
         for (Movie value : movieList) {
-
-            System.out.println(value);
-
             System.out.println(value.movie_title);
-
         }
         System.out.print(" Enter exact name ");
         movie = sc.nextLine();
         for (Movie value : movieList) {
-            if (movie.equals(value))
+            if (movie.equals(value.movie_title))
                 return value;
         }
         System.out.println(" Movie not found!");
@@ -70,6 +67,7 @@ public class SearchView {
         String review = sc.nextLine();
         System.out.println(" Enter rating (1-5) ");
         int rating = sc.nextInt();
+        sc.nextLine();
         MQS.addReviews(movie, review, rating);
     }
 
@@ -83,23 +81,13 @@ public class SearchView {
             System.out.println("Duration: " + movie.durationMin);
             System.out.println("Status: " + movie.movieStatus);
             System.out.println("Rating: " + movie.rating);
-
+            System.out.println("Director: " + movie.movie_director);
+            System.out.println("Synopsis: " + movie.movie_synopsis);
             System.out.println("Cast: " + movie.cast);
-            System.out.println("Director: " + movie.movie_director);
-            System.out.println("Synopsis: " + movie.movie_synopsis);
-            System.out.println("Reviews: " + movie.reviewStore);
 
-            System.out.println("Cast: ");
-            for (String value : movie.cast) {
-                System.out.println(value + ", ");
-            }
-            System.out.println("Director: " + movie.movie_director);
-            System.out.println("Synopsis: " + movie.movie_synopsis);
-            System.out.println("Synopsis: ");
             for (Review value : movie.reviewStore.reviews) {
                 System.out.println(value.first + ", ");
             }
-
 
         } catch (NullPointerException e) {
             System.out.println("");
