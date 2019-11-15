@@ -1,5 +1,15 @@
-package assignment;
-import java.util.*;
+package main.com.viewiew;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import main.com.entities.Movie;
+import main.com.entities.Review;
+import main.com.services.CineplexManagementService;
+import main.com.services.MovieManagementService;
+import main.com.services.PriceManagementService;
+import main.com.services.ShowingManagementService;
+import main.com.view.Login;
 public class AdminView 
 {
 	public static boolean login_status=false;
@@ -131,7 +141,7 @@ public class AdminView
 			if(choice==5)
 				manageMovies();
 			if(choice==6)
-				manageShowtimes();
+				manageShowTimes();//CHECK
 			if(choice==7)
 				managePrice();
 			if(choice==8)
@@ -213,8 +223,8 @@ public class AdminView
 					System.out.println("Enter movie cast and enter -99 to stop");
 					cast=sc.nextLine();
 				}
-				Reviews review=new Reviews();
-				movie_manager.addMovie(title,duration,rating,status,synopsis,director,cast_members,review);
+				Review review=new Review();
+				movie_manager.addMovie(title,duration,rating,status,synopsis,director,cast_members,review);//ENUM
 			}
 			if(choice==2)
 			{
@@ -223,7 +233,7 @@ public class AdminView
 				System.out.println();
 				System.out.print("Enter movie status");
 				String status=sc.next();
-				movie_manager.setMovieStatus(movie_title,status);
+				movie_manager.setMovieStatus(movie_title,status);//ENUM and movie object
 			}
 			if(choice==3)
 			{
@@ -232,50 +242,133 @@ public class AdminView
 				System.out.println();
 				System.out.print("Enter movie certification");
 				String rating=sc.next();
-				movie_manager.setMovieRating(movie_title,rating);
+				movie_manager.setMovieRating(movie_title,rating);//ENUM
 			}
 			if(choice==4)
 			{
 				System.out.print("Enter movie title...");
 				String movie_title=sc.nextLine();
 				System.out.println();
-				movie_manager.removeMovie(movie_title);
+				 List<Movie> movieList = movie_manager.getMovie(movie_title);
+
+			        for (Movie value : movieList) {
+			            System.out.println(value);
+			        }
+			        System.out.print(" Enter exact name ");
+			        String movie_title2 = sc.nextLine();
+			        boolean b=false;
+			        for (Movie value : movieList) {
+			            if (movie_title2.equals(value))
+			            {
+			            	
+							movie_manager.removeMovie(value);//movie object
+							b=true;
+			            }
+			        }
+			        if(b==false)
+			        	System.out.println(" Movie not found!");
 			}
 			if(choice==5)
 			{
 				System.out.print("Enter movie title...");
 				String movie_title=sc.nextLine();
 				System.out.println();
-				System.out.print("Enter movie synopsis");
-				String synopsis=sc.nextLine();
-				movie_manager.setMovieSynopsis(movie_title,synopsis);
+				 List<Movie> movieList = movie_manager.getMovie(movie_title);
+
+			        for (Movie value : movieList) {
+			            System.out.println(value);
+			        }
+			        System.out.print(" Enter exact name ");
+			        String movie_title2 = sc.nextLine();
+			        boolean b=false;
+			        for (Movie value : movieList) {
+			            if (movie_title2.equals(value))
+			            {
+			            	System.out.print("Enter movie synopsis");
+							String synopsis=sc.nextLine();
+							movie_manager.setMovieSynopsis(value,synopsis);//movie object
+							b=true;
+			            }
+			        }
+			        if(b==false)
+			        	System.out.println(" Movie not found!");
+				
 			}
 			if(choice==6)
 			{
 				System.out.print("Enter movie title...");
 				String movie_title=sc.nextLine();
 				System.out.println();
-				System.out.print("Enter movie director");
-				String director=sc.nextLine();
-				movie_manager.setMovieRating(movie_title,director);
+				 List<Movie> movieList = movie_manager.getMovie(movie_title);
+
+			        for (Movie value : movieList) {
+			            System.out.println(value);
+			        }
+			        System.out.print(" Enter exact name ");
+			        String movie_title2 = sc.nextLine();
+			        boolean b=false;
+			        for (Movie value : movieList) {
+			            if (movie_title2.equals(value))
+			            {
+			            	System.out.print("Enter movie director ");
+							String movie_director=sc.nextLine();
+							movie_manager.setMovieDirector(value,movie_director);//movie object
+							b=true;
+			            }
+			        }
+			        if(b==false)
+			        	System.out.println(" Movie not found!");
+				
 			}
 			if(choice==7)
 			{
 				System.out.print("Enter movie title...");
 				String movie_title=sc.nextLine();
 				System.out.println();
-				System.out.print("Enter movie cast");
-				String cast=sc.nextLine();
-				movie_manager.addMovieCast(movie_title,cast);
+				 List<Movie> movieList = movie_manager.getMovie(movie_title);
+
+			        for (Movie value : movieList) {
+			            System.out.println(value);
+			        }
+			        System.out.print(" Enter exact name ");
+			        String movie_title2 = sc.nextLine();
+			        boolean b=false;
+			        for (Movie value : movieList) {
+			            if (movie_title2.equals(value))
+			            {
+			            	System.out.print("Enter movie cast member ");
+							String movie_cast=sc.nextLine();
+							movie_manager.addMovieCast(value,movie_cast);//movie object
+							b=true;
+			            }
+			        }
+			        if(b==false)
+			        	System.out.println(" Movie not found!");
 			}
 			if(choice==8)
 			{
 				System.out.print("Enter movie title...");
 				String movie_title=sc.nextLine();
 				System.out.println();
-				System.out.print("Enter movie cast");
-				String cast=sc.nextLine();
-				movie_manager.removeMovieCast(movie_title,cast);
+				 List<Movie> movieList = movie_manager.getMovie(movie_title);
+
+			        for (Movie value : movieList) {
+			            System.out.println(value);
+			        }
+			        System.out.print(" Enter exact name ");
+			        String movie_title2 = sc.nextLine();
+			        boolean b=false;
+			        for (Movie value : movieList) {
+			            if (movie_title2.equals(value))
+			            {
+			            	System.out.print("Enter movie cast member ");
+							String movie_cast=sc.nextLine();
+							movie_manager.setMovieSynopsis(value,movie_cast);//movie object
+							b=true;
+			            }
+			        }
+			        if(b==false)
+			        	System.out.println(" Movie not found!");
 			}
 			if(choice==9)
 			{
@@ -460,12 +553,18 @@ public class AdminView
 				System.out.println("Enter Cineplex name");
 				String cineplex=sc.nextLine();
 				// call AddCineplex method from CineplexManagementService class
+				
 			}
 			if(choice==2)
 			{
 				System.out.println("Enter Cineplex name");
 				String cineplex=sc.nextLine();
-				// call RemoveCineplex method from CineplexManagementService class
+				boolean b=cineplex_manager.RemoveCineplex(cineplex);
+				if(b==true)
+					System.out.println("Cineplex removed successfully");
+				else
+					System.out.println("Cinplex not found");
+				System.out.println();
 			}
 			if(choice==3)
 			{
