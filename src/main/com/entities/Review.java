@@ -10,7 +10,7 @@ import static main.com.utils.SerialisationUtils.*;
 
 
 public class Review implements ISerialisable{
-    private String first;
+    public String first;
     private Double second;
     public Review(){}
     public Review(String first, Double second){

@@ -1,11 +1,16 @@
 package main.com.view;
 
+
 import main.com.entities.Cineplex;
 import main.com.entities.Movie;
 import main.com.entities.MovieShowing;
 import main.com.services.MovieQueryService;
 
-import javax.swing.*;
+
+import main.com.entities.*;
+import main.com.services.MovieQueryService;
+
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -32,7 +37,11 @@ public class SearchView {
         List<Movie> movieList = MQS.getMovie(movie);
 
         for (Movie value : movieList) {
+
             System.out.println(value);
+
+            System.out.println(value.movie_title);
+
         }
         System.out.print(" Enter exact name ");
         movie = sc.nextLine();
@@ -74,10 +83,24 @@ public class SearchView {
             System.out.println("Duration: " + movie.durationMin);
             System.out.println("Status: " + movie.movieStatus);
             System.out.println("Rating: " + movie.rating);
+
             System.out.println("Cast: " + movie.cast);
             System.out.println("Director: " + movie.movie_director);
             System.out.println("Synopsis: " + movie.movie_synopsis);
             System.out.println("Reviews: " + movie.reviewStore);
+
+            System.out.println("Cast: ");
+            for (String value : movie.cast) {
+                System.out.println(value + ", ");
+            }
+            System.out.println("Director: " + movie.movie_director);
+            System.out.println("Synopsis: " + movie.movie_synopsis);
+            System.out.println("Synopsis: ");
+            for (Review value : movie.reviewStore.reviews) {
+                System.out.println(value.first + ", ");
+            }
+
+
         } catch (NullPointerException e) {
             System.out.println("");
         }

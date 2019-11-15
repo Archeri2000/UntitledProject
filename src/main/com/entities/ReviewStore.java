@@ -7,7 +7,7 @@ import static main.com.utils.SerialisationUtils.*;
 import java.util.*;
 
 public class ReviewStore implements ISerialisable {
-	private List<Review> reviews = new ArrayList<>();
+	public List<Review> reviews = new ArrayList<>();
 	public ReviewStore()
 	{
 	}
