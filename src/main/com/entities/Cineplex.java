@@ -38,6 +38,12 @@ public class Cineplex implements ISerialisable {
     	return null;
 	}
 
+	public void RemoveCineplex(){
+    	for(Cinema c:cinemas.values()){
+    		c.RemoveCinema();
+		}
+	}
+
 	@Override
 	public String toSerialisedString() {
 		return null;

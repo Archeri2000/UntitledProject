@@ -51,7 +51,7 @@ public class CineplexRepository implements ISerialisable {
 
     public boolean removeCineplex(String name) {
         if(cineplexHashMap.containsKey(name)){
-            //TODO: Deallocation of all subobjects
+            cineplexHashMap.get(name).RemoveCineplex();
             cineplexHashMap.remove(name);
             return true;
         }
