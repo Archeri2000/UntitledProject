@@ -52,12 +52,13 @@ public class Cineplex implements ISerialisable {
     	if(cinemas.containsKey(name)){
     		return null;
 		}
-    	cinemas.put(name, new Cinema(name, type, s));
+    	cinemas.put(name, new Cinema(name, this.cineplexName, type, s));
     	return cinemas.get(name);
 	}
 
 	public boolean removeCinema(String name) {
     	if(!cinemas.containsKey(name)) return false;
+    	cinemas.get(name).RemoveCinema();
     	cinemas.remove(name);
     	return true;
 	}
