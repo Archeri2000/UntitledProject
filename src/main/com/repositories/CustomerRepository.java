@@ -3,20 +3,24 @@ package main.com.repositories;
 import main.com.entities.Customer;
 import main.com.utils.ISerialisable;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InvalidPropertiesFormatException;
+import java.util.List;
+
+import static main.com.utils.SerialisationUtils.*;
 
 public class CustomerRepository implements ISerialisable {
 
-    private HashMap<Integer, Customer> cineplexHashMap = new java.util.HashMap<>();
+    private HashMap<Integer, Customer> customerHashMap = new java.util.HashMap<>();
 
     public Customer getCustomer(int phone){
-        if(cineplexHashMap.containsKey(phone)) return cineplexHashMap.get(phone);
+        if(customerHashMap.containsKey(phone)) return customerHashMap.get(phone);
         return null;
     }
 
     public Customer createCustomer(String name, String email, int phone){
-        if(!cineplexHashMap.containsKey(name)){
+        if(!customerHashMap.containsKey(name)){
             Customer c = new Customer(name, phone, email);
             return c;
         }
@@ -35,11 +39,22 @@ public class CustomerRepository implements ISerialisable {
     //TODO
     @Override
     public String toSerialisedString() {
-        return "asdf";
+        List<Customer> customers = new ArrayList<>(customerHashMap.values());
+        return serialise(
+                serialiseList(customers, "customers")
+        );
     }
 
     @Override
     public ISerialisable fromSerialisedString(String s) throws InvalidPropertiesFormatException {
+        _static_manager = this;
+        HashMap<String, String> pairs = deserialise(s);
+        assert pairs != null;
+        List<Customer> customers = deserialiseList(Customer.class, pairs.get("customers"));
+        assert customers != null;
+        for(Customer c:customers){
+            customerHashMap.put(c.getMobileNumber(), c);
+        }
         return getInstance();
     }
 }
