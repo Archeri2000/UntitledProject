@@ -13,32 +13,32 @@ public class PriceManagementService {
 
     public PriceManagementService(){
     }
-    public boolean SetCinemaTypeMultiplier(CinemaType type, float multiplier){
+    public boolean SetCinemaTypeMultiplier(CinemaType type, double multiplier){
         return _priceRepo.setCinemaMultipliers(type, multiplier);
     }
-    public boolean SetMovieTypePrice(ShowingEnum type, float price){
+    public boolean SetMovieTypePrice(ShowingEnum type, double price){
         return _priceRepo.setMoviePrice(type, price);
     }
-    public boolean SetAgeGroupMultiplier(AgeGroup type, float multiplier){
+    public boolean SetAgeGroupMultiplier(AgeGroup type, double multiplier){
         return _priceRepo.setAgeMultipliers(type, multiplier);
     }
-    public boolean SetDayTypeMultiplier(DayType type, float multiplier){
+    public boolean SetDayTypeMultiplier(DayType type, double multiplier){
         return _priceRepo.setDayMultipliers(type, multiplier);
     }
     public boolean AddPublicHoliday(LocalDateTime day){
         //TODO
         return false;
     }
-    public HashMap<CinemaType, Float> GetCinemaTypeMultiplier(){
+    public HashMap<CinemaType, Double> GetCinemaTypeMultiplier(){
         return _priceRepo.CinemaTypeMultipliers;
     }
-    public HashMap<ShowingEnum, Float> GetMovieTypePrice(){
+    public HashMap<ShowingEnum, Double> GetMovieTypePrice(){
         return _priceRepo.MoviePrices;
     }
-    public HashMap<AgeGroup, Float> GetAgeGroupMultiplier(){
+    public HashMap<AgeGroup, Double> GetAgeGroupMultiplier(){
         return _priceRepo.AgeMultipliers;
     }
-    public HashMap<DayType, Float> GetDayTypeMultiplier(){
+    public HashMap<DayType, Double> GetDayTypeMultiplier(){
         return _priceRepo.DayMultiplier;
     }
 

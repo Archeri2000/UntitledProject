@@ -509,21 +509,21 @@ public class AdminView
 			{
 				CinemaType cinemaType = getCinemaType();
 				System.out.println("Enter price multiplier");
-				float mult = sc.nextFloat();
+				double mult = sc.nextDouble();
 				price_manager.SetCinemaTypeMultiplier(cinemaType, mult);
 			}
 			else if(choice==2)
 			{
 				ShowingEnum showType = getShowType();
 				System.out.println("Enter price multiplier");
-				float mult = sc.nextFloat();
+				double mult = sc.nextDouble();
 				price_manager.SetMovieTypePrice(showType, mult);
 			}
 			else if(choice==3)
 			{
 				AgeGroup ageGroup = getAgeGroup();
 				System.out.println("Enter price multiplier");
-				float mult = sc.nextFloat();
+				double mult = sc.nextDouble();
 				price_manager.SetAgeGroupMultiplier(ageGroup, mult);
 			}
 			else if(choice==4)
@@ -531,7 +531,7 @@ public class AdminView
 				DayType dayType = getDayType();
 				System.out.println("Enter price");
 				System.out.println("Enter price multiplier");
-				float mult = sc.nextFloat();
+				double mult = sc.nextDouble();
 				price_manager.SetDayTypeMultiplier(dayType, mult);
 			}
 			else if(choice==5)
@@ -541,32 +541,32 @@ public class AdminView
 			}
 			else if(choice==6)
 			{
-				HashMap<CinemaType, Float> cinema_types = price_manager.GetCinemaTypeMultiplier();
+				HashMap<CinemaType, Double> cinema_types = price_manager.GetCinemaTypeMultiplier();
 				System.out.println("Cinema Type Prices:");
-				for(Map.Entry<CinemaType, Float> entry: cinema_types.entrySet()){
+				for(Map.Entry<CinemaType, Double> entry: cinema_types.entrySet()){
 					System.out.println(entry.getKey().name() + " : " + entry.getValue());
 				}
 			}
 			else if(choice==7)
 			{
-				HashMap<ShowingEnum, Float> showing_types = price_manager.GetMovieTypePrice();
+				HashMap<ShowingEnum, Double> showing_types = price_manager.GetMovieTypePrice();
 				System.out.println("Showing Type Prices:");
-				for(Map.Entry<ShowingEnum, Float> entry: showing_types.entrySet()){
+				for(Map.Entry<ShowingEnum, Double> entry: showing_types.entrySet()){
 					System.out.println(entry.getKey().name() + " : " + entry.getValue());
 				}			}
 			else if(choice==8)
 			{
-				HashMap<AgeGroup, Float> age_groups = price_manager.GetAgeGroupMultiplier();
+				HashMap<AgeGroup, Double> age_groups = price_manager.GetAgeGroupMultiplier();
 				System.out.println("Cinema Type Prices:");
-				for(Map.Entry<AgeGroup, Float> entry: age_groups.entrySet()){
+				for(Map.Entry<AgeGroup, Double> entry: age_groups.entrySet()){
 					System.out.println(entry.getKey().name() + " : " + entry.getValue());
 				}
 			}
 			else if(choice==9)
 			{
-				HashMap<DayType, Float> day_types = price_manager.GetDayTypeMultiplier();
+				HashMap<DayType, Double> day_types = price_manager.GetDayTypeMultiplier();
 				System.out.println("Cinema Type Prices:");
-				for(Map.Entry<DayType, Float> entry: day_types.entrySet()){
+				for(Map.Entry<DayType, Double> entry: day_types.entrySet()){
 					System.out.println(entry.getKey().name() + " : " + entry.getValue());
 				}
 			}
