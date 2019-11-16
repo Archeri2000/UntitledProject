@@ -29,15 +29,23 @@ public class AdminView
 		while(!login_status) {
 			System.out.println("Enter 0 to return");
 			System.out.println("Enter 1 to Login");
-			System.out.print("Enter user id... ");
-			String user_id = sc.next();
-			System.out.print("Enter password...");
-			String password = sc.next();
-			if (LoginModule.checkLogin(user_id, password)) {
-				System.out.println("Logged in successfully");
-				login_status = true;
-			} else
-				System.out.println("Incorrect login id or password");
+			int option = sc.nextInt();
+			if(option == 0){
+				return;
+			}else if(option == 1){
+				System.out.print("Enter user id... ");
+				String user_id = sc.next();
+				System.out.print("Enter password...");
+				String password = sc.next();
+				if (LoginModule.checkLogin(user_id, password)) {
+					System.out.println("Logged in successfully");
+					login_status = true;
+				} else
+					System.out.println("Incorrect login id or password");
+			}else{
+				System.out.println("Invalid Option!");
+			}
+
 		}
 
 		int choice;

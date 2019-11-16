@@ -14,7 +14,7 @@ public class CineplexQueryService{
         return _repo.GetCineplex(name);
     }
     public List<Cineplex> GetCineplexes(){
-        return _repo.GetCineplexs();
+        return _repo.getCineplexes();
     }
     public Cinema GetCinema(Cineplex cineplex, String CinemaID){
         return cineplex.getCinema(CinemaID);
