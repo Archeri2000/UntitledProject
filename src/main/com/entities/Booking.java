@@ -9,7 +9,6 @@ public class Booking implements ISerialisable {
     public Booking(){}
 
     private String TransactionID;
-    private List<String> seats;
 
     @Override
     public String toSerialisedString() {

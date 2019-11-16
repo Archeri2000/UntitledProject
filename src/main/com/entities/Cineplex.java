@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.InvalidPropertiesFormatException;
 import java.util.List;
 
+import static main.com.utils.SerialisationUtils.*;
+
 public class Cineplex implements ISerialisable {
 	
 	private HashMap<String, Cinema> cinemas;
@@ -46,12 +48,20 @@ public class Cineplex implements ISerialisable {
 
 	@Override
 	public String toSerialisedString() {
-		return null;
+    	List<Cinema> cinemaList = new ArrayList<>(cinemas.values());
+    	return serialise(
+    			serialiseString(cineplexName, "name"),
+				serialiseList(cinemaList, "cinemas")
+		);
 	}
 
 	@Override
 	public ISerialisable fromSerialisedString(String s) throws InvalidPropertiesFormatException {
-		return null;
+		HashMap<String, String> pairs = deserialise(s);
+		assert pairs != null;
+		List<Cinema> cinemaList = deserialiseList(Cinema.class, pairs.get("cinemas"));
+		assert cinemaList != null;
+		return new Cineplex(pairs.get("name"), cinemaList);
 	}
 
 	public Cinema addCinema(String name, CinemaType type, Seating s) {
