@@ -56,7 +56,6 @@ public class SerialisationUtils {
      * @throws InvalidPropertiesFormatException
      */
     public static HashMap<String, String> deserialise(String s) throws InvalidPropertiesFormatException {
-        System.out.println(s);
         if(s.equals(NULLSTR)) return null;
         HashMap<String, String> pairs = new HashMap<>();
         int sep = -1;
@@ -78,7 +77,6 @@ public class SerialisationUtils {
                     if(sep == -1){
                         throw new InvalidPropertiesFormatException("Invalid String2!");
                     }
-                    System.out.println(s.substring(sep+1, i));
                     pairs.put(s.substring(0, sep), s.substring(sep+1, i));
                     if(i != s.length()-1){
                         s = s.substring(i+1);
@@ -88,7 +86,6 @@ public class SerialisationUtils {
                 }
             }
             if(sep != -1 && nesting == 0){
-                System.out.println(s.substring(sep+1));
                 pairs.put(s.substring(0, sep), s.substring(sep+1));
             }
             else{
