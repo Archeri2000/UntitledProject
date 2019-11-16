@@ -1,12 +1,14 @@
 package main.com.repositories;
 
 import main.com.entities.Cineplex;
+import main.com.entities.Movie;
 import main.com.utils.ISerialisable;
+import main.com.utils.StringIntPair;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.InvalidPropertiesFormatException;
-import java.util.List;
+import java.util.*;
+
+import static main.com.utils.SerialisationUtils.*;
+import static main.com.utils.SerialisationUtils.deserialiseList;
 
 public class CineplexRepository implements ISerialisable {
     private HashMap<String, Cineplex> cineplexHashMap = new HashMap<>();
@@ -16,7 +18,7 @@ public class CineplexRepository implements ISerialisable {
         return null;
     }
 
-    public List<Cineplex> GetCineplexs(){
+    public List<Cineplex> getCineplexes(){
         return new ArrayList<>(cineplexHashMap.values());
     }
 
@@ -29,11 +31,21 @@ public class CineplexRepository implements ISerialisable {
     //TODO
     @Override
     public String toSerialisedString() {
-        return "asdf";
+        List<Cineplex> cineplexList = new ArrayList<>(cineplexHashMap.values());
+        return serialise(
+          serialiseList(cineplexList, "cineplexes")
+        );
     }
 
     @Override
     public ISerialisable fromSerialisedString(String s) throws InvalidPropertiesFormatException {
+        _static_manager = this;
+        HashMap<String, String> pairs = deserialise(s);
+        assert pairs != null;
+        List<Cineplex> cineplexList = deserialiseList(Cineplex.class, pairs.get("cineplexes"));
+        for(Cineplex cineplex: cineplexList){
+            cineplexHashMap.put(cineplex.getCineplexName(), cineplex);
+        }
         return getInstance();
     }
 
