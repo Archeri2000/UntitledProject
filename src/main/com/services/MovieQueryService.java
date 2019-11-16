@@ -20,9 +20,8 @@ public class MovieQueryService{
     public List<Movie> getPopularMovies(int number){
         return _repo.getMovieByPopularity(number);
     }
-    public boolean addReviews(Movie movie, String review, int rating){
-        //Review repo not done yet
-         return false;
+    public void addReviews(Movie movie, String review, double rating){
+        movie.addReview(review, rating);
     }
     public List<MovieShowing> getShowtimeTimeslots(Movie movie){
         return _repo.getShowtimes(movie);

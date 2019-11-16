@@ -11,7 +11,7 @@ import static main.com.utils.SerialisationUtils.*;
 
 public class Review implements ISerialisable{
     public String first;
-    private Double second;
+    public Double second;
     public Review(){}
     public Review(String first, Double second){
         if(second == null){
