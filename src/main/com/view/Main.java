@@ -5,6 +5,7 @@ import main.com.repositories.CineplexRepository;
 import main.com.repositories.CustomerRepository;
 import main.com.repositories.MovieRepository;
 import main.com.repositories.PriceRepository;
+import main.com.utils.ISerialisable;
 import main.com.utils.SerialisationUtils;
 
 import java.io.*;
@@ -38,30 +39,20 @@ public class Main {
                     System.out.println("Invalid Input! Try again");
             }
         }while (user != 3);
-        System.out.println("Saving changes...");
         serialiseManagers();
         System.out.println("Thank you for using the system!");
     }
 
     private static void deserialiseManagers(){
-        try {
-            String movies = new Scanner(new File("movies.txt")).useDelimiter("\\Z").next();
-            SerialisationUtils.deserialiseObject(MovieRepository.class, SerialisationUtils.deserialise(movies).get("movie_repo"));
-            String prices = new Scanner(new File("prices.txt")).useDelimiter("\\Z").next();
-            SerialisationUtils.deserialiseObject(PriceRepository.class, SerialisationUtils.deserialise(prices).get("price_repo"));
-            String cineplexes = new Scanner(new File("cineplexes.txt")).useDelimiter("\\Z").next();
-            SerialisationUtils.deserialiseObject(CineplexRepository.class, SerialisationUtils.deserialise(cineplexes).get("cineplex_repo"));
-            String customers = new Scanner(new File("customers.txt")).useDelimiter("\\Z").next();
-            SerialisationUtils.deserialiseObject(CustomerRepository.class, SerialisationUtils.deserialise(customers).get("customer_repo"));
-
-        }catch(FileNotFoundException e){
-            System.out.println("No existing files found!");
-        } catch (IOException | InstantiationException | InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
+        System.out.println("Loading Files...");
+        loadFromFile("movies.txt", "movie_repo", MovieRepository.class);
+        loadFromFile("prices.txt", "price_repo", PriceRepository.class);
+        loadFromFile("cineplexes.txt", "cineplex_repo", CineplexRepository.class);
+        loadFromFile("customers.txt", "customer_repo", CustomerRepository.class);
     }
 
     private static void serialiseManagers(){
+        System.out.println("Saving changes...");
         String movies = SerialisationUtils.serialise(SerialisationUtils.serialiseObject(MovieRepository.getInstance(), "movie_repo"));
         saveToFile("movies.txt", movies);
         String prices = SerialisationUtils.serialise(SerialisationUtils.serialiseObject(PriceRepository.getInstance(), "price_repo"));
@@ -83,6 +74,17 @@ public class Main {
             out.print(contents);
         }catch(FileNotFoundException e){
             System.out.println("Unable to save " + filepath);
+        }
+    }
+
+    private static void loadFromFile(String filepath, String param, Class repo){
+        try {
+            String contents = new Scanner(new File(filepath)).useDelimiter("\\Z").next();
+            SerialisationUtils.deserialiseObject(repo, SerialisationUtils.deserialise(contents).get(param));
+        }catch(FileNotFoundException | NullPointerException e){
+            System.out.println("No existing file called " + filepath + " found!");
+        } catch (IOException | InstantiationException | InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
+            e.printStackTrace();
         }
     }
 }

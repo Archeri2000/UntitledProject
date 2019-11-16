@@ -1,5 +1,6 @@
 package main.com.entities;
 
+import main.com.moviebooking.Seating;
 import main.com.repositories.MovieRepository;
 import main.com.utils.ISerialisable;
 import main.com.utils.SerialisationUtils;
