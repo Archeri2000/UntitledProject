@@ -57,13 +57,14 @@ public class PriceRepository implements ISerialisable {
 		return _repo;
 	}
 	public PriceRepository(){}
+	//TODO
 	@Override
 	public String toSerialisedString() {
-		return null;
+		return "asdf";
 	}
 
 	@Override
 	public ISerialisable fromSerialisedString(String s) throws InvalidPropertiesFormatException {
-		return null;
+		return getInstance();
 	}
 }

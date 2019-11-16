@@ -26,14 +26,15 @@ public class CineplexRepository implements ISerialisable {
         }
         return null;
     }
+    //TODO
     @Override
     public String toSerialisedString() {
-        return null;
+        return "asdf";
     }
 
     @Override
     public ISerialisable fromSerialisedString(String s) throws InvalidPropertiesFormatException {
-        return null;
+        return getInstance();
     }
 
     private static CineplexRepository _static_manager = new CineplexRepository();

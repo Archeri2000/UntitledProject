@@ -119,6 +119,7 @@ public class SerialisationUtils {
      * @throws InvalidPropertiesFormatException
      */
     public static <T extends ISerialisable> T deserialiseObject(Class<T> tClass, String s) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, InvalidPropertiesFormatException {
+        if(s.length() == 0) return null;
         s = s.substring(1,s.length()-1);
         if(s.equals(NULLSTR)) return null;
         else return (T)tClass.getConstructor().newInstance().fromSerialisedString(s);
@@ -138,6 +139,8 @@ public class SerialisationUtils {
     }
 
     public static <T extends ISerialisable> List<T> deserialiseList(Class<T> tClass, String s){
+        if(s.length() == 0) return null;
+        if(s.length() == 2) return new ArrayList<>();
         s = s.substring(1, s.length()-1);
         List<String> strList = Arrays.asList(s.split(Character.toString(LIST_SEPARATOR)));
         return strList.stream().map(x -> {
@@ -161,6 +164,8 @@ public class SerialisationUtils {
     }
 
     public static List<String> deserialiseStringList(String s){
+        if(s.length() == 0) return null;
+        if(s.length() == 2) new ArrayList<>();
         s = s.substring(1, s.length()-1);
         List<String> strList = Arrays.asList(s.split(Character.toString(LIST_SEPARATOR)));
         return strList.stream().map(SerialisationUtils::deserialiseString).collect(Collectors.toList());

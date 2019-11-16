@@ -22,7 +22,7 @@ public class AdminView
 	
 	
 	private final Scanner sc=new Scanner(System.in);
-	private void optionsMenu()
+	public void optionsMenu()
 	{
 		
 		System.out.println("Welcome to the Admin panel");
