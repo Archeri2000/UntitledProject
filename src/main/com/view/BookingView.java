@@ -12,10 +12,10 @@ public class BookingView {
     private BookingService _serv = new BookingService();
 
     public void displaySeats(MovieShowing showtime, Movie movie, Cineplex cineplex, Cinema cinema){
-
+        //TODO
     }
     public void selecrSeats(Seating seating){
-
+        //TODO
     }
     public Customer getCustomerDetails() {
         int userMobile;
