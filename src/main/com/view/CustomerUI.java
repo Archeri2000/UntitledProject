@@ -35,9 +35,9 @@ public class CustomerUI {
                     do {
 
                         searchv.optionsMenu();
-                        System.out.println("Enter Option");
+                        System.out.print("Enter Option: ");
                         int choice2 = sc.nextInt();
-                        String buff = sc.nextLine();
+                        sc.nextLine();
                         switch (choice2) {
                             case 1:
                                 Movie movie = searchv.movieSearch();
@@ -67,6 +67,7 @@ public class CustomerUI {
                                 break;
                             case 6:
                                 decision = true;
+                                break;
                             default:
                                 System.out.println("Try again ");
                                 CustomerUI restart = new CustomerUI();
@@ -87,7 +88,13 @@ public class CustomerUI {
                         System.out.println("User not found");
                     }
             }
-        } while (choice > 2);
+        } while (choice > 3);
     }
-
+    public static void main(String[] args) {
+        MovieRepository repo = new MovieRepository();
+        List<String> messages = Arrays.asList("Hello", "World!", "How", "Are", "You");
+        repo.addMovie("joker", 180, RatingEnum.PG, StatusEnum.Showing, "save me plz", "direct1", messages);
+        CustomerUI obj = new CustomerUI();
+        obj.hi();
+    }
 }

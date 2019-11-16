@@ -3,10 +3,7 @@ package main.com.repositories;
 import main.com.entities.Cineplex;
 import main.com.utils.ISerialisable;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.InvalidPropertiesFormatException;
-import java.util.List;
+import java.util.*;
 
 public class CineplexRepository implements ISerialisable {
     private HashMap<String, Cineplex> cineplexHashMap = new HashMap<>();
@@ -16,13 +13,15 @@ public class CineplexRepository implements ISerialisable {
         return null;
     }
 
-    public List<Cineplex> GetCineplexs(){
+    public List<Cineplex> getCineplexs(){
         return new ArrayList<>(cineplexHashMap.values());
     }
 
-    public Cineplex CreateCineplex(String name){
+    public Cineplex createCineplex(String name){
         if(!cineplexHashMap.containsKey(name)){
             Cineplex c = new Cineplex(name);
+            cineplexHashMap.put(name, c);
+            return c;
         }
         return null;
     }
