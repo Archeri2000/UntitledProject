@@ -26,18 +26,20 @@ public class CustomerUI {
             System.out.println("1. Search Movie");
             System.out.println("2. Book movie");
             System.out.println("3. Get past booking");
+            System.out.println("4. Quit");
 
             System.out.print(" Enter Choice: ");
             choice = sc.nextInt();
+            sc.nextLine();
             switch (choice) {
                 case (1):
                     boolean decision = false;
                     do {
 
                         searchv.optionsMenu();
-                        System.out.println("Enter Option");
+                        System.out.print("Enter Option: ");
                         int choice2 = sc.nextInt();
-                        String buff = sc.nextLine();
+                        sc.nextLine();
                         switch (choice2) {
                             case 1:
                                 Movie movie = searchv.movieSearch();
@@ -57,7 +59,7 @@ public class CustomerUI {
                                 break;
                             case 4:
                                 movie = searchv.movieSearch();
-                                if( movie != null) {
+                                if (movie != null) {
                                     searchv.writeReview(movie);
                                 }
                                 break;
@@ -67,13 +69,14 @@ public class CustomerUI {
                                 break;
                             case 6:
                                 decision = true;
+                                break;
                             default:
                                 System.out.println("Try again ");
                                 CustomerUI restart = new CustomerUI();
                                 restart.hi();
                                 break;
                         }
-                    } while (decision == false);
+                    } while (!decision);
                     break;
 
                 //TODO case2 bookings
@@ -86,8 +89,20 @@ public class CustomerUI {
                     } catch (NullPointerException e) {
                         System.out.println("User not found");
                     }
+                    break;
+                case 4:
+                    break;
+                default:
+                    System.out.println("Invalid Input");
+                    break;
             }
-        } while (choice > 2);
+        } while (choice != 4);
     }
-
+    public static void main(String[] args) {
+        MovieRepository repo = new MovieRepository();
+        List<String> messages = Arrays.asList("Hello", "World!", "How", "Are", "You");
+        repo.addMovie("joker", 180, RatingEnum.PG, StatusEnum.Showing, "save me plz", "direct1", messages);
+        CustomerUI obj = new CustomerUI();
+        obj.hi();
+    }
 }

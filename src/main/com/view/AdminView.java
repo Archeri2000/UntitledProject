@@ -55,6 +55,7 @@ public class AdminView
 			System.out.println();
 			System.out.print("Enter your choice......  ");
 			choice=sc.nextInt();
+			sc.nextLine();
 			if(choice == 0)
 			{
 				System.out.println("Staff Members:");
@@ -383,10 +384,10 @@ public class AdminView
 					System.out.println("Enter -1 to exit");
 					System.out.print("Enter your choice...  ");
 					choice = sc.nextInt();
+					sc.nextLine();
 					if (choice == 1) {
 						Movie movie = getMovie();
 						if (movie == null) {
-							System.out.println("Invalid movie!");
 							continue;
 						}
 						LocalDateTime showingTime = getDateTime();
@@ -422,18 +423,20 @@ public class AdminView
 	private Cineplex getCineplex() {
 		List<Cineplex> cineplexList = cineplex_query.GetCineplexes();
 		System.out.println("Cineplexes found:");
-		for (Cineplex value : cineplexList) {
-			System.out.println(value.getCineplexName());
-		}
-		System.out.print(" Enter exact name: ");
-		String cineplex_name = sc.nextLine();
-		for(Cineplex value: cineplexList){
-			if(cineplex_name.equalsIgnoreCase(value.getCineplexName())){
-				return value;
+		if (!cineplexList.isEmpty()) {
+			for (Cineplex value : cineplexList) {
+				System.out.println(value.getCineplexName());
+			}
+			System.out.print(" Enter exact name: ");
+			String cineplex_name = sc.nextLine();
+			for (Cineplex value : cineplexList) {
+				if (cineplex_name.equalsIgnoreCase(value.getCineplexName())) {
+					return value;
+				}
 			}
 		}
-		System.out.println("Invalid Cineplex Name!");
-		return null;
+			System.out.println("Cineplex not found");
+			return null;
 	}
 
 	private Cinema getCinema(Cineplex cineplex) {
