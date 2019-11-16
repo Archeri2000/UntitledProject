@@ -9,7 +9,7 @@ import main.com.repositories.CineplexRepository;
 public class CineplexManagementService {
     private CineplexRepository _repo = CineplexRepository.getInstance();
     public Cineplex AddCineplex(String name){
-        return _repo.createCineplex(name);
+        return _repo.CreateCineplex(name);
     }
     public boolean RemoveCineplex(String name){
         return _repo.removeCineplex(name);

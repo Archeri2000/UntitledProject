@@ -147,6 +147,7 @@ public class AdminView
 			System.out.println();
 			System.out.print("Enter your choice...  ");
 			choice=sc.nextInt();
+			sc.nextLine();
 			if(choice==1)
 			{
 				System.out.print("Enter movie title...");
@@ -429,7 +430,7 @@ public class AdminView
 	}
 
 	private Cineplex getCineplex() {
-		List<Cineplex> cineplexList = cineplex_query.GetCineplexes();
+		List<Cineplex> cineplexList = cineplex_query.getCineplexes();
 		System.out.println("Cineplexes found:");
 		if (!cineplexList.isEmpty()) {
 			for (Cineplex value : cineplexList) {

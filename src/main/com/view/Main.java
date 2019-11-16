@@ -1,6 +1,5 @@
 package main.com.view;
 
-import main.com.entities.Customer;
 import main.com.repositories.CineplexRepository;
 import main.com.repositories.CustomerRepository;
 import main.com.repositories.MovieRepository;
