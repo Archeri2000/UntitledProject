@@ -14,7 +14,7 @@ public class HistoryQueryService {
         try {
 
             Customer customer = _repo.getCustomer(phone);
-            return customer.getBooking();
+            return customer.getBookings();
         } catch (NullPointerException e) {
             System.out.println("");
             return null;
