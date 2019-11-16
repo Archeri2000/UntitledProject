@@ -441,8 +441,8 @@ public class AdminView {
 
 	private Cineplex getCineplex() {
 		List<Cineplex> cineplexList = cineplex_query.getCineplexes();
-		System.out.println("Cineplexes found:");
 		if (!cineplexList.isEmpty()) {
+			System.out.println("Cineplexes found:");
 			for (Cineplex value : cineplexList) {
 				System.out.println(value.getCineplexName());
 			}
@@ -454,24 +454,26 @@ public class AdminView {
 				}
 			}
 		}
-			System.out.println("Cineplex not found");
-			return null;
+		System.out.println("Cineplex not found");
+		return null;
 	}
 
 	private Cinema getCinema(Cineplex cineplex) {
 		List<Cinema> Cinemas = cineplex_query.GetCinemas(cineplex);
-		System.out.println("Cinemas:");
-		for (Cinema value : Cinemas) {
-			System.out.println(value.getName());
-		}
-		System.out.print(" Enter exact name: ");
-		String cineplex_name = sc.nextLine();
-		for(Cinema value: Cinemas){
-			if(cineplex_name.equalsIgnoreCase(value.getName())){
-				return value;
+		if (!Cinemas.isEmpty()) {
+			System.out.println("Cinemas:");
+			for (Cinema value : Cinemas) {
+				System.out.println(value.getName());
+			}
+			System.out.print(" Enter exact name: ");
+			String cineplex_name = sc.nextLine();
+			for (Cinema value : Cinemas) {
+				if (cineplex_name.equalsIgnoreCase(value.getName())) {
+					return value;
+				}
 			}
 		}
-		System.out.println("Invalid Cinema Name!");
+		System.out.println("Cinema Not Found!");
 		return null;
 	}
 
@@ -618,13 +620,15 @@ public class AdminView {
 			}
 			else if(choice==2)
 			{
-				System.out.print("Enter Cineplex name: ");
-				String cineplex = sc.nextLine();
-				if(cineplex_manager.RemoveCineplex(cineplex))
-					System.out.println("Cineplex removed successfully ");
-				else
-					System.out.println("Cinplex not found");
-				System.out.println();
+				Cineplex cineplex = getCineplex();
+				if (cineplex !=null) {
+					if (cineplex_manager.RemoveCineplex(cineplex.getCineplexName()))
+						System.out.println("Cineplex removed successfully ");
+					else
+						System.out.println("Cinplex not found");
+					System.out.println();
+				}else
+					System.out.println("No cineplex found");
 			}
 			else if(choice==3)
 			{
@@ -636,7 +640,10 @@ public class AdminView {
 				String cinema=sc.nextLine();
 				CinemaType type = getCinemaType();
 				//TODO: Add Seating
-				cineplex_manager.AddCinema(cineplex, cinema, type, null);
+				if (cineplex_manager.AddCinema(cineplex, cinema, type, null) != null)
+					System.out.println("Cinema added successfully");
+				else
+					System.out.println("Cinema add failed");
 			}
 			else if(choice==4)
 			{
@@ -648,7 +655,10 @@ public class AdminView {
 				if(cinema == null){
 					continue;
 				}
-				cineplex_manager.RemoveCinema(cineplex, cinema.getName());
+				if (cineplex_manager.RemoveCinema(cineplex, cinema.getName()))
+					System.out.println("Cinema removed successfully");
+				else
+					System.out.println("Cinema remove failed");
 			}else if(choice == -1){
 				System.out.println("Thank you for using this service");
 				return;

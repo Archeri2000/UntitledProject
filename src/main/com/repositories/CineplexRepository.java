@@ -26,6 +26,7 @@ public class CineplexRepository implements ISerialisable {
         if(!cineplexHashMap.containsKey(name)){
             Cineplex c = new Cineplex(name);
             cineplexHashMap.put(name, c);
+            return c;
         }
         return null;
     }
