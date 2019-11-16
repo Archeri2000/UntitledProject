@@ -32,7 +32,6 @@ public class BookingView {
             String email = sc.nextLine();
             customer = _serv.createCustomer(name, email, userMobile);
         }
-
         return customer;
     }
 

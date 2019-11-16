@@ -26,53 +26,54 @@ public class SearchView {
         System.out.println(" 5. Get showtimes");
         System.out.println(" 6. 'Quit");
         System.out.println(" ");
-
     }
-
     public Movie movieSearch() {
-        System.out.println("Enter movie name ");
+        System.out.println("Enter movie name: ");
         String movie = sc.nextLine();
         List<Movie> movieList = MQS.getMovie(movie);
-
-        System.out.println("Movies: ");
-        for (Movie value : movieList) {
-            System.out.println(value.movie_title);
-        }
-        System.out.print(" Enter exact name ");
-        movie = sc.nextLine();
-        for (Movie value : movieList) {
-            if (movie.equals(value.movie_title))
-                return value;
+        if(!movieList.isEmpty()) {
+            System.out.println("Movies: ");
+            for (Movie value : movieList) {
+                System.out.println(value.movie_title);
+            }
+            System.out.print(" Enter exact name ");
+            movie = sc.nextLine();
+            for (Movie value : movieList) {
+                if (movie.equals(value.movie_title))
+                    return value;
+            }
         }
         System.out.println(" Movie not found!");
         return null;
     }
-
     public List<Movie> ratingSearch() {
         System.out.println(" Enter The number of Top Rated Movie ");
         int number = sc.nextInt();
+        sc.nextLine();
         return MQS.getTopRatedMovie(number);
     }
-
     public List<Movie> ticketSaleSearch() {
         System.out.println(" Enter the number of Popular Movie");
         int number = sc.nextInt();
         return MQS.getPopularMovies(number);
     }
-
     public void writeReview(Movie movie) {
         System.out.println(" Enter review ");
         String review = sc.nextLine();
-        System.out.println(" Enter rating (1-5) ");
-        int rating = sc.nextInt();
-        sc.nextLine();
+        double rating = 0;
+        do {
+            System.out.println(" Enter rating (1-5) ");
+            rating = sc.nextDouble();
+            sc.nextLine();
+            if (rating < 1 || rating > 5)
+                System.out.println("Please try again!");
+
+        }while (rating < 1 || rating > 5);
         MQS.addReviews(movie, review, rating);
     }
-
     public List<MovieShowing> viewShowtimes(Movie movie) {
         return MQS.getShowtimeTimeslots(movie);
     }
-
     public void viewMovieDetails(Movie movie) {
         try {
             System.out.println("Title: " + movie.movie_title);
@@ -82,11 +83,10 @@ public class SearchView {
             System.out.println("Director: " + movie.movie_director);
             System.out.println("Synopsis: " + movie.movie_synopsis);
             System.out.println("Cast: " + movie.cast);
-
+            System.out.println("Reviews: ");
             for (Review value : movie.reviewStore.reviews) {
-                System.out.println(value.first + ", ");
+                System.out.println(value.first + ", Rating; " + value.second);
             }
-
         } catch (NullPointerException e) {
             System.out.println("");
         }
