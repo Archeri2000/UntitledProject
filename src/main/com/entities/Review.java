@@ -8,7 +8,6 @@ import java.util.InvalidPropertiesFormatException;
 
 import static main.com.utils.SerialisationUtils.*;
 
-
 public class Review implements ISerialisable{
     public String first;
     public Double second;

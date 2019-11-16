@@ -22,9 +22,11 @@ public class CineplexRepository implements ISerialisable {
         return new ArrayList<>(cineplexHashMap.values());
     }
 
-    public Cineplex CreateCineplex(String name){
+    public Cineplex createCineplex(String name){
         if(!cineplexHashMap.containsKey(name)){
             Cineplex c = new Cineplex(name);
+            cineplexHashMap.put(name, c);
+            return c;
         }
         return null;
     }

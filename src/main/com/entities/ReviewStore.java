@@ -8,9 +8,8 @@ import java.util.*;
 
 public class ReviewStore implements ISerialisable {
 	public List<Review> reviews = new ArrayList<>();
-	public ReviewStore()
-	{
-	}
+	public ReviewStore() {}
+
 	public boolean addReview(String new_review,double rating)
 	{
 		if(rating < 10 && rating > 0) {
@@ -18,6 +17,15 @@ public class ReviewStore implements ISerialisable {
 			return true;
 		}
 		return false;
+	}
+
+	public boolean removeReview(int index){
+		try {
+			reviews.remove(index-1);
+			return true;
+		}catch (ArrayIndexOutOfBoundsException e){
+			return  false;
+		}
 	}
 
 	public Double calculateOverallRating(){

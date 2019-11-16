@@ -16,11 +16,12 @@ public class Main {
     public static void main(String[] args) {
         deserialiseManagers();
         int user = 0;
-        do {
+        boolean decision = true;
+        while (decision){
             System.out.println("Enter an option:\n" +
                     "1. Customer interface\n" +
                     "2. Admin interface\n" +
-                    "3. Exit Program");
+                    "-1. Exit Program");
             Scanner sc = new Scanner(System.in);
             user = sc.nextInt();
             switch (user) {
@@ -32,12 +33,13 @@ public class Main {
                     AdminView adminView = new AdminView();
                     adminView.optionsMenu();
                     break;
-                case 3:
+                case -1:
+                    decision = false;
                     break;
                 default:
                     System.out.println("Invalid Input! Try again");
             }
-        }while (user != 3);
+        }
         serialiseManagers();
         System.out.println("Thank you for using the system!");
     }
