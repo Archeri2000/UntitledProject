@@ -4,14 +4,14 @@ import main.com.serialisation.ISerialisable;
 
 import java.util.Scanner;
 
-public int[][] seatMap = { {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0} };
+public int[][] seatMap = { {-99, -99, 0, 0, 0, -99, 0, 0, 0, 0},
+                           {-99, -99, 0, 0, 0, -99, 0, 0, 0, 0},
+                           {-99, -99, 0, 0, 0, -99, 0, 0, 0, 0},
+                           {0, 0, 0, 0, 0, -99, 0, 0, 0, 0},
+                           {0, 0, 0, 0, 0, -99, 0, 0, 0, 0},
+                           {0, 0, 0, 0, 0, -99, 0, 0, 0, 0},
+                           {0, 0, 0, 0, 0, -99, 0, 0, 0, 0},
+                           {0, 0, 0, 0, 0, -99, 0, 0, 0, 0} };
 
 public class Seating implements ISerialisable {
 
@@ -36,7 +36,7 @@ public boolean isSeatEmpty(String seat)
     System.out.print("Column: ");
     userCol = userIn.nextInt();
 
-    if ( userRow < 1 || userRow > 8 || userCol < 1 || userCol > 10 || seatMap[userRow-1][userCol-1]==0)
+    if ( userRow < 1 || userRow > 8 || userCol < 1 || userCol > 10 || seatMap[userRow-1][userCol-1]==-99)
     {//bad input
         System.out.println("Invalid input, try again.");
         System.out.println("\nPlease enter seat coordinates.");
@@ -46,40 +46,65 @@ public boolean isSeatEmpty(String seat)
         userCol = userIn.nextInt();
         return false;
     }
+    else if (seatMap[userRow-1][userCol-1]==1){
+        return false;
+    }
     else {
         System.out.println("\n\nThat seat is empty");
         return true;
     }
-
-
 }
 
-
-
-public boolean seatSeatsOccupied(String[] seats) {
+public boolean setSeatOccupied(String[] seats) {
     Scanner input = new Scanner(System.in);
-    boolean chooseSeats = true;
+    int inputchoice;
     String stopInput;
     int methodChoice;
+    int ticketquant = 0;
+    int seatcol, seatrow, i;
 
+    System.out.println("Would you like to pick your seats or let us pick it for you?");
+    System.out.println("1: We pick\n");
+    System.out.println("2: You pick\n");
+    inputchoice = input.nextInt();
+    System.out.println("How many tickets would you like to book?")
+    ticketquant = input.nextInt();
 
-    while (chooseSeats) {
-        System.out.println("Please select your seats");
-        System.out.print("Enter: ");
-        methodChoice = input.nextInt();
-        System.out.println();
-        printSeatMap(seatMap);
-        seatByCoord(seatMap);
+    switch (inputchoice) {
 
-        System.out.print("Enter Q to quit, any other input to purchase a new seat: ");
-        stopInput = input.next();
-        System.out.println();
+        default:
+            throw new IllegalStateException("Unexpected value: " + (inputchoice = 1));
 
-        if (stopInput.matches("Q")) {
-            chooseSeats = false;
-        }
+        case 1:
+            for (seatrow = 7; seatcol >= 0; i--) {
+                for (seatcol = 9; seatcol >= 0; i--) {
+                    if (seatmap[seatcol][seatrow] != -99 && seatmap[seatcol][seatrow] != 1 && i != 0) {
+                        seatMap[seatcol][seatrow]=1;
+                        i--;
+                    }
+                        if (i == 0) {
+                            break;
+                        }
+                }
+                if (i==0) {
+                    break;
+                }
+            }
+
+        case 2:
+            while (ticketquant > 0) {
+                System.out.println("Please select your seats");
+                System.out.print("Enter: ");
+                methodChoice = input.nextInt();
+                System.out.println();
+                getDisplayString(seatMap);
+                seatByCoord(seatMap);
+                ticketquant = ticketquant - 1;
+            }
     }
+
 }
+
 
 public static void getDisplayString(int[][] seatMap)
 {//generic print method
@@ -133,7 +158,6 @@ public static void seatByCoord(int[][] seatMap)
     System.out.println("\n\nThank you for your choice.");
     System.out.print("Your account has been charged $");
     System.out.print(seatMap[userRow-1][userCol-1]);
-    System.out.println(" and an additional $150 in service charges.");
     seatMap[userRow-1][userCol-1]=1;
 
 }//end of seat by coord
