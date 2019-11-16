@@ -2,6 +2,7 @@ package main.com.repositories;
 
 import main.com.entities.*;
 import main.com.utils.ISerialisable;
+import static main.com.utils.SerialisationUtils.*;
 
 import java.util.*;
 public class PriceRepository implements ISerialisable {
@@ -60,7 +61,7 @@ public class PriceRepository implements ISerialisable {
 	//TODO
 	@Override
 	public String toSerialisedString() {
-		return "asdf";
+		return serialise("asdf");
 	}
 
 	@Override

@@ -32,6 +32,8 @@ public class Main {
                     AdminView adminView = new AdminView();
                     adminView.optionsMenu();
                     break;
+                case 3:
+                    break;
                 default:
                     System.out.println("Invalid Input! Try again");
             }
@@ -46,11 +48,11 @@ public class Main {
             String movies = new Scanner(new File("movies.txt")).useDelimiter("\\Z").next();
             SerialisationUtils.deserialiseObject(MovieRepository.class, SerialisationUtils.deserialise(movies).get("movie_repo"));
             String prices = new Scanner(new File("prices.txt")).useDelimiter("\\Z").next();
-            SerialisationUtils.deserialiseObject(PriceRepository.class, SerialisationUtils.deserialise(movies).get("price_repo"));
+            SerialisationUtils.deserialiseObject(PriceRepository.class, SerialisationUtils.deserialise(prices).get("price_repo"));
             String cineplexes = new Scanner(new File("cineplexes.txt")).useDelimiter("\\Z").next();
-            SerialisationUtils.deserialiseObject(CineplexRepository.class, SerialisationUtils.deserialise(movies).get("cineplex_repo"));
+            SerialisationUtils.deserialiseObject(CineplexRepository.class, SerialisationUtils.deserialise(cineplexes).get("cineplex_repo"));
             String customers = new Scanner(new File("customers.txt")).useDelimiter("\\Z").next();
-            SerialisationUtils.deserialiseObject(CustomerRepository.class, SerialisationUtils.deserialise(movies).get("customer_repo"));
+            SerialisationUtils.deserialiseObject(CustomerRepository.class, SerialisationUtils.deserialise(customers).get("customer_repo"));
 
         }catch(FileNotFoundException e){
             System.out.println("No existing files found!");
