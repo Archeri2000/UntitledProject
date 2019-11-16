@@ -56,6 +56,7 @@ public class SerialisationUtils {
      * @throws InvalidPropertiesFormatException
      */
     public static HashMap<String, String> deserialise(String s) throws InvalidPropertiesFormatException {
+        System.out.println(s);
         if(s.equals(NULLSTR)) return null;
         HashMap<String, String> pairs = new HashMap<>();
         int sep = -1;
@@ -77,14 +78,22 @@ public class SerialisationUtils {
                     if(sep == -1){
                         throw new InvalidPropertiesFormatException("Invalid String2!");
                     }
+                    System.out.println(s.substring(sep+1, i));
                     pairs.put(s.substring(0, sep), s.substring(sep+1, i));
-                    if(i != s.length()-1) s = s.substring(i+1);
+                    if(i != s.length()-1){
+                        s = s.substring(i+1);
+                    }
                     sep = -1;
                     continue outer;
                 }
             }
-            if(sep != -1 && nesting == 0) pairs.put(s.substring(0, sep), s.substring(sep+1));
-            else throw new InvalidPropertiesFormatException("Invalid String3!");
+            if(sep != -1 && nesting == 0){
+                System.out.println(s.substring(sep+1));
+                pairs.put(s.substring(0, sep), s.substring(sep+1));
+            }
+            else{
+                throw new InvalidPropertiesFormatException("Invalid String3!");
+            }
             break;
         }
         return pairs;
@@ -138,11 +147,37 @@ public class SerialisationUtils {
                                         .collect(Collectors.joining(Character.toString(LIST_SEPARATOR))) + END_OBJECT);
     }
 
-    public static <T extends ISerialisable> List<T> deserialiseList(Class<T> tClass, String s){
+    public static <T extends ISerialisable> List<T> deserialiseList(Class<T> tClass, String s) throws InvalidPropertiesFormatException {
         if(s.length() == 0) return null;
         if(s.length() == 2) return new ArrayList<>();
         s = s.substring(1, s.length()-1);
-        List<String> strList = Arrays.asList(s.split(Character.toString(LIST_SEPARATOR)));
+        List<String> strList = new ArrayList<>();
+        int nesting = 0;
+        char curr;
+        outer: while(s.length() > 0) {
+            for (int i = 0; i < s.length(); i++) {
+                curr = s.charAt(i);
+                if (curr == LIST_SEPARATOR && nesting == 0){
+                    strList.add(s.substring(0, i));
+                    s = s.substring(i+1);
+                    continue outer;
+                }else if (curr == START_OBJECT) {
+                    nesting += 1;
+                } else if (curr == END_OBJECT) {
+                    nesting -= 1;
+                    if (nesting < 0) {
+                        throw new InvalidPropertiesFormatException("Invalid String1!");
+                    }
+                }
+            }
+            if(nesting == 0){
+                strList.add(s);
+            }
+            else{
+                throw new InvalidPropertiesFormatException("Invalid String3!");
+            }
+            break;
+        }
         return strList.stream().map(x -> {
             if(x.equals(NULLSTR)) return null;
             try {
