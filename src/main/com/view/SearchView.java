@@ -28,7 +28,7 @@ public class SearchView {
         System.out.println(" ");
     }
     public Movie movieSearch() {
-        System.out.println("Enter movie name: ");
+        System.out.print("Enter movie name: ");
         String movie = sc.nextLine();
         List<Movie> movieList = MQS.getMovie(movie);
         if(!movieList.isEmpty()) {
@@ -36,7 +36,7 @@ public class SearchView {
             for (Movie value : movieList) {
                 System.out.println(value.movie_title);
             }
-            System.out.print(" Enter exact name ");
+            System.out.print(" Enter exact name: ");
             movie = sc.nextLine();
             for (Movie value : movieList) {
                 if (movie.equals(value.movie_title))
@@ -44,25 +44,26 @@ public class SearchView {
             }
         }
         System.out.println(" Movie not found!");
+        System.out.println();
         return null;
     }
     public List<Movie> ratingSearch() {
-        System.out.println(" Enter The number of Top Rated Movie ");
+        System.out.print(" Enter The number of Top Rated Movie: ");
         int number = sc.nextInt();
         sc.nextLine();
         return MQS.getTopRatedMovie(number);
     }
     public List<Movie> ticketSaleSearch() {
-        System.out.println(" Enter the number of Popular Movie");
+        System.out.print(" Enter the number of Popular Movie: ");
         int number = sc.nextInt();
         return MQS.getPopularMovies(number);
     }
     public void writeReview(Movie movie) {
-        System.out.println(" Enter review ");
+        System.out.print(" Enter review: ");
         String review = sc.nextLine();
         double rating = 0;
         do {
-            System.out.println(" Enter rating (1-5) ");
+            System.out.print(" Enter rating (1-5): ");
             rating = sc.nextDouble();
             sc.nextLine();
             if (rating < 1 || rating > 5)
@@ -84,9 +85,12 @@ public class SearchView {
             System.out.println("Synopsis: " + movie.movie_synopsis);
             System.out.println("Cast: " + movie.cast);
             System.out.println("Reviews: ");
-            for (Review value : movie.reviewStore.reviews) {
-                System.out.println(value.first + ", Rating; " + value.second);
-            }
+            if(movie.reviewStore!=null) {
+                for (Review value : movie.reviewStore.reviews) {
+                    System.out.println(value.first + ", Rating: " + value.second);
+                }
+            }else
+                System.out.println("NaN");
         } catch (NullPointerException e) {
             System.out.println("");
         }

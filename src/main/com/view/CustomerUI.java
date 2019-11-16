@@ -3,11 +3,6 @@ package main.com.view;
 import main.com.entities.Booking;
 import main.com.entities.Movie;
 
-import main.com.entities.RatingEnum;
-import main.com.entities.StatusEnum;
-import main.com.repositories.MovieRepository;
-
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -26,7 +21,7 @@ public class CustomerUI {
             System.out.println("1. Search Movie");
             System.out.println("2. Book movie");
             System.out.println("3. Get past booking");
-            System.out.println("4. Quit");
+            System.out.println("-1. Quit");
 
             System.out.print(" Enter Choice: ");
             choice = sc.nextInt();
@@ -88,14 +83,15 @@ public class CustomerUI {
                         }
                     } catch (NullPointerException e) {
                         System.out.println("User not found");
+                        System.out.println();
                     }
                     break;
-                case 4:
+                case -1:
                     break;
                 default:
                     System.out.println("Invalid Input");
                     break;
             }
-        } while (choice != 4);
+        } while (choice != 4 && choice != -1);
     }
 }

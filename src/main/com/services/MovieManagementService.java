@@ -62,4 +62,8 @@ public class MovieManagementService {
         movie.cast.remove(cast);
         return true;
     }
+    public boolean removeReview(Movie movie, int index){
+        if (movie.removeReview(index)) return true;
+        return false;
+    }
 }

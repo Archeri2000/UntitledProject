@@ -53,6 +53,10 @@ public class Movie implements ISerialisable {
 		reviewStore.addReview(review,rating);
 	}
 
+	public boolean removeReview(int index){
+		if (reviewStore.removeReview(index)) return true;
+		return false;
+	}
 	public double calculateOverallRating()
 	{
 		return reviewStore.calculateOverallRating();

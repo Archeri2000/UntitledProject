@@ -6,33 +6,31 @@ import java.util.*;
 import main.com.entities.*;
 import main.com.services.*;
 
-public class AdminView
-{
-	
-	private static boolean login_status=false;
-	
+import javax.swing.*;
+
+public class AdminView {
+	private static boolean login_status = false;
+
 	private final Login LoginModule = new Login();
-	
-	private final MovieManagementService movie_manager=new MovieManagementService();
-	private final ShowingManagementService show_manager=new ShowingManagementService();
-	private final PriceManagementService price_manager=new PriceManagementService();
+
+	private final MovieManagementService movie_manager = new MovieManagementService();
+	private final ShowingManagementService show_manager = new ShowingManagementService();
+	private final PriceManagementService price_manager = new PriceManagementService();
 	private final CineplexManagementService cineplex_manager = new CineplexManagementService();
 	private final CineplexQueryService cineplex_query = new CineplexQueryService();
-	
-	
-	
-	private final Scanner sc=new Scanner(System.in);
-	public void optionsMenu()
-	{
-		
+
+	private final Scanner sc = new Scanner(System.in);
+
+	public void optionsMenu() {
 		System.out.println("Welcome to the Admin panel");
-		while(!login_status) {
+		while (!login_status) {
 			System.out.println("Enter 0 to return");
 			System.out.println("Enter 1 to Login");
 			int option = sc.nextInt();
-			if(option == 0){
-				return;
-			}else if(option == 1){
+			sc.nextLine();
+			if (option == 0) {
+				break;
+			} else if (option == 1) {
 				System.out.print("Enter user id... ");
 				String user_id = sc.next();
 				System.out.print("Enter password...");
@@ -42,15 +40,14 @@ public class AdminView
 					login_status = true;
 				} else
 					System.out.println("Incorrect login id or password");
-			}else{
+			} else {
 				System.out.println("Invalid Option!");
 			}
 
 		}
 
 		int choice;
-		while(login_status)
-		{
+		while (login_status) {
 			System.out.println();
 			System.out.println("Enter 0 to view all staff");
 			System.out.println("Enter 1 to change password");
@@ -62,71 +59,61 @@ public class AdminView
 			System.out.println("Enter -1 to log out");
 			System.out.println();
 			System.out.print("Enter your choice......  ");
-			choice=sc.nextInt();
+			choice = sc.nextInt();
 			sc.nextLine();
-			if(choice == 0)
-			{
+			if (choice == 0) {
 				System.out.println("Staff Members:");
-				for(String staff: LoginModule.getStaff()){
+				for (String staff : LoginModule.getStaff()) {
 					System.out.println(staff);
 				}
-			}
-			else if(choice == 1)
-			{
+			} else if (choice == 1) {
 				System.out.print("Enter user id... ");
-				String user_id=sc.next();
+				String user_id = sc.next();
 				System.out.print("Enter new password...");
-				String password=sc.next();
-				while(!LoginModule.checkPassword(password))
-				{
+				String password = sc.next();
+				while (!LoginModule.checkPassword(password)) {
 					System.out.println("Password not strong enough please enter again");
-					password=sc.next();
+					password = sc.next();
 				}
 				System.out.print("Confirm password...");
-				String new_password=sc.next();
-				if(LoginModule.changePassword(user_id,password,new_password))
+				String new_password = sc.next();
+				if (LoginModule.changePassword(user_id, password, new_password))
 					System.out.println("Password changed successfully.");
-				else{
+				else {
 					System.out.println("Passwords did not match!");
 				}
-			}
-			else if(choice == 2)
-			{
+			} else if (choice == 2) {
 				System.out.print("Enter user id... ");
-				String user_id=sc.next();
+				String user_id = sc.next();
 				System.out.print("Enter password...");
-				String password=sc.next();
-				while(!LoginModule.checkPassword(password))
-				{
+				String password = sc.next();
+				while (!LoginModule.checkPassword(password)) {
 					System.out.println("Password not strong enough please enter again");
-					password=sc.next();
+					password = sc.next();
 				}
-				if(!LoginModule.addStaff(user_id,password))
+				if (!LoginModule.addStaff(user_id, password))
 					System.out.println("User already exists");
-				else{
+				else {
 					System.out.println("Staff added successfully");
 				}
-			}
-			else if(choice==3) {
+			} else if (choice == 3) {
 				manageMovies();
-			}else if(choice==4) {
+			} else if (choice == 4) {
 				manageShowTimes();
-			}else if(choice==5) {
+			} else if (choice == 5) {
 				managePrice();
-			}else if(choice==6) {
+			} else if (choice == 6) {
 				manageCineplexes();
-			}else if(choice==-1){
-				login_status=false;
+			} else if (choice == -1) {
+				login_status = false;
 				System.out.println("Logged out successfully");
-			}
-			else
-			{
+			} else {
 				System.out.println("Invalid choice");
 			}
+			System.out.println("Thank you for your visit");
 		}
-		System.out.println("Thank you for your visit");
-		
 	}
+
 	private void manageMovies()
 	{
 		System.out.println("Welcome to Movie Management Service");
@@ -143,6 +130,7 @@ public class AdminView
 			System.out.println("Enter 7 to add movie cast ");
 			System.out.println("Enter 8 to remove movie cast");
 			System.out.println("Enter 9 to get details of a movie");
+			System.out.println(("Enter 10 to remove reviews"));
 			System.out.println("Enter -1 to exit");
 			System.out.println();
 			System.out.print("Enter your choice...  ");
@@ -150,19 +138,19 @@ public class AdminView
 			sc.nextLine();
 			if(choice==1)
 			{
-				System.out.print("Enter movie title...");
+				System.out.print("Enter movie title... ");
 				String title=sc.nextLine();
-				System.out.println();
 				int duration = -1;
 				while(duration <= 0) {
-					System.out.print("Enter movie duration...");
+					System.out.print("Enter movie duration... ");
 					duration =sc.nextInt();
+					sc.nextLine();
 				}
 				RatingEnum rating = getRating();
 				StatusEnum status = getStatus();
-				System.out.print("Enter movie synopsis...");
+				System.out.print("Enter movie synopsis... ");
 				String synopsis=sc.nextLine();
-				System.out.print("Enter movie director...");
+				System.out.print("Enter movie director... ");
 				String director=sc.nextLine();
 				System.out.println("Enter movie cast and enter -99 to stop");
 				String cast=sc.nextLine();
@@ -209,7 +197,7 @@ public class AdminView
 				if (movie != null)
 				{
 					System.out.println("Current Synopsis: " + movie.movie_synopsis);
-					System.out.print("Enter movie synopsis");
+					System.out.print("Enter movie synopsis: ");
 					String synopsis=sc.nextLine();
 					movie_manager.setMovieSynopsis(movie,synopsis);
 				}
@@ -230,7 +218,7 @@ public class AdminView
 				Movie movie = getMovie();
 				if (movie != null)
 				{
-					System.out.println("Current cast members:");
+					System.out.println("Current cast members: ");
 					for(String name: movie.cast){
 						System.out.println(name);
 					}
@@ -250,7 +238,10 @@ public class AdminView
 					}
 					System.out.print("Enter movie cast member name to remove: ");
 					String movie_cast=sc.nextLine();
-					movie_manager.removeMovieCast(movie,movie_cast);//movie object
+					if(movie_manager.removeMovieCast(movie,movie_cast))
+						System.out.println("Cast removed");//movie object
+					else
+						System.out.println("Cast not found");
 				}
 			}
 			else if(choice==9)
@@ -259,15 +250,32 @@ public class AdminView
 				if(movie != null){
 					System.out.println("Title: " + movie.movie_title);
 					System.out.println("Duration: " + movie.durationMin + " min");
+					System.out.println("Synopsis: " + movie.movie_synopsis);
 					System.out.println("Status: " + movie.movieStatus.name());
 					System.out.println("Rating: " + movie.rating.name());
 					System.out.println("Director: " + movie.movie_director);
-					System.out.println("Cast Members:");
+					System.out.println("Cast Members: ");
 					for(String name: movie.cast) {
 						System.out.println(name);
 					}
 					System.out.println("Review Score: " + movie.calculateOverallRating());
 				}
+			}
+			else if (choice == 10){
+				Movie movie = getMovie();
+				if(movie.reviewStore!=null) {
+					for (int i = 0; i < movie.reviewStore.reviews.size(); i++) {
+						System.out.println(i+1 + ": " + movie.reviewStore.reviews.get(i).first + ", Rating: " + movie.reviewStore.reviews.get(i).second);
+					}
+				}else
+					System.out.println("NaN");
+
+				System.out.print("Which reviews to remove? ");
+				Scanner sc = new Scanner(System.in);
+				int index = sc.nextInt();
+				sc.nextLine();
+				if (movie_manager.removeReview(movie, index))
+					System.out.println("Review removed");
 			}
 			else if(choice == -1){
 				return;
@@ -280,10 +288,10 @@ public class AdminView
 	}
 
 	private Movie getMovie(){
-		System.out.print("Enter movie title...");
+		System.out.print("Enter movie title... ");
 		String movie_title=sc.nextLine();
 		List<Movie> movieList = movie_manager.getMovie(movie_title);
-		System.out.println("Movies found:");
+		System.out.println("Movies found: ");
 		for (Movie value : movieList) {
 			System.out.println(value.movie_title);
 		}
@@ -300,8 +308,9 @@ public class AdminView
 
 	private StatusEnum getStatus() {
 		while (true) {
-			System.out.print("Enter movie status... ComingSoon, NotShowing, Showing");
+			System.out.print("Enter movie status... ComingSoon, NotShowing, Showing ");
 			String s2 = sc.next();
+			sc.nextLine();
 			for (StatusEnum e : StatusEnum.values()) {
 				if (s2.equalsIgnoreCase(e.name())) {
 					return e;
@@ -313,8 +322,9 @@ public class AdminView
 
 	private RatingEnum getRating() {
 		while(true) {
-			System.out.print("Enter movie rating certification A for adult U for Universal UA for universal adult...");
+			System.out.print("Enter movie rating PG, R18, NC16, M... ");
 			String r1 = sc.next();
+			sc.nextLine();
 			for (RatingEnum e : RatingEnum.values()) {
 				if (r1.equalsIgnoreCase(e.name())) {
 					return e;
@@ -595,23 +605,23 @@ public class AdminView
 			System.out.println();
 			System.out.print("Enter your choice... ");
 			choice=sc.nextInt();
-
+			sc.nextLine();
 			if(choice==1)
 			{
-				System.out.println("Enter Cineplex name");
+				System.out.print("Enter Cineplex name: ");
 				String cineplex = sc.nextLine();
-				if(cineplex_manager.AddCineplex(cineplex) != null)
-					System.out.println("Cineplex added successfully");
+				if(cineplex_manager.addCineplex(cineplex) != null)
+					System.out.println("Cineplex added successfully ");
 				else
-					System.out.println("Cinplex already exists");
+					System.out.println("Cinplex already exists ");
 				System.out.println();
 			}
 			else if(choice==2)
 			{
-				System.out.println("Enter Cineplex name");
+				System.out.print("Enter Cineplex name: ");
 				String cineplex = sc.nextLine();
 				if(cineplex_manager.RemoveCineplex(cineplex))
-					System.out.println("Cineplex removed successfully");
+					System.out.println("Cineplex removed successfully ");
 				else
 					System.out.println("Cinplex not found");
 				System.out.println();
@@ -622,7 +632,7 @@ public class AdminView
 				if(cineplex == null){
 					continue;
 				}
-				System.out.println("Enter cinema name");
+				System.out.print("Enter cinema name: ");
 				String cinema=sc.nextLine();
 				CinemaType type = getCinemaType();
 				//TODO: Add Seating
@@ -648,13 +658,5 @@ public class AdminView
 				System.out.println("Invalid Choice");
 			}
 		}
-
-				
-	}
-	
-	public static void main(String[] sd)
-	{
-		AdminView ob=new AdminView();
-		ob.optionsMenu();
 	}
 }
