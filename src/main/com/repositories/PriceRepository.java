@@ -2,6 +2,7 @@ package main.com.repositories;
 
 import main.com.entities.*;
 import main.com.utils.ISerialisable;
+import static main.com.utils.SerialisationUtils.*;
 
 import java.util.*;
 public class PriceRepository implements ISerialisable {
@@ -57,13 +58,14 @@ public class PriceRepository implements ISerialisable {
 		return _repo;
 	}
 	public PriceRepository(){}
+	//TODO
 	@Override
 	public String toSerialisedString() {
-		return null;
+		return serialise("asdf");
 	}
 
 	@Override
 	public ISerialisable fromSerialisedString(String s) throws InvalidPropertiesFormatException {
-		return null;
+		return getInstance();
 	}
 }

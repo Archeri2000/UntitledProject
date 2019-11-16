@@ -96,10 +96,11 @@ public class MovieRepository implements IShowingsListener, ISerialisable {
 
     @Override
     public ISerialisable fromSerialisedString(String s) throws InvalidPropertiesFormatException {
+        _static_manager = this;
         HashMap<String, String> pairs = deserialise(s);
         assert pairs != null;
         List<Movie> movies = deserialiseList(Movie.class, pairs.get("Movies"));
-        Map<String, Integer> sales = deserialiseList(StringIntPair.class, pairs.get("MovieSales")).stream().collect(Collectors.toMap(StringIntPair::First, StringIntPair::Second));
+        Map<String, Integer> sales = deserialiseList(StringIntPair.class, pairs.get("MovieSales")).stream().collect(HashMap::new, (m, v) -> m.put(v.First(), v.Second()), HashMap::putAll);
         for(Movie m:movies){
             int count = 0;
             if(sales.containsKey(m.getUUID())){

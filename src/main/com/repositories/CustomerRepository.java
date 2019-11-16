@@ -1,9 +1,12 @@
 package main.com.repositories;
 
 import main.com.entities.Customer;
-import java.util.HashMap;
+import main.com.utils.ISerialisable;
 
-public class CustomerRepository {
+import java.util.HashMap;
+import java.util.InvalidPropertiesFormatException;
+
+public class CustomerRepository implements ISerialisable {
 
     private HashMap<Integer, Customer> cineplexHashMap = new java.util.HashMap<>();
 
@@ -27,5 +30,16 @@ public class CustomerRepository {
             _static_manager = new CustomerRepository();
         }
         return _static_manager;
+    }
+
+    //TODO
+    @Override
+    public String toSerialisedString() {
+        return "asdf";
+    }
+
+    @Override
+    public ISerialisable fromSerialisedString(String s) throws InvalidPropertiesFormatException {
+        return getInstance();
     }
 }
