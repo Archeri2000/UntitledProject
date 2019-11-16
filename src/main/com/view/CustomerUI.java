@@ -98,11 +98,4 @@ public class CustomerUI {
             }
         } while (choice != 4);
     }
-    public static void main(String[] args) {
-        MovieRepository repo = new MovieRepository();
-        List<String> messages = Arrays.asList("Hello", "World!", "How", "Are", "You");
-        repo.addMovie("joker", 180, RatingEnum.PG, StatusEnum.Showing, "save me plz", "direct1", messages);
-        CustomerUI obj = new CustomerUI();
-        obj.hi();
-    }
 }
