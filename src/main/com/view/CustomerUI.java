@@ -8,9 +8,17 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
-
+/**
+ * This class represents the customer interface that will allow them to implement certain functions such as
+ * search movie, make booking and view past bookings
+ * @author SS1 Group 6
+ * @version 13
+ */
 public class CustomerUI {
 
+	/** 
+     * Create object for the respective view class
+     */
     BookingView bookv = new BookingView();
     SearchView searchv = new SearchView();
     HistoryView histv = new HistoryView();
@@ -18,6 +26,9 @@ public class CustomerUI {
 
     int choice = 0;
 
+	/** 
+     * The menu page of the customer UI before they indicate which function they wish to implement
+     */
     public void hi() {
         do {
             System.out.println("1. Search Movie");
