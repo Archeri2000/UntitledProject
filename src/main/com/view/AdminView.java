@@ -429,10 +429,11 @@ public class AdminView
 					else if (choice == 2) {
 						MovieShowing showing = getShowtime(cinema);
 						if(showing != null){
-							show_manager.removeShowing(cinema, showing);
-							System.out.println("Movie Showing removed");
-						}else
-							System.out.println("Unable to remove Movie Showing");
+							if (show_manager.removeShowing(cinema, showing))
+								System.out.println("Movie Showing removed");
+							else
+								System.out.println("Unable to remove Movie Showing");
+						}
 					}
 					else if (choice == -1) {
 						System.out.println("Thank you for choosing this service");
