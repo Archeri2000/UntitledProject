@@ -67,7 +67,8 @@ public class Seating implements ISerialisable {
                         return false;
                     }else {
                         seats.get(j).assign();
-
+                        SalesCounter count = new SalesCounter();
+                        count.increment(1);
                         return true;
                     }
                 }
