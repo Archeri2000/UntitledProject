@@ -67,6 +67,7 @@ public class Main {
         loadFromFile("prices.txt", "price_repo", PriceRepository.class);
         loadFromFile("cineplexes.txt", "cineplex_repo", CineplexRepository.class);
         loadFromFile("customers.txt", "customer_repo", CustomerRepository.class);
+        loadFromFile("login.txt", "login", Login.class);
     }
 
     public static void serialiseManagers(){
@@ -79,6 +80,8 @@ public class Main {
         saveToFile("cineplexes.txt", cineplexes);
         String customers = SerialisationUtils.serialise(SerialisationUtils.serialiseObject(CustomerRepository.getInstance(), "customer_repo"));
         saveToFile("customers.txt", customers);
+        String admins = SerialisationUtils.serialise(SerialisationUtils.serialiseObject(Login.getInstance(), "login"));
+        saveToFile("login.txt", admins);
     }
 
     private static void saveToFile(String filepath, String contents){

@@ -53,7 +53,7 @@ public class SerialisationUtils {
      * Splits a serialised object string to a hashmap of serialised strings
      * @param s - Input string
      * @return Hashmap of name, serialised string pairs
-     * @throws InvalidPropertiesFormatException
+     * @throws InvalidPropertiesFormatException Invalid Format
      */
     public static HashMap<String, String> deserialise(String s) throws InvalidPropertiesFormatException {
         if(s.equals(NULLSTR)) return null;
@@ -118,11 +118,11 @@ public class SerialisationUtils {
      * @param s - Serialised String
      * @param <T> - Type of the object to retrieve
      * @return Retrieved object of type T
-     * @throws NoSuchMethodException
-     * @throws IllegalAccessException
-     * @throws InvocationTargetException
-     * @throws InstantiationException
-     * @throws InvalidPropertiesFormatException
+     * @throws NoSuchMethodException No Method
+     * @throws IllegalAccessException Reflection Error
+     * @throws InvocationTargetException Wrong Target
+     * @throws InstantiationException Unable to Construct
+     * @throws InvalidPropertiesFormatException Invalid String
      */
     public static <T extends ISerialisable> T deserialiseObject(Class<T> tClass, String s) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, InvalidPropertiesFormatException {
         if(s.length() == 0) return null;

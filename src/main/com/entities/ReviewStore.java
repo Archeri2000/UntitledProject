@@ -17,8 +17,10 @@ public class ReviewStore implements ISerialisable {
 	public ReviewStore() {}
 
     /** To allow for the addition of a review
-     * @return True/False if the review is successfully added
-     */
+      *@param new_review - store the review received from the customer
+      *@param rating - store the rating received
+      * @return True/False if the review is successfully added
+      */
 	public boolean addReview(String new_review,double rating)
 	{
 		if(rating < 10 && rating > 0) {
@@ -30,6 +32,7 @@ public class ReviewStore implements ISerialisable {
 
 	
     /** To allow for the removal of a review
+     *@param index- remove the review using its index
      * @return True/False if the review is successfully removed
      */
 	public boolean removeReview(int index){

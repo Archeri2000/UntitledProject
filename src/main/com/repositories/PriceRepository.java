@@ -48,8 +48,6 @@ public class PriceRepository implements ISerialisable {
 	
 	public boolean setAgeMultipliers(AgeGroup age, double multiplier)
 	{
-		if(AgeMultipliers.containsKey(age))
-			return false;
 		AgeMultipliers.put(age,multiplier);
 		return true;
 	}
@@ -61,8 +59,6 @@ public class PriceRepository implements ISerialisable {
 	 */
 	public boolean setCinemaMultipliers(CinemaType cinema, double multiplier)
 	{
-		if(CinemaTypeMultipliers.containsKey(cinema))
-			return false;
 		CinemaTypeMultipliers.put(cinema,multiplier);
 		return true;
 	}
@@ -74,8 +70,6 @@ public class PriceRepository implements ISerialisable {
 	 */
 	public boolean setMoviePrice(ShowingEnum showing, double price)
 	{
-		if(MoviePrices.containsKey(showing))
-			return false;
 		MoviePrices.put(showing,price);
 		return true;
 	}
@@ -87,8 +81,6 @@ public class PriceRepository implements ISerialisable {
 	 */
 	public boolean setDayMultipliers(DayType day, double multiplier)
 	{
-		if(DayMultiplier.containsKey(day))
-			return false;
 		DayMultiplier.put(day,multiplier);
 		return true;
 	}
