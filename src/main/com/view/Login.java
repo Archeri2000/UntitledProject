@@ -1,10 +1,14 @@
 package main.com.view;
 import main.com.utils.ISerialisable;
+import main.com.utils.StringStringPair;
 
 import java.util.*;
-import java.io.*;
+import java.util.stream.Collectors;
+
+import static main.com.utils.SerialisationUtils.*;
+
 public class Login implements ISerialisable {
-	HashMap<String, String> user = new HashMap<String, String>();
+	HashMap<String, String> user = new HashMap<>();
 	
 	public Login()
 	{
@@ -66,11 +70,6 @@ public class Login implements ISerialisable {
 		return new ArrayList<>(user.keySet());
 	}
 
-	@Override
-	public String toSerialisedString() {
-		return null;
-	}
-
 	private static Login _instance;
 	public static Login getInstance(){
 		if(_instance == null){
@@ -78,9 +77,29 @@ public class Login implements ISerialisable {
 		}
 		return _instance;
 	}
+
+	@Override
+	public String toSerialisedString() {
+		List<StringStringPair> pairs = user.entrySet().stream().map(x -> new StringStringPair(x.getKey(), x.getValue())).collect(Collectors.toList());;
+		return serialise(
+				serialiseList(pairs, "pairs")
+		);
+	}
 	@Override
 	public ISerialisable fromSerialisedString(String s) throws InvalidPropertiesFormatException {
-		return null;
+		_instance = this;
+		HashMap<String, String> pairs = deserialise(s);
+		try{
+			assert pairs != null;
+			List<StringStringPair> entries = deserialiseList(StringStringPair.class, pairs.get("pairs"));
+			user = new HashMap<>();
+			for(StringStringPair entry: entries){
+				user.put(entry.First(), entry.Second());
+			}
+			return getInstance();
+		}catch(Exception e){
+			throw new InvalidPropertiesFormatException("");
+		}
 	}
 }
 
