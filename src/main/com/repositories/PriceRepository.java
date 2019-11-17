@@ -62,6 +62,10 @@ public class PriceRepository implements ISerialisable {
 		return true;
 	}
 
+	public double GetPrice(int age, MovieShowing showing){
+		return GetPrice(age, showing.getCinemaType(), showing.getShowType(), showing.getShowing_time());
+	}
+
 	public double GetPrice(int age, CinemaType cinema, ShowingEnum showing, LocalDateTime day){
 		DayType d;
 		if(Public_Holidays.contains(day.toLocalDate())){

@@ -4,6 +4,7 @@ import main.com.entities.*;
 import main.com.repositories.MovieRepository;
 import main.com.repositories.PriceRepository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
