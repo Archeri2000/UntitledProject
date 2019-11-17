@@ -4,6 +4,7 @@ import main.com.entities.Booking;
 import main.com.entities.Movie;
 import main.com.entities.MovieShowing;
 
+import javax.swing.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -70,8 +71,8 @@ public class CustomerUI {
                                         for (MovieShowing value : showings) {
                                             System.out.println(value.getShowing_time());
                                         }
-                                    }
-                                    System.out.println("No Showing found");
+                                    }else
+                                        System.out.println("No Showing found");
                                 }
                                 break;
                             case -1:
