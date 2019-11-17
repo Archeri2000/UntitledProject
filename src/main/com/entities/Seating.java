@@ -52,12 +52,12 @@ public class Seating implements ISerialisable {
         int k = 0;
         for (int i =0; i< 8; i++){
             for (int j =0; j< 10; j++){
-                if (seats.get(k+j).isBooked()) {
-                    output += "xx\t";
-                }
-                else if (j == 5) {
+                if (j == 5) {
                     output += "\t\t";
-                    output += seats.get(k+j).getID() + "\t";
+                    output += seats.get(k + j).getID() + "\t";
+                }
+                else if (seats.get(k+j).isBooked()) {
+                    output += "xx\t";
                 }else
                     output += seats.get(k+j).getID() + "\t";
             }
