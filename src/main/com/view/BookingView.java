@@ -1,6 +1,7 @@
 package main.com.view;
 
 import main.com.entities.*;
+import main.com.repositories.MovieRepository;
 import main.com.repositories.PriceRepository;
 import main.com.services.BookingService;
 
@@ -100,6 +101,8 @@ public class BookingView {
         String endTID = sdf.format(time);
         String TID = showing.getShownMovieTitle().substring(0,3) + endTID;
         Booking booking = new Booking(customer, tickets, TID, showing.getShownMovieTitle(), cineplex, cineplex);
+        MovieRepository.getInstance().addSales(showing.getShownMovie(), tickets.size());
         customer.addBooking(booking);
+
     }
 }

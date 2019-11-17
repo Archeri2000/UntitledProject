@@ -315,7 +315,7 @@ public class AdminView
 		}
 	}
 
-    /** 
+    /**
      * To get movie
      * @return the movie object that the admin staff wish to find
      */
@@ -338,7 +338,7 @@ public class AdminView
 		return null;
 	}
 
-    /** 
+    /**
      * To get movie status
      * @return the status of the movie that the admin staff wish to find
      */
@@ -356,7 +356,7 @@ public class AdminView
 		}
 	}
 
-    /** 
+    /**
      * To get rating
      * @return the movie rating of the movie that the admin staff wish to find
      */
@@ -373,7 +373,7 @@ public class AdminView
 		}
 	}
 
-    /** 
+    /**
      * To get movie type
      * @return the movie type of the movie that the admin staff wish to find
      */
@@ -390,7 +390,7 @@ public class AdminView
 		}
 	}
 
-    /** 
+    /**
      * To get cinema type
      * @return the cinema type of a cinema
      */
@@ -408,7 +408,7 @@ public class AdminView
 	}
 
 
-    /** 
+    /**
      * To get age group
      * @return the age group
      */
@@ -426,7 +426,7 @@ public class AdminView
 		}
 	}
 
-    /** 
+    /**
      * To get day tyoe
      * @return the day type such as weekend
      */
@@ -443,8 +443,8 @@ public class AdminView
 			System.out.println("Invalid entry!");
 		}
 	}
-	
-    /** 
+
+    /**
      * For admin staff to remove and create movie showing
      */
 	private void manageShowTimes()
