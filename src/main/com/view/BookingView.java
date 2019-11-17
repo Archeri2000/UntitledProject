@@ -26,7 +26,7 @@ public class BookingView {
 	/** 
      * Method that will display seats of a particular movie and showtime
      * @param showtime		showtime of a movie
-     * @param movie			name of a movie
+     * @param movie	 used to store the movie object
      */
     public void displaySeats(MovieShowing showtime, Movie movie) {
 
@@ -41,7 +41,7 @@ public class BookingView {
 	/** 
      * For customer to select seats for a particular movie and showtime
      * @param showtime		showtime of a movie
-     * @param movie			name of a movie
+     * @param movie			used to store the details of a movie
      * @return list of seats that customer wish to select
      */
     public List<Ticket> selectSeats(MovieShowing showtime, Movie movie) {
@@ -94,6 +94,11 @@ public class BookingView {
 
 	/** 
      * Create a booking for customer
+     *@param customer- stores the details of the customer in the customer object
+     *@param tickets- stores the list of tickets
+     *@param showing - object of type MovieShowing
+     *@param cineplex- stores the name of the cineplex
+     *@param cinema - used to store the name of the cinema
      */
     public void checkout(Customer customer,List<Ticket> tickets, MovieShowing showing, String cineplex, String cinema) {
         LocalDateTime time = showing.getShowing_time();
