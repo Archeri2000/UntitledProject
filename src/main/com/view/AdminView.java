@@ -6,8 +6,6 @@ import java.util.*;
 import main.com.entities.*;
 import main.com.services.*;
 
-import javax.swing.*;
-
 public class AdminView
 {
 	
@@ -127,7 +125,7 @@ public class AdminView
 			}
 		}
 		System.out.println("Thank you for your visit");
-		
+		Main.serialiseManagers();
 	}
 	private void manageMovies()
 	{
@@ -679,11 +677,5 @@ public class AdminView
 				System.out.println("Invalid Choice");
 			}
 		}
-	}
-	
-	public static void main(String[] sd)
-	{
-		AdminView ob=new AdminView();
-		ob.optionsMenu();
 	}
 }

@@ -52,7 +52,7 @@ public class Main {
         loadFromFile("customers.txt", "customer_repo", CustomerRepository.class);
     }
 
-    private static void serialiseManagers(){
+    public static void serialiseManagers(){
         System.out.println("Saving changes...");
         String movies = SerialisationUtils.serialise(SerialisationUtils.serialiseObject(MovieRepository.getInstance(), "movie_repo"));
         saveToFile("movies.txt", movies);
