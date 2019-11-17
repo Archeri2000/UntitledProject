@@ -56,12 +56,12 @@ public class Movie implements ISerialisable {
 	public Movie(){}
 
     /** Creates a new movie  with the details
-     * @param movie title		name of the movie
+     * @param movie_title		name of the movie
      * @param duration			duration of the movie
      * @param rating			rating of the movie
-     * @param moviestatus		status of a movie
-     * @param synopsis			synopsis of a movie
-     * @param director			director of a movie
+     * @param movieStatus		status of a movie
+     * @param movie_synopsis			synopsis of a movie
+     * @param movie_director			director of a movie
      * @param cast				cast of a movie
      */
 	public Movie(String movie_title, int duration, RatingEnum rating, StatusEnum movieStatus, String movie_synopsis, String movie_director, List<String> cast)
@@ -77,14 +77,15 @@ public class Movie implements ISerialisable {
 	}
 
     /** Creates a new movie  with the details
-     * @param movie title		name of the movie
+     * @param movie_title		name of the movie
      * @param duration			duration of the movie
      * @param rating			rating of the movie
-     * @param moviestatus		status of the movie
-     * @param synopsis			synopsis of the movie
-     * @param director			director of the movie
+     * @param movieStatus		status of the movie
+     * @param movie_synopsis			synopsis of the movie
+     * @param movie_director			director of the movie
      * @param cast				cast of the movie
-     * @param reviewStore		reviews of the movie
+     * @param reviews		reviews of the movie
+     *?@params uuid - store the uuid
      */
 	public Movie(String movie_title, int duration, RatingEnum rating, StatusEnum movieStatus, String movie_synopsis, String movie_director, List<String> cast, UUID uuid, ReviewStore reviews)
 	{
