@@ -66,7 +66,7 @@ public class CustomerUI {
                                 movie = searchv.movieSearch();
                                 List<MovieShowing> showings =searchv.viewShowtimes(movie);
                                 if(movie!=null) {
-                                    if (showings != null) {
+                                    if (!showings.isEmpty()) {
                                         System.out.println("Showing: ");
                                         for (MovieShowing value : showings) {
                                             System.out.println(value.getShowing_time());
@@ -102,14 +102,16 @@ public class CustomerUI {
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                             LocalDateTime time = LocalDateTime.parse(str, formatter);
                             for (MovieShowing value : showings) {
-                                if (value.getShowing_time().equals(time))
+                                if (value.getShowing_time().equals(time)) {
                                     bookv.displaySeats(value, movie);
+                                }
                                 bookv.selectSeats(value, movie);
                                 bookv.getCustomerDetails();
                                 bookv.checkout();
                                 break;
                             }
-                        } System.out.println(" Showing not found!");
+                        } else
+                            System.out.println(" Showing not found!");
                     }
                     break;
                 case 3:

@@ -66,7 +66,7 @@ public class Cinema implements ISerialisable, IShowingsListener {
 
 	public MovieShowing addMovieShowing(Movie movie, LocalDateTime screening_time, ShowingEnum showtype){
 		if(isTimeslotAvailable(screening_time, movie.durationMin)){
-			    //TODO: Fix
+			//TODO: Fix
 			seating = new Seating();
 			MovieShowing showing = new MovieShowing(movie, screening_time, seating, showtype);
 			movieSchedule.add(showing);

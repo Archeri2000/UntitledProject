@@ -12,7 +12,6 @@ public class HistoryQueryService {
 
     public List<Booking> getHistoryBookings(int phone) {
         try {
-
             Customer customer = _repo.getCustomer(phone);
             return customer.getBookings();
         } catch (NullPointerException e) {

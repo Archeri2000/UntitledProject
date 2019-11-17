@@ -32,22 +32,24 @@ public class BookingView {
             String seat = sc.nextLine();
             System.out.print("How old are you? ");
             int age = sc.nextInt();
+            sc.nextLine();
             _serv.selectSeats(seat, showtime);
         }
 
     }
     public Customer getCustomerDetails() {
         int userMobile;
-        System.out.println(" Enter User mobile number");
+        System.out.print("Enter User mobile number: ");
 
         Scanner sc = new Scanner(System.in);
         userMobile = sc.nextInt();
+        sc.nextLine();
 
         Customer customer = _serv.getCustomerByPhone(userMobile);
         if (customer == null) {
-            System.out.println("Enter name");
+            System.out.print("Enter name: ");
             String name = sc.nextLine();
-            System.out.println(" Enter email ");
+            System.out.print("Enter email: ");
             String email = sc.nextLine();
             customer = _serv.createCustomer(name, email, userMobile);
         }
