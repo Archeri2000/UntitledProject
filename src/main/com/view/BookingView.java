@@ -99,4 +99,3 @@ public class BookingView {
         Booking booking = new Booking(customer, tickets, TID, movie.movie_title, cineplexName,cineplexName);
     }
 }
-© 2019 GitHub, I

@@ -11,17 +11,20 @@ import static main.com.utils.SerialisationUtils.*;
 public class Ticket implements ISerialisable {
     private Seat seat;
     private AgeGroup ageGroup;
+    private double price;
     public Ticket(){}
-    public Ticket(Seat seat, AgeGroup age){
+    public Ticket(Seat seat, AgeGroup age, double price){
         this.seat = seat;
         this.ageGroup = age;
+        this.price = price;
     }
 
     @Override
     public String toSerialisedString() {
         return serialise(
             serialiseString(ageGroup.name(), "age"),
-            serialiseObject(seat, "seat")
+            serialiseObject(seat, "seat"),
+            serialiseDouble(price, "price")
         );
     }
 
@@ -32,7 +35,8 @@ public class Ticket implements ISerialisable {
             assert pairs != null;
             Seat seat = deserialiseObject(Seat.class, pairs.get("seat"));
             AgeGroup age = AgeGroup.valueOf(deserialiseString(pairs.get("age")));
-            return new Ticket(seat, age);
+            double price = deserialiseDouble(pairs.get("price"));
+            return new Ticket(seat, age, price);
         }catch(Exception e){
             throw new InvalidPropertiesFormatException("");
         }
