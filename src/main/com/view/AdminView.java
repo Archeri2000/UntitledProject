@@ -566,7 +566,7 @@ public class AdminView
      * @param cinema		name of this cinema
      * @return the showtimes of the movie showing at this cinema
      */
-	rivate MovieShowing getShowtime(Cinema cinema){
+	private MovieShowing getShowtime(Cinema cinema){
 		List<MovieShowing> Cinemas = cineplex_query.GetShows(cinema);
 		System.out.println("Showings:");
 		LocalDateTime now = LocalDateTime.now();
