@@ -130,5 +130,6 @@ public class CustomerUI {
                     break;
             }
         } while (choice != 4 && choice != -1);
+        Main.serialiseManagers();
     }
 }
