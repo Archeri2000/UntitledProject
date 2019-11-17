@@ -23,7 +23,7 @@ public class Seat implements ISerialisable {
     public Seat(){}
 
     /** Creates a new seat with the given ID and status
-     * @param ID 		ID of the seat
+     * @param id 		ID of the seat
      * @param status 	status of the seat
      */
     public Seat(String id, boolean status){
@@ -32,7 +32,7 @@ public class Seat implements ISerialisable {
     }
     
     /** To set ID of the seat
-     * @param ID 		this seat ID
+     * @param id 		this seat ID
      */
     public void setID(String id) { 
     	this.ID = id;
@@ -45,6 +45,7 @@ public class Seat implements ISerialisable {
     	return ID;}
 
     /** To determined if a seat is booked
+     * @return True/False is a seat is booked
      */
     public boolean isBooked() {
     	return booked;

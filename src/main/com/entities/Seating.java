@@ -37,7 +37,7 @@ public class Seating implements ISerialisable {
 
     /**
      * Create seating
-     *@param seats- used to store the list of seats
+     * @param seats		list of seats
      */
     public Seating(List<Seat> seats){
         this.seats = seats;
@@ -68,7 +68,7 @@ public class Seating implements ISerialisable {
 
         return output;
     }
-
+    
     /**
      * To determine if seat is empty
      * @param seat 		the seat number
@@ -84,7 +84,7 @@ public class Seating implements ISerialisable {
         }
         return false;
     }
-
+    
     /**
      * To change seats from available to occupied
      * @param seatings - list of seatings
