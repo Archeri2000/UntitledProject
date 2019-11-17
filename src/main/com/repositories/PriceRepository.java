@@ -62,7 +62,7 @@ public class PriceRepository implements ISerialisable {
 		return true;
 	}
 
-	public double GetPrice(int age, MovieShowing showing){
+	public double getPrice(int age, MovieShowing showing){
 		return GetPrice(age, showing.getCinemaType(), showing.getShowType(), showing.getShowing_time());
 	}
 

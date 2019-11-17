@@ -24,12 +24,11 @@ public class HistoryQueryService {
      * @return list of past bookings made by the customer
      */
     public List<Booking> getHistoryBookings(int phone) {
-        try {
-            Customer customer = _repo.getCustomer(phone);
+
+        Customer customer = _repo.getCustomer(phone);
+        if (customer != null)
             return customer.getBookings();
-        } catch (NullPointerException e) {
-            System.out.println("");
-            return null;
-        }
+        return null;
     }
+
 }

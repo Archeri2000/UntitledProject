@@ -120,7 +120,8 @@ public class CustomerUI {
                                         bookv.displaySeats(value, movie);
                                         List<Ticket> seat = bookv.selectSeats(value, movie);
                                         Customer cust = bookv.getCustomerDetails();
-                                        bookv.checkout(cust, seat, value, value.getShownMovie(), value.getCineplex(), value.getCinema());
+                                        bookv.checkout(cust, seat, value, value.getCineplex(), value.getCinema());
+                                        System.out.println("Booking Complete");
                                     }
                                     break;
                                 }
@@ -153,7 +154,8 @@ public class CustomerUI {
                                             bookv.displaySeats(value, movie);
                                             List<Ticket> seat = bookv.selectSeats(value, movie);
                                             Customer cust = bookv.getCustomerDetails();
-                                            bookv.checkout(cust, seat, value, value.getShownMovie(), value.getCineplex(), value.getCinema());
+                                            bookv.checkout(cust, seat, value, value.getCineplex(), value.getCinema());
+                                            System.out.println("Booking Complete");
                                         }
                                         break;
                                     }
@@ -166,11 +168,13 @@ public class CustomerUI {
                     break;
                 case 3:
                     List<Booking> bookingList = histv.getPastBooking();
-                    try {
+                    if(bookingList != null){
                         for (Booking value : bookingList) {
-                            System.out.println(value);
+                            System.out.println(value.getTransactionID());
+                            System.out.println(value.getMovieName());
+                            System.out.println(value.getCustomerName());
                         }
-                    } catch (NullPointerException e) {
+                    }else{
                         System.out.println("User not found");
                         System.out.println();
                     }

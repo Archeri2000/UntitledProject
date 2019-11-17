@@ -16,7 +16,7 @@ public class HistoryView {
 
         Scanner sc = new Scanner(System.in);
         userMobile = sc.nextInt();
-
+        sc.nextLine();
 		return HQS.getHistoryBookings(userMobile); // need code to retrieve booking history
     }
 }

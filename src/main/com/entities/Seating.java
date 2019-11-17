@@ -34,7 +34,14 @@ public class Seating implements ISerialisable {
         int k = 0;
         for (int i =0; i< 8; i++){
             for (int j =0; j< 10; j++){
-                output += seats.get(k+j).getID() + "\t";
+                if (seats.get(k+j).isBooked()) {
+                    output += "xx\t";
+                }
+                else if (j == 5) {
+                    output += "\t\t";
+                    output += seats.get(k+j).getID() + "\t";
+                }else
+                    output += seats.get(k+j).getID() + "\t";
             }
             k+=10;
             output += "\n";
@@ -45,22 +52,22 @@ public class Seating implements ISerialisable {
     public boolean isSeatEmpty(String seat){
         for (int i = 0; i < seats.size(); i++){
             if (seats.get(i).getID().equals(seat)){
-                if(seats.get(i).isBooked()){
-                    return false;
+                if(!seats.get(i).isBooked()){
+                    return true;
                 }
             }
-            return true;
         }
         return false;
     }
     public boolean setSeatsOccupied(ArrayList<String> seatings){
         for (int i = 0; i < seatings.size(); i++) {
             for (int j = 0; j < seats.size(); j++) {
-                if (seats.get(i).getID().equals(seatings.get(i))){
-                    if(seats.get(i).isBooked()) {
+                if (seats.get(j).getID().equals(seatings.get(i))){
+                    if(seats.get(j).isBooked()) {
                         return false;
                     }else {
-                        seats.get(i).assign();
+                        seats.get(j).assign();
+
                         return true;
                     }
                 }
