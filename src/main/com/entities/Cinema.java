@@ -68,7 +68,7 @@ public class Cinema implements ISerialisable, IShowingsListener {
 		if(isTimeslotAvailable(screening_time, movie.durationMin)){
 			//TODO: Fix
 			seating = new Seating();
-			MovieShowing showing = new MovieShowing(movie, screening_time, seating, showtype);
+			MovieShowing showing = new MovieShowing(movie, screening_time, seating, showtype, cinemaType, cineplex, name);
 			movieSchedule.add(showing);
 			ShowingsEventBroadcaster.CreateShowingEvent(showing, this);
 			return showing;

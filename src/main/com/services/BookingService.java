@@ -68,7 +68,6 @@ public class BookingService{
          if (seatplan.isSeatEmpty(seat))
              selectedSeats.add(seat);
 
-         if (seatplan.setSeatsOccupied(selectedSeats)) return true;
-         return false;
+         return seatplan.setSeatsOccupied(selectedSeats);
      }
  }

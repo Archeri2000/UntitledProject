@@ -3,6 +3,7 @@ package main.com.view;
 
 import main.com.entities.Movie;
 import main.com.entities.MovieShowing;
+import main.com.entities.Review;
 import main.com.services.CineplexQueryService;
 import main.com.services.MovieQueryService;
 
@@ -13,13 +14,23 @@ import main.com.entities.*;
 import java.util.List;
 import java.util.Scanner;
 
-
+/** 
+ * Customer use this class search for movie and move details
+ * @author SS1 Group 6
+ * @version 13
+ */
 public class SearchView {
     Scanner sc = new Scanner(System.in);
 
+	/** 
+     * Create the different query service objects
+     */
     MovieQueryService MQS = new MovieQueryService();
     CineplexQueryService CQS = new CineplexQueryService();
 
+	/** 
+     * Menu page for customers to decide what they wish to do
+     */
     public void optionsMenu() {
         System.out.println(" 1. Search movie and view details");
         System.out.println(" 2. Search movie by Rating");
@@ -29,6 +40,11 @@ public class SearchView {
         System.out.println(" -1. 'Quit");
         System.out.println(" ");
     }
+    
+	/** 
+     * For customers to search movies in general
+     * @return movie 
+     */
     public Movie movieSearch() {
         System.out.print("Enter movie name: ");
         String movie = sc.nextLine();
@@ -49,17 +65,31 @@ public class SearchView {
         System.out.println();
         return null;
     }
+    
+    /** 
+     * For customers to search movies based on ratings
+     * @return list of top rated movies 
+     */
     public List<Movie> ratingSearch() {
         System.out.print(" Enter The number of Top Rated Movie: ");
         int number = sc.nextInt();
         sc.nextLine();
         return MQS.getTopRatedMovie(number);
     }
+    
+    /** 
+     * For customers to search movies based on ticket sales
+     * @return list of popular movies 
+     */
     public List<Movie> ticketSaleSearch() {
         System.out.print(" Enter the number of Popular Movie: ");
         int number = sc.nextInt();
         return MQS.getPopularMovies(number);
     }
+    
+    /** 
+     * For customers to write review of a particular movie
+     */
     public void writeReview(Movie movie) {
         System.out.print(" Enter review: ");
         String review = sc.nextLine();
@@ -75,9 +105,17 @@ public class SearchView {
         MQS.addReviews(movie, review, rating);
     }
 
+    /** 
+     * For customers to search showtimes of a particular movie
+     * @return list of movie showtimes 
+     */
     public List<MovieShowing> viewShowtimes(Movie movie) {
         return MQS.getShowtimeTimeslots(movie);
     }
+    
+    /** 
+     * For customers to search movie details such as the synopsis and the cast
+     */
     public void viewMovieDetails(Movie movie) {
         try {
             System.out.println("Title: " + movie.movie_title);
@@ -98,7 +136,11 @@ public class SearchView {
             System.out.println("");
         }
     }
-
+    
+    /** 
+     * To get name of cineplex from a list of cineplexes
+     * @return this cineplex name
+     */
     public Cineplex getCineplex(){
         List<Cineplex> cineplexList = CQS.getCineplexes();
         System.out.println("Cineplexes available:");
@@ -118,6 +160,10 @@ public class SearchView {
         return null;
     }
 
+    /** 
+     * To get name of cinema from a list of cinemas
+     * @return this cinema name
+     */
     public Cinema getCinema(Cineplex cineplex){
         List<Cinema> Cinemas = CQS.GetCinemas(cineplex);
         System.out.println("Cinemas:");
@@ -137,8 +183,11 @@ public class SearchView {
         return null;
     }
 
+    /** 
+     * To get the movie showing at a particular cinema
+     * @return a list of movie showing at a particular cinema
+     */
     public List<MovieShowing> getMovie(Cinema cinema){
         return CQS.GetShows(cinema);
     }
 }
-

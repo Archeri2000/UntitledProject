@@ -1,11 +1,11 @@
 package main.com.view;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import main.com.entities.*;
 import main.com.services.*;
-
 /**
  * This class represents the admin staff interface that will allow them to implement certain functions such as
  * create/update/remove movie, cinema, cineplex, showtime
@@ -16,7 +16,7 @@ public class AdminView
 {
 	
 	private static boolean login_status=false;
-	
+
 	private final Login LoginModule = new Login();
 	
     /** 
@@ -37,7 +37,7 @@ public class AdminView
      */
 	public void optionsMenu()
 	{
-		
+
 		System.out.println("Welcome to the Admin panel");
 		while(!login_status) {
 			System.out.println("Enter 0 to return");
@@ -315,7 +315,7 @@ public class AdminView
 		}
 	}
 
-    /** 
+    /**
      * To get movie
      * @return the movie object that the admin staff wish to find
      */
@@ -338,7 +338,7 @@ public class AdminView
 		return null;
 	}
 
-    /** 
+    /**
      * To get movie status
      * @return the status of the movie that the admin staff wish to find
      */
@@ -356,7 +356,7 @@ public class AdminView
 		}
 	}
 
-    /** 
+    /**
      * To get rating
      * @return the movie rating of the movie that the admin staff wish to find
      */
@@ -373,7 +373,7 @@ public class AdminView
 		}
 	}
 
-    /** 
+    /**
      * To get movie type
      * @return the movie type of the movie that the admin staff wish to find
      */
@@ -390,7 +390,7 @@ public class AdminView
 		}
 	}
 
-    /** 
+    /**
      * To get cinema type
      * @return the cinema type of a cinema
      */
@@ -407,7 +407,8 @@ public class AdminView
 		}
 	}
 
-    /** 
+
+    /**
      * To get age group
      * @return the age group
      */
@@ -425,7 +426,7 @@ public class AdminView
 		}
 	}
 
-    /** 
+    /**
      * To get day tyoe
      * @return the day type such as weekend
      */
@@ -442,8 +443,8 @@ public class AdminView
 			System.out.println("Invalid entry!");
 		}
 	}
-	
-    /** 
+
+    /**
      * For admin staff to remove and create movie showing
      */
 	private void manageShowTimes()
@@ -492,6 +493,7 @@ public class AdminView
 			}
 		}
 	}
+	
     /** 
      * To get the current year, month, date and time
      */
@@ -501,6 +503,17 @@ public class AdminView
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 		return LocalDateTime.parse(str, formatter);
 	}
+	
+	 /** 
+     * To get the current year, month, date
+     */
+	private LocalDate getDate(){
+		System.out.println("Enter Date in format: YYYY-MM-DD");
+		String str = sc.nextLine();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		return LocalDate.parse(str, formatter);
+	}
+	
     /** 
      * To get the cineplex
      * @return the name of the cineplex
@@ -520,8 +533,8 @@ public class AdminView
 				}
 			}
 		}
-			System.out.println("Cineplex not found");
-			return null;
+		System.out.println("Cineplex not found");
+		return null;
 	}
 
     /** 
@@ -576,6 +589,7 @@ public class AdminView
 		return null;
 	}
 
+
     /** 
      * For the admin staff to manage prices at the cinemas
      * based on different factors such as day, age group, 
@@ -593,10 +607,11 @@ public class AdminView
 			System.out.println("Enter 3 to enter price according to age");
 			System.out.println("Enter 4 to enter price according to day");
 			System.out.println("Enter 5 to add public holidays");
-			System.out.println("Enter 6 to check price according to cinema");
-			System.out.println("Enter 7 to check price according to movie type");
-			System.out.println("Enter 8 to check price according to age");
-			System.out.println("Enter 9 to check price according to day");
+			System.out.println("Enter 6 to remove public holidays");
+			System.out.println("Enter 7 to check price according to cinema");
+			System.out.println("Enter 8 to check price according to movie type");
+			System.out.println("Enter 9 to check price according to age");
+			System.out.println("Enter 10 to check price according to day");
 			System.out.println("Enter -1 to exit");
 			System.out.println();
 			System.out.print("Enter your choice...");
@@ -632,10 +647,20 @@ public class AdminView
 			}
 			else if(choice==5)
 			{
-				System.out.println("Enter public holiday..");
-				// TODO: call AddPublicHoliday from PriceManagementService class
+				System.out.println("Enter public holiday date..");
+				LocalDate date = getDate();
+				price_manager.AddPublicHoliday(date);
 			}
 			else if(choice==6)
+			{
+				for(LocalDate date:price_manager.GetPublicHolidays()){
+					System.out.println(date);
+				}
+				System.out.println("Enter public holiday to remove..");
+				LocalDate date = getDate();
+				price_manager.RemovePublicHoliday(date);
+			}
+			else if(choice==7)
 			{
 				HashMap<CinemaType, Double> cinema_types = price_manager.GetCinemaTypeMultiplier();
 				System.out.println("Cinema Type Prices:");
@@ -643,14 +668,15 @@ public class AdminView
 					System.out.println(entry.getKey().name() + " : " + entry.getValue());
 				}
 			}
-			else if(choice==7)
+			else if(choice==8)
 			{
 				HashMap<ShowingEnum, Double> showing_types = price_manager.GetMovieTypePrice();
 				System.out.println("Showing Type Prices:");
 				for(Map.Entry<ShowingEnum, Double> entry: showing_types.entrySet()){
 					System.out.println(entry.getKey().name() + " : " + entry.getValue());
-				}			}
-			else if(choice==8)
+				}
+			}
+			else if(choice==9)
 			{
 				HashMap<AgeGroup, Double> age_groups = price_manager.GetAgeGroupMultiplier();
 				System.out.println("Cinema Type Prices:");
@@ -658,7 +684,7 @@ public class AdminView
 					System.out.println(entry.getKey().name() + " : " + entry.getValue());
 				}
 			}
-			else if(choice==9)
+			else if(choice==10)
 			{
 				HashMap<DayType, Double> day_types = price_manager.GetDayTypeMultiplier();
 				System.out.println("Cinema Type Prices:");
@@ -727,7 +753,7 @@ public class AdminView
 				String cinema=sc.nextLine();
 				CinemaType type = getCinemaType();
 				//TODO: Add Seating
-                Seating seating = new Seating();
+				Seating seating = new Seating();
 				if (cineplex_manager.AddCinema(cineplex, cinema, type, seating)!= null)
 					System.out.println("Cinema added successfully");
 				else

@@ -12,12 +12,39 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/** This class acts as a repository for storing price of movie tickets 
+ * @author SS1 Group 6
+ * @version 13
+ */
 public class PriceRepository implements ISerialisable {
+	/**
+	 * Creation of a hashmap to store agesgroups-multipliers for prices
+	 */
 	public HashMap<AgeGroup, Double> AgeMultipliers = new HashMap<>();
+	/**
+	 * Creation of a hashmap to store cinematype-multipliers for prices
+	 */
 	public HashMap<CinemaType, Double> CinemaTypeMultipliers = new HashMap<>();
+	/**
+	 * Creation of a hashmap to store showingstatus-multipliers for prices
+	 */
 	public HashMap<ShowingEnum,Double> MoviePrices = new HashMap<>();
+	/**
+	 * Creation of a hasHmap to store daytype-multipliers(weekday/weekend/holiday) for prices
+	 */
 	public HashMap<DayType, Double> DayMultiplier = new HashMap<>();
+	
+	/**
+	 * Creation of a hashmap to store a list of public holidays
+	 */
 	public List<LocalDate> Public_Holidays = new ArrayList<>();
+	
+	/**
+	 * Set age multipliers 
+	 * @param age- age of the customer
+	 * @param multiplier- price multiplier for the agegroup
+	 * @return boolean value for verification of storage
+	 */
 	
 	public boolean setAgeMultipliers(AgeGroup age, double multiplier)
 	{
@@ -26,6 +53,12 @@ public class PriceRepository implements ISerialisable {
 		AgeMultipliers.put(age,multiplier);
 		return true;
 	}
+	/**
+	 * Set cinema multipliers
+	 * @param cinema - cinema for which the multiplier has to be set
+	 * @param multiplier - price multiplier for the specific cinema
+	 * @return boolean value for verification of cinema-type-multiplier  storage
+	 */
 	public boolean setCinemaMultipliers(CinemaType cinema, double multiplier)
 	{
 		if(CinemaTypeMultipliers.containsKey(cinema))
@@ -33,6 +66,12 @@ public class PriceRepository implements ISerialisable {
 		CinemaTypeMultipliers.put(cinema,multiplier);
 		return true;
 	}
+	/**
+	 * Set movie price based on showing status
+	 * @param showing - showing status for which price has to be set
+	 * @param price - price of the movie
+	 * @return boolean value for verification of storage
+	 */
 	public boolean setMoviePrice(ShowingEnum showing, double price)
 	{
 		if(MoviePrices.containsKey(showing))
@@ -40,6 +79,12 @@ public class PriceRepository implements ISerialisable {
 		MoviePrices.put(showing,price);
 		return true;
 	}
+	/**
+	 * Set multiplier for a specific day-type(weekend/weekday/holiday)
+	 * @param day - day for which multiplier has to be set
+	 * @param multiplier - price multiplier for the specific day
+	 * @return boolean value for verification of day-multiplier storage
+	 */
 	public boolean setDayMultipliers(DayType day, double multiplier)
 	{
 		if(DayMultiplier.containsKey(day))
@@ -47,6 +92,11 @@ public class PriceRepository implements ISerialisable {
 		DayMultiplier.put(day,multiplier);
 		return true;
 	}
+	/**
+	 * Add a public holiday to the Public_Holidays hashmap
+	 * @param day- variable that contains public holiday date
+	 * @return boolean value for verification of holiday storage
+	 */
 
 	public boolean addPublicHoliday(LocalDate day)
 	{
@@ -54,6 +104,11 @@ public class PriceRepository implements ISerialisable {
 		Public_Holidays.add(day);
 		return true;
 	}
+	/**
+	 * Remove a public holiday to the Public_Holidays hashmap
+	 * @param day- variable that contains public holiday date
+	 * @return boolean value for verification of removal of holiday date
+	 */
 
 	public boolean removePublicHoliday(LocalDate day)
 	{
@@ -61,6 +116,28 @@ public class PriceRepository implements ISerialisable {
 		Public_Holidays.remove(day);
 		return true;
 	}
+	/** 
+	 * get the price of ticket using  multiplier like age and showing status of movie
+	 * @param age- age of customer
+	 * @param showing- showing status of the movie
+	 * @return (returns the value of GetPrice(age, showing.getCinemaType(), showing.getShowType(), showing.getShowing_time())) 
+	 */
+	
+	
+
+	public double getPrice(int age, MovieShowing showing){
+		return GetPrice(age, showing.getCinemaType(), showing.getShowType(), showing.getShowing_time());
+	}
+	
+	/** 
+	 * get the price of ticket using  multiplier like age and showing status of movie and day(weekday/weekend/holiday)
+	 * @param age- age of customer
+	 * @param showing- showing status of the movie
+	 * @param cinema - reference of cinema object
+	 * @param day- used to store day(weekday/weekend/holiday)
+	 * @return value obtained from(GetPrice(a, cinema, showing, d))
+	 */
+	
 
 	public double GetPrice(int age, CinemaType cinema, ShowingEnum showing, LocalDateTime day){
 		DayType d;
@@ -72,6 +149,15 @@ public class PriceRepository implements ISerialisable {
 		AgeGroup a = AgeGroup.getGroup(age);
 		return GetPrice(a, cinema, showing, d);
 	}
+	
+	/**
+	 * Get the total price based on the various multipliers
+	 * @param age - age group of the customer
+	 * @param cinema - cinema of booking
+	 * @param showing - showing status of the movie
+	 * @param day - day-type(weekend/weekday/holiday)
+	 * @return the total price obtained by multiplying all the multipliers
+	 */
 	public double GetPrice(AgeGroup age, CinemaType cinema, ShowingEnum showing, DayType day)
 	{
 		double price;
@@ -83,6 +169,10 @@ public class PriceRepository implements ISerialisable {
 		return price;
 	}
 
+	/**
+	 * Get the instance of PriceRepository
+	 * @return instance of the PriceRepository object (_static_manager)
+	 */
 	private static PriceRepository _static_manager;
 	public static PriceRepository getInstance(){
 		if(_static_manager == null){
@@ -90,6 +180,9 @@ public class PriceRepository implements ISerialisable {
 		}
 		return _static_manager;
 	}
+	/**
+	 * PriceRepository constructor to initilise age,type,showing,day
+	 */
 	public PriceRepository(){
 		for(AgeGroup age:AgeGroup.values()){
 			AgeMultipliers.put(age, 1.0);
@@ -105,6 +198,11 @@ public class PriceRepository implements ISerialisable {
 		}
 	}
 	//TODO
+	/**
+	 * Serialization method
+	 * @return serialized String
+	 * 
+	 */
 	@Override
 	public String toSerialisedString() {
 		List<StringDoublePair> age = AgeMultipliers
@@ -131,6 +229,11 @@ public class PriceRepository implements ISerialisable {
 		);
 	}
 
+	/**
+	 * Deserialize a string s
+	 * @param s - string to be deserialized
+	 * @return getInstance()
+	 */
 	@Override
 	public ISerialisable fromSerialisedString(String s) throws InvalidPropertiesFormatException {
 		_static_manager = this;
