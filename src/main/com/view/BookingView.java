@@ -5,6 +5,7 @@ import main.com.services.BookingService;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -22,20 +23,23 @@ public class BookingView {
         }
     }
 
-    public void selectSeats(MovieShowing showtime, Movie movie){
+    public List<Seat> selectSeats(MovieShowing showtime, Movie movie) {
         System.out.print("How many ticket you want to book? ");
         Scanner sc = new Scanner(System.in);
         int amount = sc.nextInt();
         sc.nextLine();
-        for (int i = 0; i < amount; i++){
-            System.out.print("Which seat are your choice? ") ;
+        List<Seat> seats = new ArrayList<>();
+        for (int i = 0; i < amount; i++) {
+            System.out.print("Which seat are your choice? ");
             String seat = sc.nextLine();
             System.out.print("How old are you? ");
             int age = sc.nextInt();
             sc.nextLine();
-            _serv.selectSeats(seat, showtime);
+            if (_serv.selectSeats(seat, showtime, age)) {
+                seats.add(new Seat(seat, age));
+            }
         }
-
+        return seats;
     }
     public Customer getCustomerDetails() {
         int userMobile;
@@ -56,10 +60,13 @@ public class BookingView {
         return customer;
     }
 
-    public void checkout(){
-        LocalDateTime now = LocalDateTime.now();
+    public void checkout(Customer customer,List<Seat> seats, MovieShowing showing) {
+        LocalDateTime time = showing.getShowing_time();
         DateTimeFormatter sdf = DateTimeFormatter.ofPattern("yyyyMMddhhmm");
-        String endTID = sdf.format(now);
+        String endTID = sdf.format(time);
+        String TID = showing.getShownMovieTitle().substring(0,3) + endTID;
+
+        Booking booking = new Booking(customer, seats, TID);
 
     }
 }

@@ -11,6 +11,13 @@ public class Seat implements ISerialisable {
     private String ID;
     private boolean booked;
     public Seat(){}
+    private int age;
+
+    public Seat(String id, int age){
+        this.ID = id;
+        this.age = age;
+    }
+
     public Seat(String id, boolean status){
         this.ID = id;
         this.booked = status;

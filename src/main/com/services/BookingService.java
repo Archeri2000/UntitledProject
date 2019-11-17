@@ -21,7 +21,7 @@ public class BookingService{
          return showing.getSeatingplan();
      }
 
-     public boolean selectSeats(String seat, MovieShowing showing){
+     public boolean selectSeats(String seat, MovieShowing showing, int age){
          Seating seatplan = showing.getSeatingplan();
 
          ArrayList<String> selectedSeats = new ArrayList<>();

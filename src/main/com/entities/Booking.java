@@ -9,7 +9,14 @@ public class Booking implements ISerialisable {
     public Booking(){}
 
     private String TransactionID;
+    private Customer customer;
+    private List<Seat> seats;
 
+    public Booking(Customer customer, List<Seat> seats, String tid){
+        this.customer = customer;
+        this.seats = seats;
+        this.TransactionID = tid;
+    }
     @Override
     public String toSerialisedString() {
         return null;

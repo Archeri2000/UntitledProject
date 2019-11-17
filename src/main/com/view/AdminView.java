@@ -493,11 +493,15 @@ public class AdminView
 		List<MovieShowing> Cinemas = cineplex_query.GetShows(cinema);
 		System.out.println("Showings:");
 		LocalDateTime now = LocalDateTime.now();
-		for (MovieShowing value : Cinemas) {
-			if(value.getShowing_time().isAfter(now)) {
-				System.out.println(value.getShowing_time() + " : " + value.getShownMovieTitle());
-			}
+		System.out.println("Showing: ");
+		for (MovieShowing value :Cinemas) {
+			System.out.println(value.getShowing_time());
 		}
+//		for (MovieShowing value : Cinemas) {
+//			if(value.getShowing_time().isAfter(now)) {
+//				System.out.println(value.getShowing_time() + " : " + value.getShownMovieTitle());
+//			}
+//		}
 		LocalDateTime time = getDateTime();
 		for(MovieShowing value: Cinemas){
 			if(time.equals(value.getShowing_time())){
