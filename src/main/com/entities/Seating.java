@@ -1,15 +1,18 @@
 
 package main.com.entities;
 
+import main.com.utils.ISerialisable;
+
 import java.util.ArrayList;
+import java.util.InvalidPropertiesFormatException;
 import java.util.List;
 
 
-public class Seating {
+public class Seating implements ISerialisable {
 
-    private  List <Seat> seats = new ArrayList<>();
+    private List<Seat> seats = new ArrayList<>();
 
-    public void getNewSeatingPlan(){
+    public Seating(){
         String[] row = new String[]{"a", "b", "c", "d", "e", "f", "g", "h"};
         for (String value : row) {
             for (int i = 1; i < 11; i++) {
@@ -52,5 +55,15 @@ public class Seating {
                 }
             }
         }return false;
+    }
+
+    @Override
+    public String toSerialisedString() {
+        return null;
+    }
+
+    @Override
+    public ISerialisable fromSerialisedString(String s) throws InvalidPropertiesFormatException {
+        return null;
     }
 }
