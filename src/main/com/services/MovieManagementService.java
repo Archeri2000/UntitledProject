@@ -43,7 +43,7 @@ public class MovieManagementService {
 
     /** 
      * Changes the showing status of this movie
-     * @param name		name of movie
+     * @param movie		name of movie
      * @param status	new showing status of this movie
      * @return True/False if the status of the movie is successfully changed
      */
@@ -55,7 +55,7 @@ public class MovieManagementService {
 
     /** 
      * Changes the movie rating of this movie
-     * @param name		name of movie
+     * @param movie		name of movie
      * @param rating	rating of this movie
      * @return True/False if the director of the movie is successfully changed
      */
@@ -67,7 +67,7 @@ public class MovieManagementService {
 
     /** 
      * To remove movie
-     * @param name		name of movie
+     * @param movie			name of movie
      * @return True/False if the movie is successfully removed
      */
     public boolean removeMovie(Movie movie){
@@ -85,7 +85,7 @@ public class MovieManagementService {
 
     /** 
      * Changes the synopsis of this movie
-     * @param name		name of movie
+     * @param movie		name of movie
      * @param synopsis	synopsis of this movie
      * @return True/False if the synopsis of the movie is successfully changed
      */
@@ -97,7 +97,7 @@ public class MovieManagementService {
 
     /** 
      * Changes the movie director of this movie
-     * @param name		name of movie
+     * @param movie		name of movie
      * @param director	director of the movie
      * @return True/False if the rating of the movie is successfully changed
      */
@@ -109,7 +109,7 @@ public class MovieManagementService {
 
     /** 
      * Add movie cast
-     * @param name		name of movie
+     * @param movie		name of movie
      * @param cast		name of cast
      * @return True/False if movie cast is successfully added
      */
@@ -122,7 +122,7 @@ public class MovieManagementService {
 
     /** 
      * To remove movie cast
-     * @param name		name of movie
+     * @param movie		name of movie
      * @param cast		nama of casts that staff wish to remove
      * @return True/False if the cast is successfully removed
      */
@@ -135,7 +135,7 @@ public class MovieManagementService {
     
     /** 
      * To remove review
-     * @param name		name of movie
+     * @param movie		name of movie
      * @param index 	index of the review that staff wish to remove
      * @return True/False if the review is successfully removed
      */
