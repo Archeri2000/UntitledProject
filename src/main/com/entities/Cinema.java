@@ -45,6 +45,7 @@ public class Cinema implements ISerialisable, IShowingsListener {
 		ShowingsEventBroadcaster.RemoveListener(this);
 	}
 
+	public Seating getSeats(){ return seating; }
 
 	public String getName() {
 		return name;

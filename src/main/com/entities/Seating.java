@@ -13,15 +13,28 @@ public class Seating implements ISerialisable {
     List<Seat> seats = new ArrayList<>();
     public Seating(){}
     public List<Seat> getNewSeatingPlan(){
+    private  List <Seat> seats = new ArrayList<>();
+
+    public void getNewSeatingPlan(){
         String[] row = new String[]{"a", "b", "c", "d", "e", "f", "g", "h"};
         for (String value : row) {
             for (int i = 1; i < 11; i++) {
                 seats.add( new Seat(value + (i), false));
             }
         }
-        return seats;
     }
-    public boolean isSeaetEmpty(String seat){
+
+    public String getDisplayString(){
+        String output = "";
+        for (Seat value : seats){
+            while (!value.getID().substring(1, 3).equals("10")){
+                output += value.getID() + "\t";
+            }
+            output += "\n";
+        }
+        return output;
+    }
+    public boolean isSeatEmpty(String seat){
         for (int i = 0; i < seats.size(); i++){
             if (seats.get(i).getID().equals(seat)){
                 if(seats.get(i).isBooked()){

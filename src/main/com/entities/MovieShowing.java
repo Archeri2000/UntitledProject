@@ -38,6 +38,8 @@ public class MovieShowing implements ISerialisable {
         return showing_time;
     }
 
+    public Seating getSeatingplan(){return  seatingplan;}
+
     public LocalDateTime getEnding_time(){
         return showing_time.plusMinutes(movie.durationMin);
     }
