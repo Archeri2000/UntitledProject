@@ -1,8 +1,6 @@
 package main.com.services;
 
-import main.com.entities.AgeGroup;
-import main.com.entities.Customer;
-import main.com.entities.Seating;
+import main.com.entities.*;
 import main.com.repositories.CustomerRepository;
 
 public class BookingService{
@@ -40,7 +38,7 @@ public class BookingService{
          }
         return null;
      }
-
+     public Seating getSeats(Cinema cinema, MovieShowing Movieshow){return null;};
      public boolean selectedSeats(String seat, AgeGroup group){
          return true;
      }
