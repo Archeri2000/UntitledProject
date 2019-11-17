@@ -108,15 +108,28 @@ public class CustomerUI {
                             List<MovieShowing> showings = searchv.viewShowtimes(movie);
                             if (showings != null || !showings.isEmpty()) {
                                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                                System.out.println("Showing: ");
-                                for (MovieShowing value : showings) {
-                                    System.out.println(value.getShowing_time().format(formatter));
+                                String cineplexStr;
+                                String cinemaStr;
+                                String str;
+                                while(true) {
+                                    System.out.println("Showing: ");
+                                    for (MovieShowing value : showings) {
+                                        System.out.println(value.getCineplex() + " " + value.getCinema() + " : " + value.getShowing_time().format(formatter));
+                                    }
+                                    System.out.println("Enter Cineplex, Cinema, Date and Time in format: CINEPLEX CINEMA YYYY-MM-DD HH:MM");
+                                    String line = sc.nextLine();
+                                    String[] st = line.split(" ");
+                                    if (st.length != 4) System.out.println("Invalid choice!");
+                                    else{
+                                        cineplexStr = st[0];
+                                        cinemaStr = st[1];
+                                        str = st[2] + " " + st[3];
+                                        break;
+                                    }
                                 }
-                                System.out.println("Enter Date and Time in format: YYYY-MM-DD HH:MM");
-                                String str = sc.nextLine();
                                 LocalDateTime time = LocalDateTime.parse(str, formatter);
                                 for (MovieShowing value : showings) {
-                                    if (value.getShowing_time().equals(time)) {
+                                    if (value.getCineplex().equalsIgnoreCase(cineplexStr) && value.getCinema().equalsIgnoreCase(cinemaStr) && value.getShowing_time().equals(time)) {
                                         bookv.displaySeats(value, movie);
                                         List<Ticket> seat = bookv.selectSeats(value, movie);
                                         Customer cust = bookv.getCustomerDetails();

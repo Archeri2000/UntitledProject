@@ -1,3 +1,4 @@
+package main.com.entities;
 
 import main.com.utils.ISerialisable;
 import main.com.utils.SerialisationUtils;
