@@ -21,7 +21,7 @@ public class MovieQueryService{
 
     /** 
      * Get the list of movies
-     * @param movie 		name of movie that customer wish to search
+     * @param Movie 		name of movie that customer wish to search
      * @return list of movies that matches customer's input
      */
     public List<Movie> getMovie(String Movie){

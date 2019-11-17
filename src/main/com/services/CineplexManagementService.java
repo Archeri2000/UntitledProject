@@ -19,8 +19,8 @@ public class CineplexManagementService {
     
     /** 
      * Create a cineplex
-     * @param name
-     * @return this cineplex's name
+     * @param name Cineplex's name
+     * @return the created cineplex object
      */
     public Cineplex addCineplex(String name){
         return _repo.createCineplex(name);

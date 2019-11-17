@@ -81,7 +81,7 @@ public class MovieRepository implements IShowingsListener, ISerialisable {
     
     /**
      * Get a movie based on id
-     * @param id
+     * @param id movie UUID
      * @return a movie who's id  matches with the searched id
      */
 

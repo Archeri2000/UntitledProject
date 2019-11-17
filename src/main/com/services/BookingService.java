@@ -67,6 +67,7 @@ public class BookingService{
          ArrayList<String> selectedSeats = new ArrayList<>();
          if (seatplan.isSeatEmpty(seat))
              selectedSeats.add(seat);
+         else return false;
 
          return seatplan.setSeatsOccupied(selectedSeats);
      }

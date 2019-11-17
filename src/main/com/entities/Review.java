@@ -24,8 +24,8 @@ public class Review implements ISerialisable{
     public Review(){}
     
     /** Constructor
-     * param first - review string
-     * param second - rating value
+     * @param first - review string
+     * @param second - rating value
      */
     public Review(String first, Double second){
         if(second == null){

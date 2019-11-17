@@ -46,6 +46,7 @@ public class Movie implements ISerialisable {
 	private UUID _uuid;
 	/**
 	*get uuid
+	 * @return the UUID of the movie
 	*/
 	public String getUUID(){
 		return _uuid.toString();
@@ -77,6 +78,7 @@ public class Movie implements ISerialisable {
 	}
 
     /** Creates a new movie  with the details
+	 * @param uuid				Movie UUID
      * @param movie_title		name of the movie
      * @param duration			duration of the movie
      * @param rating			rating of the movie
