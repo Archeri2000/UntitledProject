@@ -95,6 +95,12 @@ public class MovieRepository implements IShowingsListener, ISerialisable {
         return serialise(serialiseList(hashmapPairs, "MovieSales"), serialiseList(movies, "Movies"));
     }
 
+    public boolean addSales(Movie movie, int sales){
+        if(!MovieSales.containsKey(movie))return false;
+        MovieSales.get(movie).increment(sales);
+        return true;
+    }
+
     @Override
     public ISerialisable fromSerialisedString(String s) throws InvalidPropertiesFormatException {
         _static_manager = this;

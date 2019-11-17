@@ -107,13 +107,13 @@ public class CustomerUI {
                         if (movie != null) {
                             List<MovieShowing> showings = searchv.viewShowtimes(movie);
                             if (showings != null || !showings.isEmpty()) {
+                                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                                 System.out.println("Showing: ");
                                 for (MovieShowing value : showings) {
-                                    System.out.println(value.getShowing_time());
+                                    System.out.println(value.getShowing_time().format(formatter));
                                 }
                                 System.out.println("Enter Date and Time in format: YYYY-MM-DD HH:MM");
                                 String str = sc.nextLine();
-                                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                                 LocalDateTime time = LocalDateTime.parse(str, formatter);
                                 for (MovieShowing value : showings) {
                                     if (value.getShowing_time().equals(time)) {
@@ -141,13 +141,13 @@ public class CustomerUI {
                             if (movie != null) {
                                 List<MovieShowing> showings = searchv.viewShowtimes(movie);
                                 if (showings != null || !showings.isEmpty()) {
+                                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                                     System.out.println("Showing: ");
                                     for (MovieShowing value : showings) {
-                                        System.out.println(value.getShowing_time());
+                                        System.out.println(value.getShowing_time().format(formatter));
                                     }
                                     System.out.println("Enter Date and Time in format: YYYY-MM-DD HH:MM");
                                     String str = sc.nextLine();
-                                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                                     LocalDateTime time = LocalDateTime.parse(str, formatter);
                                     for (MovieShowing value : showings) {
                                         if (value.getShowing_time().equals(time)) {
