@@ -24,7 +24,7 @@ public class Seating implements ISerialisable {
 
 
     /**
-     * Create seating constructor
+     * Create seating
      */
     public Seating(){
         String[] row = new String[]{"a", "b", "c", "d", "e", "f", "g", "h"};
@@ -87,7 +87,7 @@ public class Seating implements ISerialisable {
     
     /**
      * To change seats from available to occupied
-     * @param seatings - list of seatings
+     * @param seatings			the array of seats
      * @return True/False if these seats have been successfully set as occupied
      */
     public boolean setSeatsOccupied(ArrayList<String> seatings){
