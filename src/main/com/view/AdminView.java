@@ -415,8 +415,7 @@ public class AdminView
      */
 	private AgeGroup getAgeGroup() {
 		while(true) {
-			//TODO: Add into brackets the types
-			System.out.print("Enter age group (): ");
+			System.out.print("Enter age group (Child, Adult, Senior): ");
 			String r1 = sc.next();
 			for (AgeGroup e : AgeGroup.values()) {
 				if (r1.equalsIgnoreCase(e.name())) {
@@ -433,8 +432,7 @@ public class AdminView
      */
 	private DayType getDayType() {
 		while(true) {
-			//TODO: Add into brackets the types
-			System.out.print("Enter day type (): ");
+			System.out.print("Enter day type (Weekday, Saturday, Sunday_PH): ");
 			String r1 = sc.next();
 			for (DayType e : DayType.values()) {
 				if (r1.equalsIgnoreCase(e.name())) {
@@ -756,7 +754,6 @@ public class AdminView
 				System.out.println("Enter cinema name");
 				String cinema=sc.nextLine();
 				CinemaType type = getCinemaType();
-				//TODO: Add Seating
 				Seating seating = new Seating();
 				if (cineplex_manager.AddCinema(cineplex, cinema, type, seating)!= null)
 					System.out.println("Cinema added successfully");
