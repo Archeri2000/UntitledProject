@@ -18,9 +18,13 @@ public class BookingService{
      * Create a customer repository
      */
 
+	 /** 
+     * Create a customer repository
+     */
+
     private CustomerRepository _repo = CustomerRepository.getInstance();
 
-    
+
     /** 
      * Get the customer object
      * @param phone 	mobile number of customer
@@ -29,7 +33,6 @@ public class BookingService{
      public Customer getCustomerByPhone(int phone){
          return _repo.getCustomer(phone);
      }
-     
      
      /** 
       * Create and get the customer object
@@ -42,7 +45,7 @@ public class BookingService{
          return _repo.createCustomer(name, email, phone);
      }
      
-     
+
      /** 
       * Get seating plan for the movie showing
       * @param showing	the movie showing
@@ -51,7 +54,7 @@ public class BookingService{
      public Seating getSeating(MovieShowing showing) {
          return showing.getSeatingplan();
      }
-     
+
      /** 
       * To determine if seats are occupied and to select seats
       * @param seat			the seat the customer wish to select

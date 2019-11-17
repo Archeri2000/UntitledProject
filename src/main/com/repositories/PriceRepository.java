@@ -7,6 +7,8 @@ import main.com.utils.StringIntPair;
 
 import static main.com.utils.SerialisationUtils.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -15,6 +17,7 @@ public class PriceRepository implements ISerialisable {
 	public HashMap<CinemaType, Double> CinemaTypeMultipliers = new HashMap<>();
 	public HashMap<ShowingEnum,Double> MoviePrices = new HashMap<>();
 	public HashMap<DayType, Double> DayMultiplier = new HashMap<>();
+	public List<LocalDate> Public_Holidays = new ArrayList<>();
 	
 	public boolean setAgeMultipliers(AgeGroup age, double multiplier)
 	{
@@ -44,6 +47,31 @@ public class PriceRepository implements ISerialisable {
 		DayMultiplier.put(day,multiplier);
 		return true;
 	}
+
+	public boolean addPublicHoliday(LocalDate day)
+	{
+		if(Public_Holidays.contains(day)) return false;
+		Public_Holidays.add(day);
+		return true;
+	}
+
+	public boolean removePublicHoliday(LocalDate day)
+	{
+		if(!Public_Holidays.contains(day)) return false;
+		Public_Holidays.remove(day);
+		return true;
+	}
+
+	public double GetPrice(int age, CinemaType cinema, ShowingEnum showing, LocalDateTime day){
+		DayType d;
+		if(Public_Holidays.contains(day.toLocalDate())){
+			d = DayType.Sunday_PH;
+		}else{
+			d = DayType.getDayType(day);
+		}
+		AgeGroup a = AgeGroup.getGroup(age);
+		return GetPrice(a, cinema, showing, d);
+	}
 	public double GetPrice(AgeGroup age, CinemaType cinema, ShowingEnum showing, DayType day)
 	{
 		double price;
@@ -62,7 +90,20 @@ public class PriceRepository implements ISerialisable {
 		}
 		return _static_manager;
 	}
-	public PriceRepository(){}
+	public PriceRepository(){
+		for(AgeGroup age:AgeGroup.values()){
+			AgeMultipliers.put(age, 1.0);
+		}
+		for(CinemaType type: CinemaType.values()){
+			CinemaTypeMultipliers.put(type, 1.0);
+		}
+		for(ShowingEnum showing: ShowingEnum.values()){
+			MoviePrices.put(showing, 10.0);
+		}
+		for(DayType day: DayType.values()){
+			DayMultiplier.put(day, 1.0);
+		}
+	}
 	//TODO
 	@Override
 	public String toSerialisedString() {

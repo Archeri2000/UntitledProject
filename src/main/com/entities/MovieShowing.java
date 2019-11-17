@@ -16,6 +16,8 @@ public class MovieShowing implements ISerialisable {
     private Seating seatingplan;
     private String _movieID;
     private ShowingEnum showType;
+    private Cineplex cineplex;
+    private Cinema cinema;
 
     public MovieShowing(){}
 
@@ -32,6 +34,11 @@ public class MovieShowing implements ISerialisable {
         this.showing_time = showing_time;
         this.seatingplan = seatingplan;
         this.showType = showtype;
+    }
+    public Cineplex getCineplex(){return cineplex;}
+
+    public Cinema getCinema() {
+        return cinema;
     }
 
     public LocalDateTime getShowing_time(){

@@ -11,6 +11,11 @@ import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Scanner;
 
+/**
+ * This class represents the general user interface before user enter the admin or customer interface
+ * @author SS1 Group 6
+ * @version 13
+ */
 public class Main {
 
     public static void main(String[] args) {
@@ -26,11 +31,23 @@ public class Main {
             user = sc.nextInt();
             switch (user) {
                 case 1:
+                    /** 
+                     * Create a customerUI object
+                     */
                     CustomerUI customerUI = new CustomerUI();
+                    /** 
+                     * Display customer menu
+                     */
                     customerUI.hi();
                     break;
                 case 2:
+                	 /** 
+                     * Create an adminView object
+                     */
                     AdminView adminView = new AdminView();
+                    /** 
+                     * Display admin staff menu
+                     */
                     adminView.optionsMenu();
                     break;
                 case -1:
