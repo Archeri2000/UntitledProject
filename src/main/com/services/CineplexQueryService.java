@@ -21,7 +21,7 @@ public class CineplexQueryService{
 
     /** 
      * Get the name of cineplex
-     * @param name - name of the cineplex
+     * @param name
      * @return this cineplex's name
      */
     public Cineplex GetCineplex(String name){
@@ -38,8 +38,8 @@ public class CineplexQueryService{
     
     /** 
      * Get the name of cinema
-     * @param name 		name of cineplex
-     * @param cinema ID
+     * @param cinplex		name of cineplex
+     * @param CinemaID
      * @return this cinema's name
      */
     public Cinema GetCinema(Cineplex cineplex, String CinemaID){
@@ -48,7 +48,7 @@ public class CineplexQueryService{
     
     /** 
      * Get the list of cinemas' name 
-     * @param name 		name of cineplex
+     * @param Cineplex 		name of cineplex
      * @return list of cinemas' name under this cineplex
      */
     public List<Cinema> GetCinemas(Cineplex Cineplex){
@@ -57,7 +57,7 @@ public class CineplexQueryService{
 
     /** 
      * Get the list of movie shows
-     * @param name 		name of cinema
+     * @param cinema 		name of cinema
      * @return list of movies showing at this cinema
      */
     public List<MovieShowing> GetShows(Cinema cinema){
