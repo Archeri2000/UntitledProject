@@ -86,10 +86,9 @@ public class Cinema implements ISerialisable, IShowingsListener {
 
 	private boolean isTimeslotAvailable(LocalDateTime start_time, int duration_min){
 		for(MovieShowing m: movieSchedule) {
-			if(m.getEnding_time().isAfter(start_time)){
-				if(m.getEnding_time().isBefore(start_time.plusMinutes(duration_min))) return false;
-			}else if(m.getShowing_time().isBefore(start_time.plusMinutes(duration_min))){
-				if(m.getShowing_time().isAfter(start_time)) return false;
+			if(m.getEnding_time().isAfter(start_time)&&
+					m.getShowing_time().isBefore(start_time.plusMinutes(duration_min))) {
+				return false;
 			}
 		}
 		return true;
