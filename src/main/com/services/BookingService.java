@@ -5,6 +5,7 @@ import main.com.entities.*;
 import main.com.repositories.CustomerRepository;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BookingService{
@@ -21,11 +22,14 @@ public class BookingService{
          return showing.getSeatingplan();
      }
 
-     public boolean selectedSeats(String seat, AgeGroup group, MovieShowing showing){
+     public boolean selectSeats(String seat, MovieShowing showing){
          Seating seatplan = showing.getSeatingplan();
 
+         ArrayList<String> selectedSeats = new ArrayList<>();
          if (seatplan.isSeatEmpty(seat))
-             seatplan.(seat)
+             selectedSeats.add(seat);
 
+         if (seatplan.setSeatsOccupied(selectedSeats)) return true;
+         return false;
      }
  }

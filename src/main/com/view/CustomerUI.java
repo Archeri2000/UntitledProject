@@ -5,6 +5,8 @@ import main.com.entities.Movie;
 import main.com.entities.MovieShowing;
 import main.com.services.MovieQueryService;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
@@ -85,18 +87,21 @@ public class CustomerUI {
                         for (MovieShowing value : showings) {
                             System.out.println(value.getShowing_time());
                         }
-                        System.out.print(" Enter exact time: ");
-                        movie = sc.nextLine();
-                        for (Movie value : movieList) {
-                            if (movie.equals(value.movie_title))
-                                return value;
+                        System.out.println("Enter Date and Time in format: YYYY-MM-DD HH:MM");
+                        String str = sc.nextLine();
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                        LocalDateTime time =  LocalDateTime.parse(str, formatter);
+                        for (MovieShowing value : showings) {
+                            if (value.getShowing_time().equals(time))
+                                bookv.displaySeats(value, movie);
+                                bookv.selectSeats(value, movie);
+                                bookv.getCustomerDetails();
+                                bookv.checkout();
+                                break;
                         }
+                        System.out.println(" Showing not found!");
                     }
-                    System.out.println(" Movie not found!");
-                    System.out.println();
-                    return null;
-            }
-
+                    break;
                 case 3:
                     List<Booking> bookingList = histv.getPastBooking();
                     try {
