@@ -32,6 +32,7 @@ public class BookingView {
             String seat = sc.nextLine();
             System.out.print("How old are you? ");
             int age = sc.nextInt();
+            sc.nextLine();
             _serv.selectSeats(seat, showtime);
         }
 
