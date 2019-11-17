@@ -1,4 +1,3 @@
-
 package main.com.entities;
 
 import main.com.utils.ISerialisable;
@@ -10,11 +9,23 @@ import java.util.List;
 
 import static main.com.utils.SerialisationUtils.*;
 
+/** This class holds the seating plan of a cinema
+ * @author SS1 Group 6
+ * @version 13
+ */
 
 public class Seating implements ISerialisable {
 
+
+    /**
+     * Create array for the seating
+     */
     private List<Seat> seats = new ArrayList<>();
 
+
+    /**
+     * Create seating
+     */
     public Seating(){
         String[] row = new String[]{"a", "b", "c", "d", "e", "f", "g", "h"};
         for (String value : row) {
@@ -24,10 +35,17 @@ public class Seating implements ISerialisable {
         }
     }
 
+    /**
+     * Create seating
+     */
     public Seating(List<Seat> seats){
         this.seats = seats;
     }
 
+    /**
+     * To display seating plan
+     * @return an array which is the seating plan
+     */
     public String getDisplayString(){
         String output = "";
 
@@ -49,6 +67,12 @@ public class Seating implements ISerialisable {
 
         return output;
     }
+    
+    /**
+     * To determine if seat is empty
+     * @param seat 		the seat number
+     * @return Trule/Fale if these seats are empty or occupied
+     */
     public boolean isSeatEmpty(String seat){
         for (int i = 0; i < seats.size(); i++){
             if (seats.get(i).getID().equals(seat)){
@@ -59,6 +83,12 @@ public class Seating implements ISerialisable {
         }
         return false;
     }
+    
+    /**
+     * To change seats from available to occupied
+     * @param seatings		
+     * @return True/False if these seats have been successfully set as occupied
+     */
     public boolean setSeatsOccupied(ArrayList<String> seatings){
         for (int i = 0; i < seatings.size(); i++) {
             for (int j = 0; j < seats.size(); j++) {
@@ -67,8 +97,7 @@ public class Seating implements ISerialisable {
                         return false;
                     }else {
                         seats.get(j).assign();
-                        SalesCounter count = new SalesCounter();
-                        count.increment(1);
+
                         return true;
                     }
                 }
@@ -76,6 +105,10 @@ public class Seating implements ISerialisable {
         }return false;
     }
 
+    /**
+     * Serialize seats
+     * @return serialised string
+     */
     @Override
     public String toSerialisedString() {
         return serialise(
@@ -83,6 +116,9 @@ public class Seating implements ISerialisable {
         );
     }
 
+    /**
+     * Deserialize seats
+     */
     @Override
     public ISerialisable fromSerialisedString(String s) throws InvalidPropertiesFormatException {
         HashMap<String, String> pairs = deserialise(s);

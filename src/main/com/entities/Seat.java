@@ -7,31 +7,66 @@ import java.util.InvalidPropertiesFormatException;
 
 import static main.com.utils.SerialisationUtils.*;
 
+/** This class holds the details of a seat
+ * @author SS1 Group 6
+ * @version 13
+ */
 public class Seat implements ISerialisable {
+    /** ID of this seat
+     */
     private String ID;
+    
+    /** The status of a seat
+     */
     private boolean booked;
+    
     public Seat(){}
 
+    /** Creates a new seat with the given ID and status
+     * @param ID 		ID of the seat
+     * @param status 	status of the seat
+     */
     public Seat(String id, boolean status){
         this.ID = id;
         this.booked = status;
     }
-    public void setID(String id) { this.ID = id;}
+    
+    /** To set ID of the seat
+     * @param ID 		this seat ID
+     */
+    public void setID(String id) { 
+    	this.ID = id;
+    }
 
-    public String getID(){return ID;}
+    /** To get ID of the seat		
+     * @return ID of the seat
+     */
+    public String getID(){
+    	return ID;}
 
-    public boolean isBooked(){return booked;}
+    /** To determined if a seat is booked
+     */
+    public boolean isBooked() {
+    	return booked;
+    }
 
+    /** To change available seats to booked status
+     */
     public void assign()
     {
         if (!booked);
             booked = true;
     }
 
+    /** To change booked seats to available status
+     */
     public void unAssign() {
         booked = false;
     }
 
+    /** Serialize seat
+     * @return serialised string
+     */
     @Override
     public String toSerialisedString() {
         return serialise(
@@ -40,6 +75,8 @@ public class Seat implements ISerialisable {
         );
     }
 
+    /** Deserialize seat
+     */
     @Override
     public ISerialisable fromSerialisedString(String s) throws InvalidPropertiesFormatException {
         HashMap<String, String> pairs = deserialise(s);

@@ -17,7 +17,7 @@ public class Ticket implements ISerialisable {
      */
     private Seat seat;
     
-    /** agegroup that the customer belong to
+    /** age group that the customer belong to
      */
     private AgeGroup ageGroup;
     
@@ -25,9 +25,6 @@ public class Ticket implements ISerialisable {
      */
     private double price;
     
-    /** Create constructor
-     * 
-     */
     public Ticket(){}
     
     /** Creates a new ticket with the seat, age and price
