@@ -10,12 +10,9 @@ import java.util.List;
 
 public class Seating implements ISerialisable {
 
-    List<Seat> seats = new ArrayList<>();
-    public Seating(){}
-    public List<Seat> getNewSeatingPlan(){
-    private  List <Seat> seats = new ArrayList<>();
+    private List<Seat> seats = new ArrayList<>();
 
-    public void getNewSeatingPlan(){
+    public Seating(){
         String[] row = new String[]{"a", "b", "c", "d", "e", "f", "g", "h"};
         for (String value : row) {
             for (int i = 1; i < 11; i++) {
