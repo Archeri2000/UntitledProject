@@ -36,7 +36,7 @@ public class Customer implements ISerialisable {
 
     /** create a new customer based on customer details
      * @param name			name of this customer
-     * @param mobileNUmber 	mobile number of this customer
+     * @param mobileNumber 	mobile number of this customer
      * @param email			email of this customer
      */
     public Customer(String name, int mobileNumber, String email){
@@ -47,7 +47,7 @@ public class Customer implements ISerialisable {
     
     /** create a new customer based on customer details
      * @param name			name of this customer
-     * @param mobileNUmber 	mobile number of this customer
+     * @param mobileNumber 	mobile number of this customer
      * @param email			email of this customer
      * @param booking		list of bookings of this customer
      */
@@ -73,7 +73,7 @@ public class Customer implements ISerialisable {
     }
     
     /** set the mobile number of a customer
-     * @param mobile number		mobile number of a customer
+     * @param number		mobile number of a customer
      */
     public void setMobileNumber(int number) {
         this.mobileNumber = number;
@@ -106,6 +106,7 @@ public class Customer implements ISerialisable {
     public List <Booking> getBookings(){return bookings; }
 
     /** add booking for a customer
+     * @param booking 			booking of a customer
      * @return True/False if a booking is made successfully
      */
     public boolean addBooking(Booking booking){return bookings.add(booking);}

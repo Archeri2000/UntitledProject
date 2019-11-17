@@ -32,6 +32,8 @@ public class Cineplex implements ISerialisable {
 	}
     
 	/** Assigning cinemas to cineplex
+	 * @param cineplexName	name of cineplex
+	 * @param cinemas		list of cinemas
      */
 	public Cineplex(String cineplexName, List<Cinema> cinemas) {
 		this.cinemas = new HashMap<>();
@@ -97,8 +99,8 @@ public class Cineplex implements ISerialisable {
 	/** Method to Add cinema
 	 * @param name 		name of cinema
 	 * @param type		type of cinema
-	 * @param seating	seating of cinema
-	 * @return name of cinema
+	 * @param s			seating of cinema
+	 * @return cinema object
      */
 	public Cinema addCinema(String name, CinemaType type, Seating s) {
     	if(cinemas.containsKey(name)){
