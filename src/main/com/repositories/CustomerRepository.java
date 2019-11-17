@@ -22,6 +22,7 @@ public class CustomerRepository implements ISerialisable {
     public Customer createCustomer(String name, String email, int phone){
         if(!customerHashMap.containsKey(name)){
             Customer c = new Customer(name, phone, email);
+            customerHashMap.put(phone, c);
             return c;
         }
         return null;
