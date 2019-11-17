@@ -644,7 +644,7 @@ public class AdminView
 				String cinema=sc.nextLine();
 				CinemaType type = getCinemaType();
 				//TODO: Add Seating
-				cineplex_manager.AddCinema(cineplex, cinema, type, null);
+				cineplex_manager.AddCinema(cineplex, cinema, type, new Seating());
 			}
 			else if(choice==4)
 			{
