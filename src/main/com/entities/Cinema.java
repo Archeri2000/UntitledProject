@@ -17,7 +17,6 @@ public class Cinema implements ISerialisable, IShowingsListener {
 	private String cineplex;
 	private String name;
 	private Seating seating;
-	private List<Seat> seats;
 	private List<MovieShowing> movieSchedule = new ArrayList<>();
 
 	public Cinema(){}
@@ -27,14 +26,15 @@ public class Cinema implements ISerialisable, IShowingsListener {
 		this.cineplex = cineplex;
 		this.cinemaType = cinemaType;
 		this.movieSchedule = schedule;
+		this.seating = s;
 		ShowingsEventBroadcaster.AddListener(this);
 	}
 
-	public Cinema(String name, String cineplex, CinemaType type, List<Seat> s) {
+	public Cinema(String name, String cineplex, CinemaType type, Seating s) {
 		this.name = name;
 		this.cineplex = cineplex;
 		this.cinemaType = type;
-		this.seats= s;
+		this.seating= s;
 		ShowingsEventBroadcaster.AddListener(this);
 	}
 
@@ -62,8 +62,8 @@ public class Cinema implements ISerialisable, IShowingsListener {
 
 	public MovieShowing addMovieShowing(Movie movie, LocalDateTime screening_time, ShowingEnum showtype){
 		if(isTimeslotAvailable(screening_time, movie.durationMin)){
-		    seats = seating.getNewSeatingPlan();
-			MovieShowing showing = new MovieShowing(movie, screening_time, seats, showtype);
+		    //TODO: Fix
+			MovieShowing showing = new MovieShowing(movie, screening_time, seating, showtype);
 			movieSchedule.add(showing);
 			ShowingsEventBroadcaster.CreateShowingEvent(showing, this);
 			return showing;
