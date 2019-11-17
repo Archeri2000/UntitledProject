@@ -43,6 +43,7 @@ public class AdminView
 			System.out.println("Enter 0 to return");
 			System.out.println("Enter 1 to Login");
 			int option = sc.nextInt();
+			sc.nextLine();
 			if(option == 0){
 				return;
 			}else if(option == 1){
@@ -616,6 +617,7 @@ public class AdminView
 			System.out.println();
 			System.out.print("Enter your choice...");
 			choice=sc.nextInt();
+			sc.nextLine();
 			if(choice==1)
 			{
 				CinemaType cinemaType = getCinemaType();
@@ -649,7 +651,8 @@ public class AdminView
 			{
 				System.out.println("Enter public holiday date..");
 				LocalDate date = getDate();
-				price_manager.AddPublicHoliday(date);
+				if (price_manager.AddPublicHoliday(date)) System.out.println("Successfully added Public Holiday!");
+				else System.out.println("Public Holiday already exists!");
 			}
 			else if(choice==6)
 			{
@@ -658,7 +661,8 @@ public class AdminView
 				}
 				System.out.println("Enter public holiday to remove..");
 				LocalDate date = getDate();
-				price_manager.RemovePublicHoliday(date);
+				if (price_manager.RemovePublicHoliday(date)) System.out.println("Successfully removed Public Holiday!");
+				else System.out.println("Public Holiday was not found!");
 			}
 			else if(choice==7)
 			{
