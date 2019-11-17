@@ -4,7 +4,6 @@ import main.com.entities.*;
 
 import main.com.repositories.CustomerRepository;
 
-
 import java.util.ArrayList;
 
 /** 
@@ -14,12 +13,17 @@ import java.util.ArrayList;
  */
 
 public class BookingService{
+	
+	 /** 
+     * Create a customer repository
+     */
 
 	 /** 
      * Create a customer repository
      */
 
     private CustomerRepository _repo = CustomerRepository.getInstance();
+
 
     /** 
      * Get the customer object
@@ -41,6 +45,7 @@ public class BookingService{
          return _repo.createCustomer(name, email, phone);
      }
      
+
      /** 
       * Get seating plan for the movie showing
       * @param showing	the movie showing
