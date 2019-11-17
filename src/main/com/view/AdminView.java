@@ -1,4 +1,5 @@
 package main.com.view;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -451,6 +452,13 @@ public class AdminView
 		return LocalDateTime.parse(str, formatter);
 	}
 
+	private LocalDate getDate(){
+		System.out.println("Enter Date in format: YYYY-MM-DD");
+		String str = sc.nextLine();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		return LocalDate.parse(str, formatter);
+	}
+
 	private Cineplex getCineplex() {
 		List<Cineplex> cineplexList = cineplex_query.getCineplexes();
 		System.out.println("Cineplexes found:");
@@ -525,10 +533,11 @@ public class AdminView
 			System.out.println("Enter 3 to enter price according to age");
 			System.out.println("Enter 4 to enter price according to day");
 			System.out.println("Enter 5 to add public holidays");
-			System.out.println("Enter 6 to check price according to cinema");
-			System.out.println("Enter 7 to check price according to movie type");
-			System.out.println("Enter 8 to check price according to age");
-			System.out.println("Enter 9 to check price according to day");
+			System.out.println("Enter 6 to remove public holidays");
+			System.out.println("Enter 7 to check price according to cinema");
+			System.out.println("Enter 8 to check price according to movie type");
+			System.out.println("Enter 9 to check price according to age");
+			System.out.println("Enter 10 to check price according to day");
 			System.out.println("Enter -1 to exit");
 			System.out.println();
 			System.out.print("Enter your choice...");
@@ -564,10 +573,20 @@ public class AdminView
 			}
 			else if(choice==5)
 			{
-				System.out.println("Enter public holiday..");
-				// TODO: call AddPublicHoliday from PriceManagementService class
+				System.out.println("Enter public holiday date..");
+				LocalDate date = getDate();
+				price_manager.AddPublicHoliday(date);
 			}
 			else if(choice==6)
+			{
+				for(LocalDate date:price_manager.GetPublicHolidays()){
+					System.out.println(date);
+				}
+				System.out.println("Enter public holiday to remove..");
+				LocalDate date = getDate();
+				price_manager.RemovePublicHoliday(date);
+			}
+			else if(choice==7)
 			{
 				HashMap<CinemaType, Double> cinema_types = price_manager.GetCinemaTypeMultiplier();
 				System.out.println("Cinema Type Prices:");
@@ -575,14 +594,15 @@ public class AdminView
 					System.out.println(entry.getKey().name() + " : " + entry.getValue());
 				}
 			}
-			else if(choice==7)
+			else if(choice==8)
 			{
 				HashMap<ShowingEnum, Double> showing_types = price_manager.GetMovieTypePrice();
 				System.out.println("Showing Type Prices:");
 				for(Map.Entry<ShowingEnum, Double> entry: showing_types.entrySet()){
 					System.out.println(entry.getKey().name() + " : " + entry.getValue());
-				}			}
-			else if(choice==8)
+				}
+			}
+			else if(choice==9)
 			{
 				HashMap<AgeGroup, Double> age_groups = price_manager.GetAgeGroupMultiplier();
 				System.out.println("Cinema Type Prices:");
@@ -590,7 +610,7 @@ public class AdminView
 					System.out.println(entry.getKey().name() + " : " + entry.getValue());
 				}
 			}
-			else if(choice==9)
+			else if(choice==10)
 			{
 				HashMap<DayType, Double> day_types = price_manager.GetDayTypeMultiplier();
 				System.out.println("Cinema Type Prices:");

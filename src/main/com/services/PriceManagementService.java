@@ -4,6 +4,7 @@ import main.com.entities.*;
 import main.com.repositories.MovieRepository;
 import main.com.repositories.PriceRepository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -25,9 +26,11 @@ public class PriceManagementService {
     public boolean SetDayTypeMultiplier(DayType type, double multiplier){
         return _priceRepo.setDayMultipliers(type, multiplier);
     }
-    public boolean AddPublicHoliday(LocalDateTime day){
-        //TODO
-        return false;
+    public boolean AddPublicHoliday(LocalDate day){
+        return _priceRepo.addPublicHoliday(day);
+    }
+    public boolean RemovePublicHoliday(LocalDate day){
+        return _priceRepo.removePublicHoliday(day);
     }
     public HashMap<CinemaType, Double> GetCinemaTypeMultiplier(){
         return _priceRepo.CinemaTypeMultipliers;
@@ -41,5 +44,6 @@ public class PriceManagementService {
     public HashMap<DayType, Double> GetDayTypeMultiplier(){
         return _priceRepo.DayMultiplier;
     }
+    public List<LocalDate> GetPublicHolidays(){ return _priceRepo.Public_Holidays; }
 
 }
