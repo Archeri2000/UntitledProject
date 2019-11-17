@@ -24,7 +24,7 @@ public class SearchView {
         System.out.println(" 3. Search movie by Ticket Sales");
         System.out.println(" 4. Write Review");
         System.out.println(" 5. Get showtimes");
-        System.out.println(" 6. 'Quit");
+        System.out.println(" -1. 'Quit");
         System.out.println(" ");
     }
     public Movie movieSearch() {
@@ -72,6 +72,7 @@ public class SearchView {
         }while (rating < 1 || rating > 5);
         MQS.addReviews(movie, review, rating);
     }
+
     public List<MovieShowing> viewShowtimes(Movie movie) {
         return MQS.getShowtimeTimeslots(movie);
     }

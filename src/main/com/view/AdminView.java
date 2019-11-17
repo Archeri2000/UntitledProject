@@ -143,6 +143,7 @@ public class AdminView
 			System.out.println("Enter 7 to add movie cast ");
 			System.out.println("Enter 8 to remove movie cast");
 			System.out.println("Enter 9 to get details of a movie");
+			System.out.println("Enter 10 to remove reviews");
 			System.out.println("Enter -1 to exit");
 			System.out.println();
 			System.out.print("Enter your choice...  ");
@@ -157,6 +158,7 @@ public class AdminView
 				while(duration <= 0) {
 					System.out.print("Enter movie duration...");
 					duration =sc.nextInt();
+					sc.nextLine();
 				}
 				RatingEnum rating = getRating();
 				StatusEnum status = getStatus();
@@ -269,6 +271,22 @@ public class AdminView
 					System.out.println("Review Score: " + movie.calculateOverallRating());
 				}
 			}
+			else if(choice == 10){
+				Movie movie = getMovie();
+				System.out.print("Which review to remove? ");
+				Scanner sc = new Scanner(System.in);
+				int index = sc.nextInt();
+				sc.nextLine();
+				if(movie.reviewStore!=null) {
+					int i = 1;
+					for (Review value : movie.reviewStore.reviews) {
+						System.out.println(i+ ": " +value.first + ", Rating: " + value.second);
+						i++;
+					}
+				}else
+					System.out.println("NaN");
+				movie_manager.removeReview(movie,index);
+			}
 			else if(choice == -1){
 				return;
 			}
@@ -302,6 +320,7 @@ public class AdminView
 		while (true) {
 			System.out.print("Enter movie status... ComingSoon, NotShowing, Showing");
 			String s2 = sc.next();
+			sc.nextLine();
 			for (StatusEnum e : StatusEnum.values()) {
 				if (s2.equalsIgnoreCase(e.name())) {
 					return e;
@@ -594,7 +613,7 @@ public class AdminView
 			System.out.println();
 			System.out.print("Enter your choice... ");
 			choice=sc.nextInt();
-
+			sc.nextLine();
 			if(choice==1)
 			{
 				System.out.println("Enter Cineplex name");

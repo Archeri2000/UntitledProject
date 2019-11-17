@@ -3,7 +3,6 @@ package main.com.view;
 import main.com.entities.Booking;
 import main.com.entities.Movie;
 import main.com.entities.MovieShowing;
-import main.com.services.MovieQueryService;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -64,9 +63,18 @@ public class CustomerUI {
                                 break;
                             case 5:
                                 movie = searchv.movieSearch();
-                                searchv.viewShowtimes(movie);
+                                List<MovieShowing> showings =searchv.viewShowtimes(movie);
+                                if(movie!=null) {
+                                    if (showings != null) {
+                                        System.out.println("Showing: ");
+                                        for (MovieShowing value : showings) {
+                                            System.out.println(value.getShowing_time());
+                                        }
+                                    }
+                                    System.out.println("No Showing found");
+                                }
                                 break;
-                            case 6:
+                            case -1:
                                 decision = true;
                                 break;
                             default:
@@ -81,25 +89,26 @@ public class CustomerUI {
                 //TODO case2 bookings
                 case 2:
                     Movie movie = searchv.movieSearch();
-                    List<MovieShowing> showings =searchv.viewShowtimes(movie);
-                    if(!showings.isEmpty()) {
-                        System.out.println("Showing: ");
-                        for (MovieShowing value : showings) {
-                            System.out.println(value.getShowing_time());
-                        }
-                        System.out.println("Enter Date and Time in format: YYYY-MM-DD HH:MM");
-                        String str = sc.nextLine();
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                        LocalDateTime time =  LocalDateTime.parse(str, formatter);
-                        for (MovieShowing value : showings) {
-                            if (value.getShowing_time().equals(time))
-                                bookv.displaySeats(value, movie);
+                    if (movie!=null) {
+                        List<MovieShowing> showings = searchv.viewShowtimes(movie);
+                        if (showings != null || !showings.isEmpty()) {
+                            System.out.println("Showing: ");
+                            for (MovieShowing value : showings) {
+                                System.out.println(value.getShowing_time());
+                            }
+                            System.out.println("Enter Date and Time in format: YYYY-MM-DD HH:MM");
+                            String str = sc.nextLine();
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                            LocalDateTime time = LocalDateTime.parse(str, formatter);
+                            for (MovieShowing value : showings) {
+                                if (value.getShowing_time().equals(time))
+                                    bookv.displaySeats(value, movie);
                                 bookv.selectSeats(value, movie);
                                 bookv.getCustomerDetails();
                                 bookv.checkout();
                                 break;
-                        }
-                        System.out.println(" Showing not found!");
+                            }
+                        } System.out.println(" Showing not found!");
                     }
                     break;
                 case 3:
