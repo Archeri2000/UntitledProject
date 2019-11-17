@@ -44,10 +44,15 @@ public class Movie implements ISerialisable {
      */
     public ReviewStore reviewStore = new ReviewStore();
 	private UUID _uuid;
+	/**
+	*get uuid
+	*/
 	public String getUUID(){
 		return _uuid.toString();
 	}
-
+/**
+* default movie constructor
+*/
 	public Movie(){}
 
     /** Creates a new movie  with the details
