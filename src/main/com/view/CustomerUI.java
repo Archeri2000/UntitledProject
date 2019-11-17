@@ -87,30 +87,69 @@ public class CustomerUI {
 
                 //TODO case2 bookings
                 case 2:
-                    Movie movie = searchv.movieSearch();
-                    if (movie!=null) {
-                        List<MovieShowing> showings = searchv.viewShowtimes(movie);
-                        if (showings != null || !showings.isEmpty()) {
-                            System.out.println("Showing: ");
-                            for (MovieShowing value : showings) {
+                    System.out.println("Book: \n1. via Movie \n2. via Cineplex");
+                    int option = sc.nextInt();
+                    if (option == 1) {
+                        Movie movie = searchv.movieSearch();
+                        if (movie != null) {
+                            List<MovieShowing> showings = searchv.viewShowtimes(movie);
+                            if (showings != null || !showings.isEmpty()) {
+                                System.out.println("Showing: ");
+                                for (MovieShowing value : showings) {
+                                    System.out.println(value.getShowing_time());
+                                }
+                                System.out.println("Enter Date and Time in format: YYYY-MM-DD HH:MM");
+                                String str = sc.nextLine();
+                                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                                LocalDateTime time = LocalDateTime.parse(str, formatter);
+                                for (MovieShowing value : showings) {
+                                    if (value.getShowing_time().equals(time)) {
+                                        bookv.displaySeats(value, movie);
+                                        List<Ticket> seat = bookv.selectSeats(value, movie);
+                                        Customer cust = bookv.getCustomerDetails();
+                                        bookv.checkout(cust, seat, value, value.getShownMovie());
+                                    }
+
+                                    break;
+                                }
+                            } else
+                                System.out.println(" Showing not found!");
+                        }
+                    }else if(option == 2){
+                        Cineplex cineplex = searchv.getCineplex();
+                        Cinema cinema = searchv.getCinema(cineplex);
+                        List<MovieShowing> movies = searchv.getMovie(cinema);
+                        if (!movies.isEmpty()) {
+                            for (MovieShowing value : movies) {
+                                System.out.println(value.getShownMovieTitle() + ": ");
                                 System.out.println(value.getShowing_time());
                             }
-                            System.out.println("Enter Date and Time in format: YYYY-MM-DD HH:MM");
-                            String str = sc.nextLine();
-                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                            LocalDateTime time = LocalDateTime.parse(str, formatter);
-                            for (MovieShowing value : showings) {
-                                if (value.getShowing_time().equals(time)) {
-                                    bookv.displaySeats(value, movie);
-                                    List<Seat> seat = bookv.selectSeats(value, movie);
-                                    Customer cust = bookv.getCustomerDetails();
-                                    bookv.checkout(cust, seat, value);
-                                }
+                            Movie movie = searchv.movieSearch();
+                            if (movie != null) {
+                                List<MovieShowing> showings = searchv.viewShowtimes(movie);
+                                if (showings != null || !showings.isEmpty()) {
+                                    System.out.println("Showing: ");
+                                    for (MovieShowing value : showings) {
+                                        System.out.println(value.getShowing_time());
+                                    }
+                                    System.out.println("Enter Date and Time in format: YYYY-MM-DD HH:MM");
+                                    String str = sc.nextLine();
+                                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                                    LocalDateTime time = LocalDateTime.parse(str, formatter);
+                                    for (MovieShowing value : showings) {
+                                        if (value.getShowing_time().equals(time)) {
+                                            bookv.displaySeats(value, movie);
+                                            List<Ticket> seat = bookv.selectSeats(value, movie);
+                                            Customer cust = bookv.getCustomerDetails();
+                                            bookv.checkout(cust, seat, value, value.getShownMovie());
+                                        }
 
-                                break;
+                                        break;
+                                    }
+                                } else
+                                    System.out.println(" Showing not found!");
                             }
-                        } else
-                            System.out.println(" Showing not found!");
+                        }
                     }
                     break;
                 case 3:
