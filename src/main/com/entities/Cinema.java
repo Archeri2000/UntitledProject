@@ -27,6 +27,9 @@ public class Cinema implements ISerialisable, IShowingsListener {
 		this.cinemaType = cinemaType;
 		this.movieSchedule = schedule;
 		this.seating = s;
+		for(MovieShowing showing: schedule){
+		    ShowingsEventBroadcaster.CreateShowingEvent(showing, this);
+        }
 		ShowingsEventBroadcaster.AddListener(this);
 	}
 
