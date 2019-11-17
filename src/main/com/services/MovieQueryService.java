@@ -21,7 +21,7 @@ public class MovieQueryService{
 
     /** 
      * Get the list of movies
-     * @param name 		name of movie that customer wish to search
+     * @param movie 		name of movie that customer wish to search
      * @return list of movies that matches customer's input
      */
     public List<Movie> getMovie(String Movie){
@@ -47,7 +47,7 @@ public class MovieQueryService{
     }
     
     /** 
-     * @param name		name of movie that the customer wish to give review and rating on
+     * @param movie		name of movie that the customer wish to give review and rating on
      * @param review	review that the customer wish to give the movie
      * @param rating  	rating that the customer wish to give the movie
      */
@@ -57,7 +57,7 @@ public class MovieQueryService{
     
     /** 
      * Get showtime timeslots
-     * @param name 		name of movie that customer wish to watch
+     * @param movie 		name of movie that customer wish to watch
      * @return list of showtimes
      */
     public List<MovieShowing> getShowtimeTimeslots(Movie movie){
