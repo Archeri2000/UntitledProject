@@ -49,7 +49,7 @@ public class Login implements ISerialisable {
 	 * Checks user_id and password in the hashmap
 	 * @param id - userid of admin
 	 * @param password - password of admin
-	 * @return
+	 * @return boolean value to to check for login
 	 */
 	
 	public boolean checkLogin(String id,String password)
@@ -103,7 +103,7 @@ public class Login implements ISerialisable {
 	
 	/**
 	 * Adds a staff member in the user hashmap
-	 * @return
+	 * @return a list of staff who can use the admin panel
 	 */
 	
 	public List<String> getStaff()
