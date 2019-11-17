@@ -195,6 +195,11 @@ public class SerialisationUtils {
         return CreateKVPair(name, START_OBJECT + String.join(getLISTSEPARATOR(), objects) + END_OBJECT);
     }
 
+    /**
+     * Deserialises a list of Strings
+     * @param s - string to deserialise
+     * @return List of strings
+     */
     public static List<String> deserialiseStringList(String s){
         if(s.length() == 0) return null;
         if(s.length() == 2) new ArrayList<>();
@@ -204,42 +209,90 @@ public class SerialisationUtils {
     }
 
 
-
+    /**
+     * Serialises a double to a string
+     * @param f double to serialise
+     * @param name name to serialise the variable to
+     * @return string containing the serialised double
+     */
     public static String serialiseDouble(double f, String name){
         return CreateKVPair(name, Double.toString(f));
     }
 
+    /**
+     * Deserialises a double from string
+     * @param value the string to deserialise
+     * @return double from string
+     */
     public static Double deserialiseDouble(String value){
         return Double.parseDouble(value);
     }
 
+    /**
+     * Serialises a int to a string
+     * @param i int to serialise
+     * @param name name to serialise the variable to
+     * @return string containing the serialised int
+     */
     public static String serialiseInt(int i, String name){
         return CreateKVPair(name, Integer.toString(i));
     }
 
+    /**
+     * Deserialises a int from string
+     * @param value the string to deserialise
+     * @return int from string
+     */
     public static Integer deserialiseInt(String value){
         return Integer.parseInt(value);
     }
 
+    /**
+     * Serialises a string
+     * @param s string to serialise
+     * @param name name to serialise the variable to
+     * @return string containing the serialised string
+     */
     public static String serialiseString(String s, String name){
         if(s != null)return CreateKVPair(name, s);
         else return CreateKVPair(name, NULLSTR);
     }
 
+    /**
+     * Deserialises a string
+     * @param s the string to deserialise
+     * @return deserialised string
+     */
     public static String deserialiseString(String s){
         if(s.equals(NULLSTR))return null;
         else return s;
     }
 
+    /**
+     * Serialises a datetime to a string
+     * @param dt datetime to serialise
+     * @param name name to serialise the variable to
+     * @return string containing the serialised datetime
+     */
     public static String serialiseDateTime(LocalDateTime dt, String name){
         return CreateKVPair(name, dt.toString());
     }
 
+    /**
+     * Deserialises a datetime from a string
+     * @param dt the string to deserialise
+     * @return deserialised datetime
+     */
     public static LocalDateTime deserialiseDateTime(String dt){
         return LocalDateTime.parse(dt);
     }
 
-
+    /**
+     * Creates a string that pairs a name with a variable
+     * @param key name
+     * @param value variable as string
+     * @return string containing the pairing
+     */
     private static String CreateKVPair(String key, String value){
         return key + SEPARATOR + value;
     }
