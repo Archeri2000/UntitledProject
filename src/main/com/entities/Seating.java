@@ -4,8 +4,11 @@ package main.com.entities;
 import main.com.utils.ISerialisable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.InvalidPropertiesFormatException;
 import java.util.List;
+
+import static main.com.utils.SerialisationUtils.*;
 
 
 public class Seating implements ISerialisable {
@@ -19,6 +22,10 @@ public class Seating implements ISerialisable {
                 seats.add( new Seat(value + (i), false));
             }
         }
+    }
+
+    public Seating(List<Seat> seats){
+        this.seats = seats;
     }
 
     public String getDisplayString(){
@@ -63,11 +70,16 @@ public class Seating implements ISerialisable {
 
     @Override
     public String toSerialisedString() {
-        return null;
+        return serialise(
+                serialiseList(seats, "seats")
+        );
     }
 
     @Override
     public ISerialisable fromSerialisedString(String s) throws InvalidPropertiesFormatException {
-        return null;
+        HashMap<String, String> pairs = deserialise(s);
+        assert pairs != null;
+        List<Seat> seats = deserialiseList(Seat.class, pairs.get("seats"));
+        return new Seating(seats);
     }
 }
