@@ -100,6 +100,6 @@ public class BookingView {
         String endTID = sdf.format(time);
         String TID = showing.getShownMovieTitle().substring(0,3) + endTID;
         Booking booking = new Booking(customer, tickets, TID, showing.getShownMovieTitle(), cineplex, cineplex);
-
+        customer.addBooking(booking);
     }
 }

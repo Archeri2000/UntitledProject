@@ -170,7 +170,9 @@ public class CustomerUI {
                     List<Booking> bookingList = histv.getPastBooking();
                     if(bookingList != null){
                         for (Booking value : bookingList) {
-                            System.out.println(value);
+                            System.out.println(value.getTransactionID());
+                            System.out.println(value.getMovieName());
+                            System.out.println(value.getCustomerName());
                         }
                     }else{
                         System.out.println("User not found");
