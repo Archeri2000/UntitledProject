@@ -75,13 +75,14 @@ public class MovieRepository implements IShowingsListener, ISerialisable {
     @Override
     public void OnShowingCreateEvent(MovieShowing showing, Object caller) {
         if(caller == this) return;
+        MovieShowings.computeIfAbsent(showing.getShownMovie(), k -> new ArrayList<>());
         MovieShowings.get(showing.getShownMovie()).add(showing);
     }
 
     @Override
     public void OnShowingDestroyEvent(MovieShowing showing, Object caller) {
         if(caller == this) return;
-        MovieShowings.get(showing.getShownMovie()).remove(showing);
+        if(MovieShowings.containsKey(showing.getShownMovie())) MovieShowings.get(showing.getShownMovie()).remove(showing);
     }
 
     @Override
