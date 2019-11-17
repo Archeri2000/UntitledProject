@@ -27,14 +27,13 @@ public class BookingView {
         System.out.print("How many ticket you want to book? ");
         Scanner sc = new Scanner(System.in);
         int amount = sc.nextInt();
-        sc.nextLine();
         List<Ticket> tickets= new ArrayList<>();
         for (int i = 0; i < amount; i++) {
+            sc.nextLine();
             System.out.print("Which seat are your choice? ");
             String seat = sc.nextLine();
             System.out.print("How old are you? ");
             int age = sc.nextInt();
-            sc.nextLine();
             AgeGroup ageGroup = AgeGroup.getGroup(age);
             if (_serv.selectSeats(seat, showtime)) {
                 tickets.add(new Ticket(new Seat(seat, false), ageGroup));
@@ -61,13 +60,14 @@ public class BookingView {
         return customer;
     }
 
-    public void checkout(Customer customer,List<Ticket> tickets, MovieShowing showing, Movie movie) {
+    public void checkout(Customer customer,List<Ticket> tickets, MovieShowing showing, Movie movie, Cineplex cineplex, Cinema cinema) {
         LocalDateTime time = showing.getShowing_time();
         DateTimeFormatter sdf = DateTimeFormatter.ofPattern("yyyyMMddhhmm");
         String endTID = sdf.format(time);
         String TID = showing.getShownMovieTitle().substring(0,3) + endTID;
 
-        Booking booking = new Booking(customer, tickets, TID, movie.movie_title, String cineplex, String cinema);
-
+        String cineplexName = cineplex.getCineplexName();
+        String CinemaName = cinema.getName();
+        Booking booking = new Booking(customer, tickets, TID, movie.movie_title, cineplexName,cineplexName);
     }
 }

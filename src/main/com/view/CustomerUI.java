@@ -88,7 +88,9 @@ public class CustomerUI {
                 //TODO case2 bookings
                 case 2:
                     System.out.println("Book: \n1. via Movie \n2. via Cineplex");
+                    System.out.println("Choice: ");
                     int option = sc.nextInt();
+                    sc.nextLine();
                     if (option == 1) {
                         Movie movie = searchv.movieSearch();
                         if (movie != null) {
@@ -107,9 +109,8 @@ public class CustomerUI {
                                         bookv.displaySeats(value, movie);
                                         List<Ticket> seat = bookv.selectSeats(value, movie);
                                         Customer cust = bookv.getCustomerDetails();
-                                        bookv.checkout(cust, seat, value, value.getShownMovie());
+                                        bookv.checkout(cust, seat, value, value.getShownMovie(), value.getCineplex(), value.getCinema());
                                     }
-
                                     break;
                                 }
                             } else
@@ -141,15 +142,15 @@ public class CustomerUI {
                                             bookv.displaySeats(value, movie);
                                             List<Ticket> seat = bookv.selectSeats(value, movie);
                                             Customer cust = bookv.getCustomerDetails();
-                                            bookv.checkout(cust, seat, value, value.getShownMovie());
+                                            bookv.checkout(cust, seat, value, value.getShownMovie(), value.getCineplex(), value.getCinema());
                                         }
-
                                         break;
                                     }
                                 } else
                                     System.out.println(" Showing not found!");
                             }
-                        }
+                        }else
+                            System.out.println(" Showing not found!");
                     }
                     break;
                 case 3:
