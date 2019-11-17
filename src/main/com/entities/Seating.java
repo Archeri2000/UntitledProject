@@ -23,12 +23,16 @@ public class Seating implements ISerialisable {
 
     public String getDisplayString(){
         String output = "";
-        for (Seat value : seats){
-            for (int i =0; i< 11; i++){
-                output += value.getID() + "\t";
+
+        int k = 0;
+        for (int i =0; i< 8; i++){
+            for (int j =0; j< 10; j++){
+                output += seats.get(k+j).getID() + "\t";
             }
+            k+=10;
             output += "\n";
         }
+
         return output;
     }
     public boolean isSeatEmpty(String seat){
