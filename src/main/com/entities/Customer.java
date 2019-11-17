@@ -78,7 +78,7 @@ public class Customer implements ISerialisable {
             int mobile = deserialiseInt(pairs.get("mobile"));
             String email = deserialiseString(pairs.get("email"));
             List<Booking> bookings = deserialiseList(Booking.class, pairs.get("bookings"));
-            return new Customer(name, mobileNumber, email, bookings);
+            return new Customer(name, mobile, email, bookings);
         }catch(Exception e){
             throw new InvalidPropertiesFormatException("");
         }    }
