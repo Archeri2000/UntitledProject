@@ -8,6 +8,8 @@ import java.util.List;
 
 /** 
  * Admin staff uses this class to manage movie showing
+ * @author SS1 Group 6
+ * @version 13
  */
 public class ShowingManagementService {
 	/** 

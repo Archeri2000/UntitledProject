@@ -9,6 +9,8 @@ import java.util.List;
 
 /** 
  * Admin staff uses this class to add/remove movies and change the details of each movie
+ * @author SS1 Group 6
+ * @version 13
  */
  
 

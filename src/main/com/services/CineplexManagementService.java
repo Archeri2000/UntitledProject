@@ -8,6 +8,8 @@ import main.com.repositories.CineplexRepository;
 
 /** 
  * Admin staff uses this class to add/remove cineplexes/cinemas
+ * @author SS1 Group 6
+ * @version 13
  */
 public class CineplexManagementService {
 	/** 
