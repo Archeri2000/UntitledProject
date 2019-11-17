@@ -67,7 +67,7 @@ public class Seating implements ISerialisable {
 
         return output;
     }
-    
+
     /**
      * To determine if seat is empty
      * @param seat 		the seat number
@@ -83,10 +83,10 @@ public class Seating implements ISerialisable {
         }
         return false;
     }
-    
+
     /**
      * To change seats from available to occupied
-     * @param seatings		
+     * @param seatings
      * @return True/False if these seats have been successfully set as occupied
      */
     public boolean setSeatsOccupied(ArrayList<String> seatings){

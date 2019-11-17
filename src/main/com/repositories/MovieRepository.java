@@ -163,8 +163,13 @@ public class MovieRepository implements IShowingsListener, ISerialisable {
         return serialise(serialiseList(hashmapPairs, "MovieSales"), serialiseList(movies, "Movies"));
     }
 
-    
-    /**
+    public boolean addSales(Movie movie, int sales){
+        if(!MovieSales.containsKey(movie))return false;
+        MovieSales.get(movie).increment(sales);
+        return true;
+    }
+
+      /**
      * Deserialize a String
      * @param s- String to be deserialized
      * 
