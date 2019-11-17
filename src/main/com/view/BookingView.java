@@ -12,7 +12,7 @@ public class BookingView {
 
     private BookingService _serv = new BookingService();
 
-    public void displaySeats(MovieShowing showtime, Movie movie, Cineplex cineplex, Cinema cinema) {
+    public void displaySeats(MovieShowing showtime, Movie movie) {
 
         Seating seating = _serv.getSeating(showtime);
         String seat = seating.getDisplayString();
@@ -22,9 +22,18 @@ public class BookingView {
         }
     }
 
-    public void selectSeats(Seating seating){
-
-
+    public void selectSeats(MovieShowing showtime, Movie movie){
+        System.out.print("How many ticket you want to book? ");
+        Scanner sc = new Scanner(System.in);
+        int amount = sc.nextInt();
+        sc.nextLine();
+        for (int i = 0; i < amount; i++){
+            System.out.print("Which seat are your choice? ") ;
+            String seat = sc.nextLine();
+            System.out.print("How old are you? ");
+            int age = sc.nextInt();
+            _serv.selectSeats(seat, showtime);
+        }
 
     }
     public Customer getCustomerDetails() {

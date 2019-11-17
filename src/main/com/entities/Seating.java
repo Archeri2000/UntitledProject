@@ -42,10 +42,10 @@ public class Seating implements ISerialisable {
         }
         return false;
     }
-    public boolean setSeatsOccupied(String[] seatings){
-        for (int i = 0; i < seatings.length; i++) {
+    public boolean setSeatsOccupied(ArrayList<String> seatings){
+        for (int i = 0; i < seatings.size(); i++) {
             for (int j = 0; j < seats.size(); j++) {
-                if (seats.get(i).getID().equals(seatings[i])){
+                if (seats.get(i).getID().equals(seatings.get(i))){
                     if(seats.get(i).isBooked()) {
                         return false;
                     }else {

@@ -313,7 +313,7 @@ public class AdminView
 
 	private RatingEnum getRating() {
 		while(true) {
-			System.out.print("Enter movie rating certification A for adult U for Universal UA for universal adult...");
+			System.out.print("Enter movie rating certification PG, R18, NC16, M...");
 			String r1 = sc.next();
 			for (RatingEnum e : RatingEnum.values()) {
 				if (r1.equalsIgnoreCase(e.name())) {
