@@ -1,8 +1,6 @@
 package main.com.view;
 
-import main.com.entities.Booking;
-import main.com.entities.Movie;
-import main.com.entities.MovieShowing;
+import main.com.entities.*;
 
 import javax.swing.*;
 import java.time.LocalDateTime;
@@ -104,10 +102,11 @@ public class CustomerUI {
                             for (MovieShowing value : showings) {
                                 if (value.getShowing_time().equals(time)) {
                                     bookv.displaySeats(value, movie);
+                                    List<Seat> seat = bookv.selectSeats(value, movie);
+                                    Customer cust = bookv.getCustomerDetails();
+                                    bookv.checkout(cust, seat, value);
                                 }
-                                bookv.selectSeats(value, movie);
-                                bookv.getCustomerDetails();
-                                bookv.checkout();
+
                                 break;
                             }
                         } else
