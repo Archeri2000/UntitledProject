@@ -421,12 +421,16 @@ public class AdminView
 						ShowingEnum showType = getShowType();
 						if(show_manager.addShowing(cinema, movie, showingTime, showType) == null){
 							System.out.println("Unable to add movie showing!");
-						}
+						}else
+							System.out.println("Movie Showing added");
 					}
 					else if (choice == 2) {
 						MovieShowing showing = getShowtime(cinema);
 						if(showing != null){
-							show_manager.removeShowing(cinema, showing);
+							if (show_manager.removeShowing(cinema, showing))
+								System.out.println("Movie Showing removed");
+							else
+								System.out.println("Unable to remove Movie Showing");
 						}
 					}
 					else if (choice == -1) {
@@ -469,17 +473,19 @@ public class AdminView
 	private Cinema getCinema(Cineplex cineplex) {
 		List<Cinema> Cinemas = cineplex_query.GetCinemas(cineplex);
 		System.out.println("Cinemas:");
-		for (Cinema value : Cinemas) {
-			System.out.println(value.getName());
-		}
-		System.out.print(" Enter exact name: ");
-		String cineplex_name = sc.nextLine();
-		for(Cinema value: Cinemas){
-			if(cineplex_name.equalsIgnoreCase(value.getName())){
-				return value;
+		if(!Cinemas.isEmpty()) {
+			for (Cinema value : Cinemas) {
+				System.out.println(value.getName());
+			}
+			System.out.print(" Enter exact name: ");
+			String cineplex_name = sc.nextLine();
+			for (Cinema value : Cinemas) {
+				if (cineplex_name.equalsIgnoreCase(value.getName())) {
+					return value;
+				}
 			}
 		}
-		System.out.println("Invalid Cinema Name!");
+		System.out.println("No Cinema Found");
 		return null;
 	}
 
@@ -644,8 +650,13 @@ public class AdminView
 				String cinema=sc.nextLine();
 				CinemaType type = getCinemaType();
 				//TODO: Add Seating
-				cineplex_manager.AddCinema(cineplex, cinema, type, new Seating());
+                Seating seating = new Seating();
+				if (cineplex_manager.AddCinema(cineplex, cinema, type, seating)!= null)
+					System.out.println("Cinema added successfully");
+				else
+					System.out.println("Cinema add failed");
 			}
+
 			else if(choice==4)
 			{
 				Cineplex cineplex = getCineplex();
@@ -666,8 +677,6 @@ public class AdminView
 				System.out.println("Invalid Choice");
 			}
 		}
-
-				
 	}
 	
 	public static void main(String[] sd)

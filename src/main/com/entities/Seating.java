@@ -24,7 +24,7 @@ public class Seating implements ISerialisable {
     public String getDisplayString(){
         String output = "";
         for (Seat value : seats){
-            while (!value.getID().substring(1, 3).equals("10")){
+            for (int i =0; i< 11; i++){
                 output += value.getID() + "\t";
             }
             output += "\n";
