@@ -9,10 +9,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/** 
+ * Customer use this class make booking
+ * @author SS1 Group 6
+ * @version 13
+ */
 public class BookingView {
 
+	/** 
+     * Create a booking service object
+     */
     private BookingService _serv = new BookingService();
 
+	/** 
+     * Method that will display seats of a particular movie and showtime
+     * @param showtime		showtime of a movie
+     * @param movie			name of a movie
+     */
     public void displaySeats(MovieShowing showtime, Movie movie) {
 
         Seating seating = _serv.getSeating(showtime);
@@ -23,6 +36,12 @@ public class BookingView {
         }
     }
 
+	/** 
+     * For customer to select seats for a particular movie and showtime
+     * @param showtime		showtime of a movie
+     * @param movie			name of a movie
+     * @return list of seats that customer wish to select
+     */
     public List<Seat> selectSeats(MovieShowing showtime, Movie movie) {
         System.out.print("How many ticket you want to book? ");
         Scanner sc = new Scanner(System.in);
@@ -41,6 +60,11 @@ public class BookingView {
         }
         return seats;
     }
+    
+	/** 
+     * To get customer
+     * @return customer object based on the details
+     */
     public Customer getCustomerDetails() {
         int userMobile;
         System.out.print("Enter User mobile number: ");
@@ -60,6 +84,9 @@ public class BookingView {
         return customer;
     }
 
+	/** 
+     * Create a booking for customer
+     */
     public void checkout(Customer customer,List<Seat> seats, MovieShowing showing) {
         LocalDateTime time = showing.getShowing_time();
         DateTimeFormatter sdf = DateTimeFormatter.ofPattern("yyyyMMddhhmm");
@@ -70,3 +97,4 @@ public class BookingView {
 
     }
 }
+© 2019 GitHub, I
