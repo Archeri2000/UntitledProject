@@ -12,11 +12,11 @@ public class Booking implements ISerialisable {
 
     @Override
     public String toSerialisedString() {
-        return null;
+        return "";
     }
 
     @Override
     public ISerialisable fromSerialisedString(String s) throws InvalidPropertiesFormatException {
-        return null;
+        return new Booking();
     }
 }
