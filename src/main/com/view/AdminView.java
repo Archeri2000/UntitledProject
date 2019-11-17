@@ -613,7 +613,7 @@ public class AdminView
 			System.out.println();
 			System.out.print("Enter your choice... ");
 			choice=sc.nextInt();
-
+			sc.nextLine();
 			if(choice==1)
 			{
 				System.out.println("Enter Cineplex name");
