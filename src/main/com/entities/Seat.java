@@ -12,7 +12,6 @@ public class Seat implements ISerialisable {
     private boolean booked;
     public Seat(){}
 
-
     public Seat(String id, boolean status){
         this.ID = id;
         this.booked = status;

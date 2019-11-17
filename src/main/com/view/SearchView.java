@@ -3,6 +3,7 @@ package main.com.view;
 
 import main.com.entities.Movie;
 import main.com.entities.MovieShowing;
+import main.com.services.CineplexQueryService;
 import main.com.services.MovieQueryService;
 
 
@@ -17,6 +18,7 @@ public class SearchView {
     Scanner sc = new Scanner(System.in);
 
     MovieQueryService MQS = new MovieQueryService();
+    CineplexQueryService CQS = new CineplexQueryService();
 
     public void optionsMenu() {
         System.out.println(" 1. Search movie and view details");
@@ -95,6 +97,48 @@ public class SearchView {
         } catch (NullPointerException e) {
             System.out.println("");
         }
+    }
+
+    public Cineplex getCineplex(){
+        List<Cineplex> cineplexList = CQS.getCineplexes();
+        System.out.println("Cineplexes available:");
+        if (!cineplexList.isEmpty()) {
+            for (Cineplex value : cineplexList) {
+                System.out.println(value.getCineplexName());
+            }
+            System.out.print(" Enter exact name: ");
+            String cineplex_name = sc.nextLine();
+            for (Cineplex value : cineplexList) {
+                if (cineplex_name.equalsIgnoreCase(value.getCineplexName())) {
+                    return value;
+                }
+            }
+        }
+        System.out.println("Cineplex not found");
+        return null;
+    }
+
+    public Cinema getCinema(Cineplex cineplex){
+        List<Cinema> Cinemas = CQS.GetCinemas(cineplex);
+        System.out.println("Cinemas:");
+        if(!Cinemas.isEmpty()) {
+            for (Cinema value : Cinemas) {
+                System.out.println(value.getName());
+            }
+            System.out.print(" Enter exact name: ");
+            String cineplex_name = sc.nextLine();
+            for (Cinema value : Cinemas) {
+                if (cineplex_name.equalsIgnoreCase(value.getName())) {
+                    return value;
+                }
+            }
+        }
+        System.out.println("No Cinema Found");
+        return null;
+    }
+
+    public List<MovieShowing> getMovie(Cinema cinema){
+        return CQS.GetShows(cinema);
     }
 }
 
