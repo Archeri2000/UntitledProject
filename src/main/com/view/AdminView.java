@@ -17,7 +17,7 @@ public class AdminView
 	
 	private static boolean login_status=false;
 
-	private final Login LoginModule = new Login();
+	private final Login LoginModule = Login.getInstance();
 	
     /** 
      * Create object for the respective service class

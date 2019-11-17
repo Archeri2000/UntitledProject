@@ -1,20 +1,22 @@
 package main.com.view;
 import main.com.utils.ISerialisable;
+import main.com.utils.StringStringPair;
 
 import java.util.*;
-import java.io.*;
+import java.util.stream.Collectors;
+
+import static main.com.utils.SerialisationUtils.*;
 
 /** Login class is acts as a backend service for the login portal of admin panel
  * @author SS1 Group 6
  * @version 13
  */
 public class Login implements ISerialisable {
-	
-	/**
+  	/**
 	 * Hashmap user is used to store user_id and password of the various admins
 	 */
-	
-	HashMap<String, String> user = new HashMap<String, String>();
+	HashMap<String, String> user = new HashMap<>();
+
 	
 	/**
 	 * Login constructor to store the id and password of the initial admin
@@ -109,20 +111,10 @@ public class Login implements ISerialisable {
 		return new ArrayList<>(user.keySet());
 	}
 
-	
-	/**
-	 * Serialization
-	 */
-	@Override
-	public String toSerialisedString() {
-		return null;
-	}
-	
 	/**
 	 * Get an instance of login clas object
 	 * @return _instance object
 	 */
-
 	private static Login _instance;
 	public static Login getInstance(){
 		if(_instance == null){
@@ -130,12 +122,36 @@ public class Login implements ISerialisable {
 		}
 		return _instance;
 	}
+  
+	/**
+	 * Serialization
+	 */
+	@Override
+	public String toSerialisedString() {
+		List<StringStringPair> pairs = user.entrySet().stream().map(x -> new StringStringPair(x.getKey(), x.getValue())).collect(Collectors.toList());;
+		return serialise(
+				serialiseList(pairs, "pairs")
+		);
+	}
+  
 	/**
 	 * Deserialization
 	 */
 	@Override
 	public ISerialisable fromSerialisedString(String s) throws InvalidPropertiesFormatException {
-		return null;
+		_instance = this;
+		HashMap<String, String> pairs = deserialise(s);
+		try{
+			assert pairs != null;
+			List<StringStringPair> entries = deserialiseList(StringStringPair.class, pairs.get("pairs"));
+			user = new HashMap<>();
+			for(StringStringPair entry: entries){
+				user.put(entry.First(), entry.Second());
+			}
+			return getInstance();
+		}catch(Exception e){
+			throw new InvalidPropertiesFormatException("");
+		}
 	}
 }
 
