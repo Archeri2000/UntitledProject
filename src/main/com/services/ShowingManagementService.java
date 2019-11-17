@@ -27,7 +27,7 @@ public class ShowingManagementService {
      * Add movie showing
      * @param cinema		name of cinema that will be showing this movie
      * @param movie			name of movie to be added
-     * @param starTime		the starting time of this movie
+     * @param startTime		the starting time of this movie
      * @param showtype		the type of movie
      * @return movie showing
      */

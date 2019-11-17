@@ -67,7 +67,7 @@ public class MovieManagementService {
 
     /** 
      * To remove movie
-     * @param movie		name of movie
+     * @param movie			name of movie
      * @return True/False if the movie is successfully removed
      */
     public boolean removeMovie(Movie movie){
