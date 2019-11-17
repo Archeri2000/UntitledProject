@@ -21,7 +21,7 @@ public class CineplexQueryService{
 
     /** 
      * Get the name of cineplex
-     * @param name
+     * @param name - name of the cineplex
      * @return this cineplex's name
      */
     public Cineplex GetCineplex(String name){
