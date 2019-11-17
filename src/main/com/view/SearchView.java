@@ -89,6 +89,7 @@ public class SearchView {
     
     /** 
      * For customers to write review of a particular movie
+      *@param movie - movie object to store details of a movie
      */
     public void writeReview(Movie movie) {
         System.out.print(" Enter review: ");
@@ -107,6 +108,7 @@ public class SearchView {
 
     /** 
      * For customers to search showtimes of a particular movie
+     *@param movie - movie object to store movie details
      * @return list of movie showtimes 
      */
     public List<MovieShowing> viewShowtimes(Movie movie) {
@@ -115,6 +117,7 @@ public class SearchView {
     
     /** 
      * For customers to search movie details such as the synopsis and the cast
+     *@param movie - movie object to store details of a movie
      */
     public void viewMovieDetails(Movie movie) {
         try {
@@ -162,6 +165,7 @@ public class SearchView {
 
     /** 
      * To get name of cinema from a list of cinemas
+     *@param cineplex - cineplex object to store details of a cineplex
      * @return this cinema name
      */
     public Cinema getCinema(Cineplex cineplex){
@@ -185,6 +189,7 @@ public class SearchView {
 
     /** 
      * To get the movie showing at a particular cinema
+     *@param cinema - cinema object to store details of a cinema
      * @return a list of movie showing at a particular cinema
      */
     public List<MovieShowing> getMovie(Cinema cinema){

@@ -29,7 +29,10 @@ public class PriceManagementService {
     }
     
     /** 
+     
      * To set the type of cinema
+     *@param type- object of CinemaType
+     *@param multiplier - multiplier value for the cinematype
      * @return True/False if the cinema type is successfully set
      */
     public boolean SetCinemaTypeMultiplier(CinemaType type, double multiplier){
@@ -38,6 +41,8 @@ public class PriceManagementService {
     
     /** 
      * To set the type of movie
+     *@param type- showing type of the movie
+     *@param price- price for the showing type
      * @return True/False if the movie type is successfully set
      */
     public boolean SetMovieTypePrice(ShowingEnum type, double price){
@@ -46,6 +51,8 @@ public class PriceManagementService {
     
     /** 
      * To set the type of age group
+     *@param type- object of AgeGroup
+     *@param multiplier- multiplier value for the agegroup
      * @return True/False if the age group is successfully set
      */
     public boolean SetAgeGroupMultiplier(AgeGroup type, double multiplier){
@@ -54,6 +61,8 @@ public class PriceManagementService {
     
     /** 
      * To set the day type
+     *@param type-day type(weekend/weekday/holiday)
+     *@param multiplier - multiplier value for the day-type
      * @return True/False if the dat type is successfully set
      */
     public boolean SetDayTypeMultiplier(DayType type, double multiplier){
@@ -62,6 +71,7 @@ public class PriceManagementService {
     
     /** 
      * To add public holiday
+     *@param day- date of the public holiday
      * @return True/False if the public holiday is successfully added
      */
     public boolean AddPublicHoliday(LocalDate day){
@@ -70,6 +80,7 @@ public class PriceManagementService {
     
     /** 
      * To remove public holiday
+     *@param day- date of public holiday
      * @return True/False if the public holiday is successfully removed
      */
     public boolean RemovePublicHoliday(LocalDate day){
@@ -77,6 +88,7 @@ public class PriceManagementService {
     }
     
     /** 
+    *To get cinema type multipliers
      * @return the cinema types
      */
     public HashMap<CinemaType, Double> GetCinemaTypeMultiplier(){
@@ -84,6 +96,7 @@ public class PriceManagementService {
     }
     
     /** 
+     *To get show type multipliers 
      * @return the movie types
      */
     public HashMap<ShowingEnum, Double> GetMovieTypePrice(){
@@ -91,6 +104,7 @@ public class PriceManagementService {
     }
     
     /** 
+     * to get age type multipliers
      * @return the agegroup types
      */
     public HashMap<AgeGroup, Double> GetAgeGroupMultiplier(){
@@ -98,6 +112,7 @@ public class PriceManagementService {
     }
     
     /** 
+     *  to get day type multipliers
      * @return the day types
      */
     public HashMap<DayType, Double> GetDayTypeMultiplier(){

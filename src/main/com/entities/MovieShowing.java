@@ -52,7 +52,7 @@ public class MovieShowing implements ISerialisable {
     /** Creates a new movie showing with the details
      * @param movie				name of the movie
      * @param showting_time		showing time of the movie
-     * @param seating plan		seating plan of the movie at a cinema
+     * @param seatingplan		seating plan of the movie at a cinema
      * @param showtype			movie type
      * @param cinemaType		type of cinema
      * @param cinema			name of cinema
