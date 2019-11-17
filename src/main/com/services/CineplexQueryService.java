@@ -9,6 +9,8 @@ import java.util.List;
 
 /** 
  * This class helps user to search for cineplexes and cinemas
+ * @author SS1 Group 6
+ * @version 13
  */
 public class CineplexQueryService{
 	

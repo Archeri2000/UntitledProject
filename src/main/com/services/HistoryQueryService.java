@@ -8,6 +8,8 @@ import java.util.List;
 
 /** 
  * This class helps a customer to check his past movie bookings
+ * @author SS1 Group 6
+ * @version 13
  */
 public class HistoryQueryService {
 

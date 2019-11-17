@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 /** 
  * This class helps a customer to make a booking 
+ * @author SS1 Group 6
+ * @version 13
  */
 
 public class BookingService{
