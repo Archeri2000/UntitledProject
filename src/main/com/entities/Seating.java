@@ -24,7 +24,7 @@ public class Seating implements ISerialisable {
 
 
     /**
-     * Create seating
+     * Create seating constructor
      */
     public Seating(){
         String[] row = new String[]{"a", "b", "c", "d", "e", "f", "g", "h"};
@@ -37,6 +37,7 @@ public class Seating implements ISerialisable {
 
     /**
      * Create seating
+     *@param seats- used to store the list of seats
      */
     public Seating(List<Seat> seats){
         this.seats = seats;
@@ -71,7 +72,7 @@ public class Seating implements ISerialisable {
     /**
      * To determine if seat is empty
      * @param seat 		the seat number
-     * @return Trule/Fale if these seats are empty or occupied
+     * @return True/False if these seats are empty or occupied
      */
     public boolean isSeatEmpty(String seat){
         for (int i = 0; i < seats.size(); i++){
@@ -86,7 +87,7 @@ public class Seating implements ISerialisable {
 
     /**
      * To change seats from available to occupied
-     * @param seatings
+     * @param seatings - list of seatings
      * @return True/False if these seats have been successfully set as occupied
      */
     public boolean setSeatsOccupied(ArrayList<String> seatings){
