@@ -5,18 +5,27 @@ import main.com.services.BookingService;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Scanner;
 
 public class BookingView {
 
     private BookingService _serv = new BookingService();
 
-    public void displaySeats(MovieShowing showtime, Movie movie, Cineplex cineplex, Cinema cinema){
-        //TODO
+    public void displaySeats(MovieShowing showtime, Movie movie, Cineplex cineplex, Cinema cinema) {
 
+        Seating seating = _serv.getSeating(showtime);
+        String seat = seating.getDisplayString();
+        String[] print = seat.split("\n");
+        for (String value: print){
+            System.out.println(value);
+        }
     }
-    public void selecrSeats(Seating seating){
-        //TODO
+
+    public void selectSeats(Seating seating){
+
+
+
     }
     public Customer getCustomerDetails() {
         int userMobile;

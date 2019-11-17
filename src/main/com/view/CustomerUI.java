@@ -2,6 +2,8 @@ package main.com.view;
 
 import main.com.entities.Booking;
 import main.com.entities.Movie;
+import main.com.entities.MovieShowing;
+import main.com.services.MovieQueryService;
 
 import java.util.List;
 import java.util.Scanner;
@@ -75,6 +77,26 @@ public class CustomerUI {
                     break;
 
                 //TODO case2 bookings
+                case 2:
+                    Movie movie = searchv.movieSearch();
+                    List<MovieShowing> showings =searchv.viewShowtimes(movie);
+                    if(!showings.isEmpty()) {
+                        System.out.println("Showing: ");
+                        for (MovieShowing value : showings) {
+                            System.out.println(value.getShowing_time());
+                        }
+                        System.out.print(" Enter exact time: ");
+                        movie = sc.nextLine();
+                        for (Movie value : movieList) {
+                            if (movie.equals(value.movie_title))
+                                return value;
+                        }
+                    }
+                    System.out.println(" Movie not found!");
+                    System.out.println();
+                    return null;
+            }
+
                 case 3:
                     List<Booking> bookingList = histv.getPastBooking();
                     try {

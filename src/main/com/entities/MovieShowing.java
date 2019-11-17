@@ -13,13 +13,13 @@ import java.util.List;
 public class MovieShowing implements ISerialisable {
     private Movie movie;
     private LocalDateTime showing_time;
-    private List<Seat> seatingplan;
+    private Seating seatingplan;
     private String _movieID;
     private ShowingEnum showType;
 
     public MovieShowing(){}
 
-    public MovieShowing(Movie movie, LocalDateTime showing_time, List<Seat> seatingplan, ShowingEnum showtype) {
+    public MovieShowing(Movie movie, LocalDateTime showing_time, Seating seatingplan, ShowingEnum showtype) {
         this.movie = movie;
         this._movieID = movie.getUUID();
         this.showing_time = showing_time;
@@ -27,7 +27,7 @@ public class MovieShowing implements ISerialisable {
         this.showType = showtype;
     }
 
-    private MovieShowing(String movieID, LocalDateTime showing_time, List<Seat> seatingplan, ShowingEnum showtype) {
+    private MovieShowing(String movieID, LocalDateTime showing_time, Seating seatingplan, ShowingEnum showtype) {
         this._movieID = movieID;
         this.showing_time = showing_time;
         this.seatingplan = seatingplan;
@@ -37,6 +37,8 @@ public class MovieShowing implements ISerialisable {
     public LocalDateTime getShowing_time(){
         return showing_time;
     }
+
+    public Seating getSeatingplan(){return  seatingplan;}
 
     public LocalDateTime getEnding_time(){
         return showing_time.plusMinutes(movie.durationMin);
