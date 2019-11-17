@@ -23,9 +23,10 @@ public class BookingService{
 
      public boolean selectedSeats(String seat, AgeGroup group, MovieShowing showing){
          Seating seatplan = showing.getSeatingplan();
+         return false;
 
-         if (seatplan.isSeatEmpty(seat))
-             seatplan.(seat)
+//         if (seatplan.isSeatEmpty(seat))
+//             seatplan.(seat)
 
      }
  }

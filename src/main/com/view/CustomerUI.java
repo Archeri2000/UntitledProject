@@ -86,17 +86,15 @@ public class CustomerUI {
                             System.out.println(value.getShowing_time());
                         }
                         System.out.print(" Enter exact time: ");
-                        movie = sc.nextLine();
-                        for (Movie value : movieList) {
-                            if (movie.equals(value.movie_title))
-                                return value;
-                        }
+//                        movie = sc.nextLine();
+//                        for (Movie value : movieList) {
+//                            if (movie.equals(value.movie_title))
+//                                return value;
+//                        }
                     }
                     System.out.println(" Movie not found!");
                     System.out.println();
-                    return null;
-            }
-
+//                    return null;
                 case 3:
                     List<Booking> bookingList = histv.getPastBooking();
                     try {
